@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% block stylesheets %}
+    <!-- Bootstrap core CSS-->
+    <link href="{{ asset('/common/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('/common/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('/common/css/default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/front/css/front.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body class="sticky-footer bg-white" id="page-top">
+<!-- Navigation-->
+<div class="content-wrapper">
+    <header>
+        <div class="header-top">
+            <div class="container-fluid">
+                Sauvegarde informatique NeoBe + Pour Safe Data <i class="fa fa-phone"></i> <a href="tel:01.46.08.83.70">01.46.08.83.70</a>
+                <i class="fa fa-envelope"></i> <a href="mailto:commercial@neobe.com">commercial@neobe.com</a>
+            </div>
+        </div>
+        <div class="header-logo">
+            <div class="container-fluid">
+                <img src="{{ asset('/front/img/logo-neobe-safedata.jpg') }}">
+            </div>
+        </div>
+        <div class="header-title">
+            <div class="container-fluid">
+                Activation Pack de Sauvegarde NeoBe – Étape 1/3
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 nav-left">
+                <h2 class="row text-black">
+                    Validez et configurez vos sauvegardes en quelques clics…
+                </h2>
+                <ul class="steps">
+                    <li class="step-active">
+                        <div class="row">
+                            <div class="col col-3"><i class="fa fa-check"></i></div>
+                            <div class="col col-9 step-label">
+                                1. Je valide mon compte NeoBe+ et je reçois mes identifiants.
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <div class="row">
+                            <div class="col col-3"><i class="fa fa-download"></i></div>
+                            <div class="col col-9 step-label">
+                                2. Je télécharge et j’installe le logiciel NeoBe+
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <div class="row">
+                            <div class="col col-3"><i class="fa fa-desktop"></i></div>
+                            <div class="col col-9 step-label">
+                                3. Je paramètre et je réalise ma première sauvegarde.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <figure>
+                    <img width="100%" src="{{ asset('/front/img/reseaulogos.jpg') }}"/>
+                </figure>
+                <p style="font-size: 15px">
+                    <strong>
+                        Neobe est une solution complète de sauvegarde en ligne qui permet aux professionnels de
+                        sécuriser leurs fichiers informatiques dans des centres d’hébergement hautement sécurisés
+                        situés en France.
+                    </strong>
+                </p>
+                <p>
+                    Avec NeoBe, les conséquences d’un sinistre sont réduites. Les fichiers perdus sont
+                    récupérables immédiatement, ce qui garantit une reprise rapide de l’activité.
+                </p>
+                <br>
+                <div><a href="#" class="link_1" >En savoir plus sur NeoBe+ </a></div>
+                <br>
+                <figure>
+                    <img width="100%" src="{{ asset('/front/img/CTA-tel6.jpg') }}"/>
+                </figure>
+            </div>
+            <div class="col-8 page-content">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                NeoBe + pour Safe Data - DropCloud 2018 - <small><a href="#">Mentions légales</a></small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('/common/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('/common/jquery-easing/jquery.easing.min.js') }}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('/common/js/default.min.js') }}"></script>
+    {% block javascripts %}
+    {% endblock %}
+</div>
+</body>
+
+</html>

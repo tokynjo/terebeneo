@@ -23,14 +23,14 @@
 <body class="sticky-footer bg-white" id="page-top">
 <!-- Navigation-->
 <div class="content-wrapper">
-    <header>
+    <header id="header">
         <div class="header-top">
             <div class="container-fluid">
                 Sauvegarde informatique NeoBe + Pour Safe Data <i class="fa fa-phone"></i> <a href="tel:01.46.08.83.70">01.46.08.83.70</a>
                 <i class="fa fa-envelope-o"></i> <a href="mailto:commercial@neobe.com">commercial@neobe.com</a>
             </div>
         </div>
-        <div class="header-logo">
+        <div class="header-logo" id="header-logo">
             <div class="container-fluid">
                 <img src="{{ asset('/front/img/logo-neobe-safedata.jpg') }}" alt="logo" title="logo">
             </div>
@@ -48,8 +48,9 @@
                 <h2 class="row text-black">
                     Validez et configurez vos sauvegardes en quelques clics…
                 </h2>
+                {% set current_route = app.request.get('_route') %}
                 <ul class="steps">
-                    <li class="step-active">
+                    <li class="step {% if current_route == "steps_first" %}active {% endif %}">
                         <div class="row">
                             <div class="col col-3"><i class="fa fa-check"></i></div>
                             <div class="col col-9 step-label">
@@ -57,7 +58,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="step">
+                    <li class="step {% if current_route == "steps_two" %}active {% endif %}">
                         <div class="row">
                             <div class="col col-3"><i class="fa fa-download"></i></div>
                             <div class="col col-9 step-label">
@@ -65,7 +66,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="step">
+                    <li class="step {% if current_route == "steps_three" %}active {% endif %}">
                         <div class="row">
                             <div class="col col-3"><i class="fa fa-desktop"></i></div>
                             <div class="col col-9 step-label">
@@ -121,6 +122,7 @@
     <script src="{{ asset('/common/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('/common/js/default.min.js') }}"></script>
+    <script src="{{ asset('/front/js/front.js') }}"></script>
     {% block javascripts %}
     {% endblock %}
 </div>

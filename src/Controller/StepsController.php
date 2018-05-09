@@ -11,7 +11,7 @@ class StepsController extends Controller
 {
 
     /**
-     * First steps
+     * First step
      *
      * @Route("/etape-1", defaults={"_format"="html"}, methods={"GET"}, name="steps_first")
      * @param Request $request
@@ -23,7 +23,7 @@ class StepsController extends Controller
     }
 
     /**
-     * First steps
+     * second step
      *
      * @Route("/etape-2", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="steps_two")
      * @param Request $request
@@ -32,6 +32,18 @@ class StepsController extends Controller
     public function stepTwoAction(Request $request)
     {
         return $this->render('front/steps/step2.html.twig', ['post' => 'aa']);
+    }
+
+    /**
+     * third step
+     *
+     * @Route("/etape-3", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="steps_three")
+     * @param Request $request
+     * @return Response
+     */
+    public function stepThreeAction(Request $request)
+    {
+        return $this->render('front/steps/step3.html.twig', ['post' => 'aa']);
     }
 
 }

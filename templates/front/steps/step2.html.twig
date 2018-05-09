@@ -4,11 +4,11 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-lg-2 step-active" style="text-align: center;">
+        <div class="col-lg-2 step active" style="text-align: center;">
             <i class="fa fa-download"></i>
         </div>
         <div class="col-lg-10">
-            <div class="col col-12 step-active step-label">
+            <div class="col col-12 step active step-label">
                 2. Je télécharge et j’installe le logiciel NeoBe+.
             </div>
             <p>
@@ -118,6 +118,6 @@
                 </a>
             </div>
         </div>
-        <div class="row item-download next-step"><a href="#" class="link_1" >Etape suivante</a></div>
+        <div class="row item-download next-step"><a href="{{ path('steps_three') }}" class="link_1" >Etape suivante ></a></div>
     </div>
 {% endblock %}

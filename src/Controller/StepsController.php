@@ -13,7 +13,7 @@ class StepsController extends Controller
     /**
      * First steps
      *
-     * @Route("/first", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="steps_first")
+     * @Route("/etape-1", defaults={"_format"="html"}, methods={"GET"}, name="steps_first")
      * @param Request $request
      * @return Response
      */
@@ -25,7 +25,7 @@ class StepsController extends Controller
     /**
      * First steps
      *
-     * @Route("/first", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="steps_first")
+     * @Route("/etape-2", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="steps_two")
      * @param Request $request
      * @return Response
      */

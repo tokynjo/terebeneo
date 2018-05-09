@@ -10,6 +10,9 @@ header .header-top {
     background-color: #f2f2f2;
     line-height: 45px;
 }
+header .header-top i {
+    margin: 0px 3px 0px 10px;
+}
 header .header-logo .container-fluid {
     padding: 15px;
 }
@@ -149,6 +152,56 @@ footer.sticky-footer {
     line-height: 55px;
     padding-top: 15px;
     color: #ffffff;
+}
+
+.row.item-download {
+    background-color: #f2f2f2;
+    margin: 0px 15px 15px 15px;
+    padding: 30px 15px 30px 20px;
+    border-radius: 5px;
+}
+.download {
+    font-size: 2.5em;
+    font-style: normal;
+    font-weight: 400;
+    border-radius: 50%;
+    width: 3.2em;
+    text-align: center;
+    background-color: #ed6b39;
+    color: #ffffff;
+    width: 2em;
+    height: 2em;
+    line-height: 1.5em;
+}
+.download i{
+    vertical-align: bottom;
+}
+.download.pdf {
+
+    background-color: #ffffff;
+    color: #dd3333 ;
+}
+.download.icon {
+    background-color: #666666;
+    color: #ffffff;
+    width: 2.1em;
+    height: 2.1em;
+    line-height: 1.5em;
+}
+.item-download .title {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 700;
+}
+.item-download.next-step {
+    background-color: #ffffff;
+    width: 98%;
+    text-align: center;
+    padding-left: 22%;
+    border-top: 2px solid #f2f2f2;
+}
+.item-download.next-step .link_1{
+    width:70%;
 }
 @media (min-width:1200px) {
 

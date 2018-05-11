@@ -267,6 +267,23 @@ iframe {
         padding-left: 2em;
     }
 
+    .row.item-download  .col-lg-2 {
+        width: 16.66%;
+
+    }
+    .row.item-download  .col-lg-8 {
+        width: 66.66%;
+    }
+    .row.item-download p {
+        margin: 5px 0px;
+    }
+
+    .page-content .step.active {
+        margin: 15px auto 0px auto;
+        text-align: center;
+    }
+
+
 }
 @media (max-width:768px) {
     ul.head {
@@ -397,4 +414,19 @@ iframe {
         text-align: center;
         flex: none;
     }
+
+    .row.item-download  .col-lg-2 {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+    .row.item-download  .col-lg-8 {
+        width: 100%;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .row.item-download p {
+        margin: 5px 0px;
+    }
+    .download {margin: auto;}
 }

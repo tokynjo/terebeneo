@@ -26,12 +26,15 @@
                 (identifient et mot de passe) pour réaliser la sauvegarde de votre premier poste informatique.
             </p>
             <br>
-            <p style="text-align: center">
-                <input type="checkbox" style="margin-right: 15px">
-                <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
-            </p>
-
-            <div class="col" style="text-align: center;"><button href="{{ path('steps_two') }}" class="link_1 wra" >Je valide et je recois mes identifients NeoBe+</button></div>
+            <form action="{{ path('steps_two') }}" method="post">
+                <p style="text-align: center">
+                    <input type="checkbox" style="margin-right: 15px">
+                    <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
+                </p>
+                <div class="col" style="text-align: center;">
+                    <button type="submit"  class="link_1 wra" >Je valide et je recois mes identifients NeoBe+</button>
+                </div>
+            </form>
 
         </div>
     </div>

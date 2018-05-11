@@ -26,7 +26,7 @@ class StepsController extends Controller
     /**
      * second step
      *
-     * @Route("/etape-2", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="steps_two")
+     * @Route("/etape-2", defaults={"page": "1", "_format"="html"}, methods={"GET","POST"}, name="steps_two")
      * @param Request $request
      * @return Response
      */

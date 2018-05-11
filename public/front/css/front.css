@@ -128,7 +128,7 @@ ul.steps li .step-label {
 }
 
 .nav-left figure {
-    margin: 25px -15px;
+    margin: 25px auto;
     width: 80%;
 }
 .link_1 {
@@ -236,6 +236,8 @@ footer.sticky-footer {
 
 iframe {
     margin: 20px 0px 25px 0px;
+    width: 100%;
+    height: 414px;
 }
 
 @media (min-width:1200px) {
@@ -279,7 +281,7 @@ iframe {
     }
 
     .page-content .step.active {
-        margin: 15px auto 0px auto;
+        margin: 15px auto;
         text-align: center;
     }
 
@@ -429,4 +431,8 @@ iframe {
         margin: 5px 0px;
     }
     .download {margin: auto;}
+    iframe {
+        width: 100%;
+        height: 250px;
+    }
 }

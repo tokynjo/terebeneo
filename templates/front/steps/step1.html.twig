@@ -1,5 +1,5 @@
 {% extends 'front/layout.html.twig' %}
-
+{% block title %}Activation pack - Etape 1{% endblock %}
 {% block body_id 'step1' %}
 
 {% block body %}
@@ -18,7 +18,7 @@
             <i class="fa fa-check"></i>
         </div>
         <div class="col-lg-10">
-            <div class="col col-12 step active step-label">
+            <div class="col step active step-label">
                 1. Je valide mon compte NeoBe+ et je reçois mes identifiants.
             </div>
             <p>
@@ -26,12 +26,12 @@
                 (identifient et mot de passe) pour réaliser la sauvegarde de votre premier poste informatique.
             </p>
             <br>
-            <p>
+            <p style="text-align: center">
                 <input type="checkbox" style="margin-right: 15px">
                 <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
             </p>
-            <br><br><br>
-            <div><a href="{{ path('steps_two') }}" class="link_1" >Je valide et je recois mes identifients NeoBe+</a></div>
+
+            <div class="col" style="text-align: center;"><button href="{{ path('steps_two') }}" class="link_1 wra" >Je valide et je recois mes identifients NeoBe+</button></div>
 
         </div>
     </div>

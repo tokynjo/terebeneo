@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{% block title %}Welcome!{% endblock %}</title>
-
+    <link rel="shortcut icon" href="{{ asset('neobe.ico') }}" />
     {% block stylesheets %}
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('/common/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -20,14 +20,23 @@
     {% endblock %}
 </head>
 
-<body class="sticky-footer bg-white" id="page-top">
+<body class="bg-white" id="page-top">
 <!-- Navigation-->
 <div class="content-wrapper">
     <header id="header">
         <div class="header-top">
             <div class="container-fluid">
-                Sauvegarde informatique NeoBe + Pour Safe Data <i class="fa fa-phone"></i> <a href="tel:01.46.08.83.70">01.46.08.83.70</a>
-                <i class="fa fa-envelope-o"></i> <a href="mailto:commercial@neobe.com">commercial@neobe.com</a>
+                <ul class="head">
+                    <li>Sauvegarde informatique NeoBe + Pour Safe Data</li>
+                    <li>
+                        <i class="fa fa-phone"></i> <a href="tel:01.46.08.83.70">01.46.08.83.70</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope-o"></i> <a href="mailto:commercial@neobe.com">commercial@neobe.com</a>
+                    </li>
+                </ul>
+
+
             </div>
         </div>
         <div class="header-logo" id="header-logo">
@@ -44,7 +53,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4 nav-left">
+            <div class="col-lg-4 nav-left">
                 <h2 class="row text-black">
                     Validez et configurez vos sauvegardes en quelques clics…
                 </h2>
@@ -90,13 +99,13 @@
                     récupérables immédiatement, ce qui garantit une reprise rapide de l’activité.
                 </p>
                 <br>
-                <div><a href="#" class="link_1" >En savoir plus sur NeoBe+ </a></div>
+                <div style="text-align: center"><a href="https://www.neobe.com/sauvegarde-en-ligne-neobe-backup-cloud/" class="link_1" >En savoir plus sur NeoBe+ </a></div>
                 <br>
                 <figure>
                     <img width="100%" src="{{ asset('/front/img/CTA-tel6.jpg') }}" alt="contact" title="Contact Neobe"/>
                 </figure>
             </div>
-            <div class="col-8 page-content">
+            <div class="col-lg-8 page-content">
                 {% block body %}
                 {% endblock %}
             </div>
@@ -112,9 +121,9 @@
         </div>
     </footer>
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    {#<a class="scroll-to-top rounded" href="#page-top">
         <i class="fa fa-angle-up"></i>
-    </a>
+    </a>#}
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('/common/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

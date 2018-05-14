@@ -8,6 +8,34 @@
 .bg-dark {
     background-color: #f1966b !important;
 }
+.bg-dark.login {
+    background-color: #ffffff!important;
+}
+.bg-dark.login .card-header img{
+    width: 100%;
+}
+.bg-dark.login .card-header {
+    padding: 0px;
+    margin-bottom: 0;
+    background-color: #f1966b;
+}
+.bg-dark.login .card {
+    border: 1px solid #f1966b;
+    border-radius: 0px;
+}
+.bg-dark.login .card-body {
+    background-color: #f1966b;
+    padding: 10px;
+}
+.bg-dark.login .btn-primary {
+    color: #fff;
+    background-color: #414b53;
+    border-color: #414b53;
+}
+
+.bg-dark.login a {
+    color: #212529;
+}
 #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
     width: 250px;
     padding: 0;
@@ -123,4 +151,15 @@
 }
 .table td, .table th {
     padding: .25rem;
+}
+
+form#login .form-control {
+    border: 1px solid #f1966b;
+    border-radius: 0rem;
+}
+form#login h2 {
+    font-size: 1.1rem;
+    margin: 20px auto 30px;
+    text-align: center;
+    font-weight: 500;
 }

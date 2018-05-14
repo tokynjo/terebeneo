@@ -26,4 +26,30 @@ class UserController extends BaseController
     {
         return $this->render('admin/user/index.html.twig', []);
     }
+
+    /**
+     * First step
+     *
+     * @Route("/login", defaults={"_format"="html"}, methods={"GET"}, name="admin_user_login")
+     * @param Request $request
+     * @return Response
+     */
+
+    public function loginAction(Request $request)
+    {
+        return $this->render('admin/user/login.html.twig', []);
+    }
+
+    /**
+     * First step
+     *
+     * @Route("/reset-password", defaults={"_format"="html"}, methods={"GET"}, name="admin_user_reset_password")
+     * @param Request $request
+     * @return Response
+     */
+
+    public function resetPasswordAction(Request $request)
+    {
+        return $this->render('admin/user/reset-password.html.twig', []);
+    }
 }

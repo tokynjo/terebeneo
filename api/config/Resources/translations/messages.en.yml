@@ -1,0 +1,68 @@
+documentation:
+  authorization_token: Authorization token
+  folder:
+    id_folder: Folder id
+    ids_folders: Ids folders separated by ","
+    target_folder_id: Target folder id
+    id_folder_parent: Id folder parent
+    id_folder_to_rename: Id folder to rename
+    id_folder_to_unlock: Id folder to unlock
+    id_folder_to_lock: id folder to lock
+    new_folder_name: New folder name
+    new_name:  New name off the folder
+    delete_folder: Delete folder
+    email: email
+    password: Password
+    numeros: Number phone
+    ids_user: User id separated by "," or ";"
+    key_crypt : Encryption key
+    external : Include the external folder
+    id_user : User id
+  upload:
+      files: Files to upload
+  file:
+    file_id: File id
+    id_file: File id
+    id_file_to_rename: id file to rename
+    new_name: New name
+    file_ids: Files ids separated by ","
+    ids_file: Files ids separated by ","
+    ids_folder: Folders ids separated by ","
+    password: Password
+  download:
+      file_id: Id of the file to download
+      folder_id: Id of the folder to download
+
+  comment:
+    comment: Comment message
+    to_notify: Email to notify (separeted by "," when multiple)
+    parent_id: Parent actuality id
+mail:
+    create_user: Create user
+    send_invitation: Send invitation
+    send_url_crypt : Send url crypted
+    send_keyby_sms : Send key cryptage
+    emmiter : expéditeur
+    confirmation:
+        title: Confirmation
+        message: Do you want to delete this email?
+    comment:
+        notification: Notification commentaire
+
+api:
+    messages:
+        success: Succès
+        no_permission: You do not have right to this file/folder
+        internal_server_error: Internal Server Error
+        missing_mandatory_parameters: Missing mandatory parameters
+        move_data:
+            do_not_have_permission: Do not have permission on folder(s)/file(s)
+            at_least_on_parameters_is_mandatory: At least one of folder_ids and file_ids is mandatory
+            destination_not_found: Destination folder not found
+        lock:
+            folder_already_locked: Folder already locked
+            folder_already_unlocked: Folder already unlocked
+            no_permission_to_this_folder: Do not have permission to this folder
+            folder_not_found: Folder not found
+        rename:
+            folder_name_already_exists: Folder name already exists

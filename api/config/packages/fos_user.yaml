@@ -1,0 +1,11 @@
+fos_user:
+    db_driver: orm
+    firewall_name: api
+    user_class:  App\Entity\User
+    service:                               # this lines
+        mailer: fos_user.mailer.twig_swift
+    from_email:
+        address: "no-replay@gmail.com"
+        sender_name: "No Reply"
+    resetting:
+        token_ttl: 43200

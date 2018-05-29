@@ -1,0 +1,29 @@
+menu:
+    accueil: Accueil
+    fonctionnality: Fonctionnalités
+    tarifs: Tarifs
+    inscription: Inscription
+    contact: Contact
+    login : Connexion
+
+security:
+    login:
+        email: 'Email'
+        username: 'Nom d''utilisateur'
+        password: 'Mot de passe'
+        remember_me: 'Se souvenir de moi'
+        submit: Connexion
+        lost_password: 'Mot de passe oublié'
+mail:
+    name: Nom
+    action: Action
+    object: Objet
+    destinataire: Destinataire
+    declenchement: Déclenchement
+    etat: Etat
+    create_user: Création utilisateur
+    send_invitation: Envoyer une invitation
+button:
+    ok: Ok
+    cancel: Annuler
+

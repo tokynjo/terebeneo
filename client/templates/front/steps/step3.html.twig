@@ -1,0 +1,72 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block body_id 'step1' %}
+
+{% block body %}
+    <br>
+    <div class="row">
+        <div class="col-lg-2 step active" style="text-align: center;">
+            <i class="fa fa-desktop"></i>
+        </div>
+        <div class="col-lg-10">
+            <div class="col col-12 step active step-label">
+                3. Je paramètre et je réalise ma première sauvegarde.
+            </div>
+            <p>
+                Configurez en quelques clics votre première tâche de sauvegarde automatique.
+            </p>
+        </div>
+    </div><br>
+    <h2 class="text-black">Découvrez en vidéo les étapes d’installation de NeoBe+.</h2>
+    <p>
+        Le logiciel NeoBe+ vous permet de paramétrer très simplement des tâches de sauvegarde automatisées. Découvrez
+        en 8min comment installer et configurer NeoBe Plus. Découvrez également comment paramétrer vos sauvegardes et restaurer vos données.
+    </p>
+    <iframe src="https://player.vimeo.com/video/161032132"
+            width="665" height="414" webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder="0"type="" ></iframe>
+
+    <h2 class="text-black">Découvrez en vidéo les étapes d’installation de NeoBe+.</h2>
+
+    <div class=" " style="margin: 30px 0px 40px 0px">
+        <div class="row item-download">
+            <div class="col-lg-2">
+                <a href="https://www.neobe.com/neobe/Notice_NeoBe_Plus.pdf" title="Télécharger">
+                    <div class="img-rounded pdf download "> <i class="fa fa-file-pdf-o"></i></div>
+                </a>
+            </div>
+            <div class="col-lg-8">
+                <p class="title">Notice NeoBe Plus Santé</p>
+                <strong>Notice :</strong> Windows – Mac – Linux
+            </div>
+            <div  class="col-lg-2">
+                <a href="https://www.neobe.com/neobe/Notice_NeoBe_Plus.pdf" title="Télécharger">
+                    <div class="img-rounded download icon"> <i class="fa fa-download"></i></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 step active" style="text-align: center;">
+            <i class="fa fa-question-circle"></i>
+        </div>
+        <div class="col-lg-10">
+            <div class="col col-12 step active step-label">
+                Besoin d’infos, d’assistance ou d’accompagnement…
+            </div>
+            <p>
+                <strong>Notre équipe est disponible pour vous répondre gratuitement par email et téléphone au 01.46.08.83.70
+                    et vous accompagner dans toutes vos problématiques :</strong>
+            </p>
+            <ul>
+                <li>Installation et première configuration du logiciel NeoBe+</li>
+                <li>Paramétrage des sauvegardes</li>
+                <li>Restauration des données</li>
+                <li>Fonctionnement du logiciel et du service NeoBe</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row " style="margin-top: 30px">
+        <div class="row item-download next-step"><a href="{{ path('steps_two') }}" class="link_1" >< Retour à l'étape précédente</a></div>
+    </div>
+{% endblock %}

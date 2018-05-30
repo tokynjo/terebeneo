@@ -1,10 +1,25 @@
-/docker-compose.override.yaml
-/docker-compose.override.yml
-.idea/*
-/.idea/*
+
+###> symfony/framework-bundle ###
 /.env
-api/config/packages/api_platform.yaml
-api/config/packages/parameters.yml
-api/config/packages/doctrine.yaml
-/api/vendor/*
-api/.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/webpack-encore-pack ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-pack ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+.idea/
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

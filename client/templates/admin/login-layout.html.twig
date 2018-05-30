@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ asset('neobe.ico') }}" />
+    {% block stylesheets %}
+        <!-- Bootstrap core CSS-->
+        <link href="{{ asset('/common/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('/common/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <!-- Custom styles for this template-->
+        <link href="{{ asset('/common/css/default.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('/admin/css/admin.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body class="bg-dark login">
+{% block body %}
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('/common/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/common/jquery-easing/jquery.easing.min.js') }}"></script>
+{% endblock %}
+</body>
+
+</html>

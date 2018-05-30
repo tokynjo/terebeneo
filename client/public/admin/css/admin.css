@@ -1,0 +1,165 @@
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav{
+    background: #f1966b;
+    /*padding-top: 25px;*/
+    /*border-top: 1px solid #f1966b;
+    margin-top: 55px;
+    border-right: 1px solid #f1966b;*/
+}
+.bg-dark {
+    background-color: #f1966b !important;
+}
+.bg-dark.login {
+    background-color: #ffffff!important;
+}
+.bg-dark.login .card-header img{
+    width: 100%;
+}
+.bg-dark.login .card-header {
+    padding: 0px;
+    margin-bottom: 0;
+    background-color: #f1966b;
+}
+.bg-dark.login .card {
+    border: 1px solid #f1966b;
+    border-radius: 0px;
+}
+.bg-dark.login .card-body {
+    background-color: #f1966b;
+    padding: 10px;
+}
+.bg-dark.login .btn-primary {
+    color: #fff;
+    background-color: #414b53;
+    border-color: #414b53;
+}
+
+.bg-dark.login a {
+    color: #212529;
+}
+#mainNav .navbar-collapse .navbar-sidenav > .nav-item {
+    width: 250px;
+    padding: 0;
+    border-bottom: 1px solid #f17e4f;
+}
+
+/*#mainNav .navbar-collapse .navbar-sidenav > .nav-item:first-child {
+    border-top: 1px solid #f17e4f;
+}*/
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
+    background: #eea080;
+    padding-left: 35px;
+}
+.navbar-dark .navbar-nav .nav-link,
+#mainNav.fixed-top.navbar-dark .sidenav-toggler a i,
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a,
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+    color: #212529;
+}
+
+#logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    text-align: center;
+    background-color: #ffffff;
+}
+#mainNav .navbar-brand {
+    width: 250px;
+    height: 56px;
+    border-bottom: 1px solid #f17e4f;
+}
+#logo img {
+    width: 80%;
+    padding-top: 4px;
+}
+#mainNav.fixed-top.navbar-dark .sidenav-toggler {
+    background-color: #f17e4f;
+}
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link,
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav .nav-link-collapse::after {
+    color: #212529;
+}
+#mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+    padding: 0.5em 0.5em 0.5em 1em
+
+}
+#mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a, #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+    padding: .5em;
+    padding-left: 0.5em;
+}
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link:hover {
+    color: #ffffff;
+}
+
+
+/**
+ *content
+ */
+.breadcrumb {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0.3rem 0rem;
+    margin-bottom: 0.5rem;
+    list-style: none;
+    background-color: #ffffff;
+    border-radius: 0rem;
+
+}
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .0px;
+}
+.card-header {
+    padding: .75rem 0.5rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+
+}
+.h2, h2 {
+    font-size: 1.1rem;
+    font-weight: 600 ;
+    margin-bottom: 0px;
+    line-height: 1rem;
+}
+.card-body {
+    padding: 0px;
+}
+.dataTables_filter .form-control {
+    display: inline-block;
+    margin: 7px auto auto 7px;
+    width: auto;
+}
+.table td, .table th {
+    padding: .25rem;
+}
+
+form#login .form-control {
+    border: 1px solid #f1966b;
+    border-radius: 0rem;
+}
+form#login h2 {
+    font-size: 1.1rem;
+    margin: 20px auto 30px;
+    text-align: center;
+    font-weight: 500;
+}

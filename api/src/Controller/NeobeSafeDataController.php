@@ -24,12 +24,12 @@ class NeobeSafeDataController extends Controller
      * Get structure
      *
      * @Route(
-     *     name="api_get_structure",
-     *     path="/api/get-structure",
+     *     name="api_create_account",
+     *     path="/create-account",
      *     methods={"POST"}
      * )
      */
-    public function getStructure(Request $request)
+    public function createAccount(Request $request)
     {
         $resp = new ApiResponse();
 

@@ -40,5 +40,5 @@ security:
     access_control:
         - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/getToken, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/get-token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: [ ROLE_USER ] }

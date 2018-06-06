@@ -133,24 +133,22 @@
     margin-bottom: 0;
     background-color: rgba(0,0,0,.03);
     border-bottom: 1px solid rgba(0,0,0,.125);
-
 }
+.card-header i { margin-right: 10px}
 .h2, h2 {
     font-size: 1.1rem;
     font-weight: 600 ;
     margin-bottom: 0px;
     line-height: 1rem;
 }
-.card-body {
-    padding: 0px;
-}
+.card-body {padding: 15px 0px 0px 0px;}
 .dataTables_filter .form-control {
     display: inline-block;
     margin: 7px auto auto 7px;
     width: auto;
 }
 .table td, .table th {
-    padding: .25rem;
+    padding: 0.25rem 0.5rem
 }
 
 form#login .form-control {
@@ -162,4 +160,28 @@ form#login h2 {
     margin: 20px auto 30px;
     text-align: center;
     font-weight: 500;
+}
+
+.align-center {text-align: center;}
+.align-left { text-align: left;}
+.align-right { text-align: right;}
+table.dataTable>thead>tr>th, table.dataTable>tfoot>tr>th  {text-align: center}
+table .actions a {margin-right: 15px}
+.btn-primary {
+    color: #fff;
+    background-color: #f1966b;
+    border-color: #f1966b;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #f17e4f;
+    border-color: #f17e4f;
+}
+form.form-control.no-border {padding: 15px; border: 0px}
+label {
+    display: inline-block;
+    margin-bottom: .1rem;
+}
+.form-group {
+    margin-bottom: 0.5rem;
 }

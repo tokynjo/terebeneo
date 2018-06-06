@@ -1,12 +1,12 @@
 <?php
-// api/src/Entity/User.php
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity
@@ -23,108 +23,76 @@ class User extends BaseUser
      */
     protected $id;
 
-
-
     /**
-     * constructor
+     * @var string
      *
-     * @return User
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
-    public function __construct()
-    {
-        parent::__construct();
-        return $this;
-    }
-
-    public function isUser(?UserInterface $user = null): bool
-    {
-        return $user instanceof self && $user->id === $this->id;
-    }
+    private $lastname;
 
     /**
-     * @return mixed
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
-    public function getClient()
-    {
-        return $this->client;
-    }
+    private $firstname;
 
     /**
-     * @param mixed $client
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
      */
-    public function setClient($client)
-    {
-        $this->client = $client;
-    }
+    private $phone;
 
     /**
-     * @return mixed
+     * @var string
+     *
+     * @ORM\Column(name="mobile", type="string" ,nullable=true)
      */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+    private $mobile;
 
     /**
-     * @param mixed $email
+     * @var string
+     *
+     * @ORM\Column(name="civility", type="string" ,nullable=false, options={"default" : "1"})
      */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
+    private $civility = 1;
+
 
     /**
-     * @return mixed
+     * @var \Datetime
+     * @ORM\Column(name="created_at" ,type="datetime", nullable=true)
+
      */
-    public function getCreator()
-    {
-        return $this->creator;
-    }
+    private $createdAt;
 
     /**
-     * @param mixed $creator
+     * @var \Datetime
+     * @ORM\Column(name="updated_at" ,type="datetime", nullable=true)
+
      */
-    public function setCreator($creator)
-    {
-        $this->creator = $creator;
-    }
+    private $updatedAt;
 
     /**
-     * @return string
+     * @var string
+     *
+     * @ORM\Column(name="user_api", type="integer", length=2, nullable=true)
      */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
+    private $userApi;
 
     /**
-     * @param string $firstname
+     * @var string
+     *
+     * @ORM\Column(name="deleted", type="integer", length=2, nullable=true)
      */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-    }
+    private $deleted;
 
-    /**
-     * @return int
-     */
-    public function getCountryPhoneCode()
-    {
-        return $this->countryPhoneCode;
-    }
 
-    /**
-     * @param int $countryPhoneCode
-     */
-    public function setCountryPhoneCode($countryPhoneCode)
-    {
-        $this->countryPhoneCode = $countryPhoneCode;
-    }
 
     /**
      * @return string
      */
-    public function getCivility()
+    public function getCivility(): string
     {
         return $this->civility;
     }
@@ -132,89 +100,41 @@ class User extends BaseUser
     /**
      * @param string $civility
      */
-    public function setCivility($civility)
+    public function setCivility(string $civility): void
     {
         $this->civility = $civility;
     }
 
     /**
-     * @return \DateTime
+     * @return \Datetime
      */
-    public function getFirstLogin()
+    public function getCreatedAt(): \Datetime
     {
-        return $this->firstLogin;
+        return $this->createdAt;
     }
 
     /**
-     * @param \DateTime $firstLogin
+     * @param \Datetime $createdAt
      */
-    public function setFirstLogin($firstLogin)
+    public function setCreatedAt(\Datetime $createdAt): void
     {
-        $this->firstLogin = $firstLogin;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * @param string $avatar
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
+        $this->createdAt = $createdAt;
     }
 
     /**
      * @return string
      */
-    public function getCreatedIp()
+    public function getFirstname(): string
     {
-        return $this->createdIp;
+        return $this->firstname;
     }
 
     /**
-     * @param string $createdIp
+     * @param string $firstname
      */
-    public function setCreatedIp($createdIp)
+    public function setFirstname(string $firstname): void
     {
-        $this->createdIp = $createdIp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * @param mixed $files
-     */
-    public function setFiles($files)
-    {
-        $this->files = $files;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-    /**
-     * @param mixed $comments
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
+        $this->firstname = $firstname;
     }
 
     /**
@@ -228,7 +148,7 @@ class User extends BaseUser
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -236,263 +156,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getHash()
-    {
-        return $this->hash;
-    }
-
-    /**
-     * @param string $hash
-     */
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-
-    /**
-     * @param int $isDeleted
-     */
-    public function setIsDeleted($isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIsExternal()
-    {
-        return $this->isExternal;
-    }
-
-    /**
-     * @param int $isExternal
-     */
-    public function setIsExternal($isExternal)
-    {
-        $this->isExternal = $isExternal;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdBu()
-    {
-        return $this->idBu;
-    }
-
-    /**
-     * @param int $idBu
-     */
-    public function setIdBu($idBu)
-    {
-        $this->idBu = $idBu;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLang()
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @param int $lang
-     */
-    public function setLang($lang)
-    {
-        $this->lang = $lang;
-    }
-
-    /**
-     * @return \Datetime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \Datetime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastIp()
-    {
-        return $this->lastIp;
-    }
-
-    /**
-     * @param string $lastIp
-     */
-    public function setLastIp($lastIp)
-    {
-        $this->lastIp = $lastIp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getInvitationsSent()
-    {
-        return $this->invitationsSent;
-    }
-
-    /**
-     * @param mixed $invitationsSent
-     */
-    public function setInvitationsSent($invitationsSent)
-    {
-        $this->invitationsSent = $invitationsSent;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFolders()
-    {
-        return $this->folders;
-    }
-
-    /**
-     * @param mixed $folders
-     */
-    public function setFolders($folders)
-    {
-        $this->folders = $folders;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFolderLogs()
-    {
-        return $this->folderLogs;
-    }
-
-    /**
-     * @param mixed $folderLogs
-     */
-    public function setFolderLogs($folderLogs)
-    {
-        $this->folderLogs = $folderLogs;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileLogs()
-    {
-        return $this->fileLogs;
-    }
-
-    /**
-     * @param mixed $fileLogs
-     */
-    public function setFileLogs($fileLogs)
-    {
-        $this->fileLogs = $fileLogs;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFoldersUser()
-    {
-        return $this->foldersUser;
-    }
-
-    /**
-     * @param mixed $foldersUser
-     */
-    public function setFoldersUser($foldersUser)
-    {
-        $this->foldersUser = $foldersUser;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFilesUser()
-    {
-        return $this->filesUser;
-    }
-
-    /**
-     * @param mixed $filesUser
-     */
-    public function setFilesUser($filesUser)
-    {
-        $this->filesUser = $filesUser;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    /**
-     * @param mixed $plainPassword
-     */
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param mixed $role
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastname()
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -500,7 +164,7 @@ class User extends BaseUser
     /**
      * @param string $lastname
      */
-    public function setLastname($lastname)
+    public function setLastname(string $lastname): void
     {
         $this->lastname = $lastname;
     }
@@ -508,23 +172,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMobile()
+    public function getMobile(): string
     {
         return $this->mobile;
     }
@@ -532,265 +180,77 @@ class User extends BaseUser
     /**
      * @param string $mobile
      */
-    public function setMobile($mobile)
+    public function setMobile(string $mobile): void
     {
         $this->mobile = $mobile;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getNbCredit()
+    public function getPhone(): string
     {
-        return $this->nbCredit;
+        return $this->phone;
     }
 
     /**
-     * @param int $nbCredit
+     * @param string $phone
      */
-    public function setNbCredit($nbCredit)
+    public function setPhone(string $phone): void
     {
-        $this->nbCredit = $nbCredit;
+        $this->phone = $phone;
     }
 
     /**
-     * @return int
+     * @return \Datetime
      */
-    public function getMailingActu()
+    public function getUpdatedAt(): \Datetime
     {
-        return $this->mailingActu;
+        return $this->updatedAt;
     }
 
     /**
-     * @param int $mailingActu
+     * @param \Datetime $updatedAt
      */
-    public function setMailingActu($mailingActu)
+    public function setUpdatedAt(\Datetime $updatedAt): void
     {
-        $this->mailingActu = $mailingActu;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMailingPromo()
-    {
-        return $this->mailingPromo;
-    }
-
-    /**
-     * @param int $mailingPromo
-     */
-    public function setMailingPromo($mailingPromo)
-    {
-        $this->mailingPromo = $mailingPromo;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMailingNeobe()
-    {
-        return $this->mailingNeobe;
-    }
-
-    /**
-     * @param int $mailingNeobe
-     */
-    public function setMailingNeobe($mailingNeobe)
-    {
-        $this->mailingNeobe = $mailingNeobe;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param int $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
      * @return string
      */
-    public function getSignUpToken()
+    public function getUserApi(): string
     {
-        return $this->signUpToken;
+        return $this->userApi;
     }
 
     /**
-     * @param string $signUpToken
+     * @param string $userApi
      */
-    public function setSignUpToken($signUpToken)
+    public function setUserApi(string $userApi): User
     {
-        $this->signUpToken = $signUpToken;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrigin()
-    {
-        return $this->origin;
-    }
-
-    /**
-     * @param string $origin
-     */
-    public function setOrigin($origin)
-    {
-        $this->origin = $origin;
+        $this->userApi = $userApi;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getOsContainer()
+    public function getDeleted(): string
     {
-        return $this->osContainer;
+        return $this->deleted;
     }
 
     /**
-     * @param string $osContainer
+     * @param string $deleted
+     * @return User
      */
-    public function setOsContainer($osContainer)
+    public function setDeleted(string $deleted): User
     {
-        $this->osContainer = $osContainer;
+        $this->deleted = $deleted;
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getNews()
-    {
-        return $this->news;
-    }
 
-    /**
-     * @param mixed $news
-     */
-    public function setNews($news)
-    {
-        $this->news = $news;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProjectsUser()
-    {
-        return $this->projectsUser;
-    }
-
-    /**
-     * @param mixed $projectsUser
-     */
-    public function setProjectsUser($projectsUser)
-    {
-        $this->projectsUser = $projectsUser;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPreferences()
-    {
-        return $this->preferences;
-    }
-
-    /**
-     * @param mixed $preferences
-     */
-    public function setPreferences($preferences)
-    {
-        $this->preferences = $preferences;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMyFolders()
-    {
-        return $this->myFolders;
-    }
-
-    /**
-     * @param mixed $myFolders
-     */
-    public function setMyFolders($myFolders)
-    {
-        $this->myFolders = $myFolders;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserCreated()
-    {
-        return $this->userCreated;
-    }
-
-    /**
-     * @param mixed $userCreated
-     */
-    public function setUserCreated($userCreated)
-    {
-        $this->userCreated = $userCreated;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLogs()
-    {
-        return $this->logs;
-    }
-
-    /**
-     * @param mixed $logs
-     */
-    public function setLogs($logs)
-    {
-        $this->logs = $logs;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMailConfig()
-    {
-        return $this->mailConfig;
-    }
-
-    /**
-     * @param mixed $mailConfig
-     */
-    public function setMailConfig($mailConfig)
-    {
-        $this->mailConfig = $mailConfig;
-    }
-
-    /**
-     * @return string
-     */
-    public function getInfosUser()
-    {
-        return $this->getFirstname()." ".$this->getLastname();
-    }
-
-    public function getViewDefault()
-    {
-        if (sizeof($this->preferences) > 0) {
-            return $this->preferences[0];
-        } else {
-            return null;
-        }
-    }
 }

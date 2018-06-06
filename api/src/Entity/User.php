@@ -6,7 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity
@@ -62,16 +62,32 @@ class User extends BaseUser
     /**
      * @var \Datetime
      * @ORM\Column(name="created_at" ,type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="create")
+
      */
     private $createdAt;
 
     /**
      * @var \Datetime
      * @ORM\Column(name="updated_at" ,type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="create")
+
      */
     private $updatedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_api", type="integer", length=2, nullable=true)
+     */
+    private $userApi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="deleted", type="integer", length=2, nullable=true)
+     */
+    private $deleted;
+
+
 
     /**
      * @return string
@@ -200,4 +216,41 @@ class User extends BaseUser
     {
         $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * @return string
+     */
+    public function getUserApi(): string
+    {
+        return $this->userApi;
+    }
+
+    /**
+     * @param string $userApi
+     */
+    public function setUserApi(string $userApi): User
+    {
+        $this->userApi = $userApi;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeleted(): string
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param string $deleted
+     * @return User
+     */
+    public function setDeleted(string $deleted): User
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+
 }

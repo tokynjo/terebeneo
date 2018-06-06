@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Api\ApiResponse;
-use App\Entity\Constants\Constant;
 use App\Manager\FileManager;
 use App\Manager\FileUserManager;
 use App\Manager\FolderManager;
 use App\Manager\FolderUserManager;
 use App\Manager\ViewManager;
-use App\Services\ApiRequest;
 use Doctrine\DBAL\Schema\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;

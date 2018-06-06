@@ -1,0 +1,42 @@
+page:
+  not_found: Page non trouvée
+button:
+  delete: Supprimer
+  add: Ajouter
+  edit: Editer
+  cancel: Annuler
+  yes: Oui
+  no: Non
+common:
+  no_data: Pas de données
+  edition: Edition
+
+login:
+  title: Neobe-TER
+  connect_to: Connectez vous à votre espace Neobe-TER
+  mail: E-mail
+  password: Mot de passe
+  remember_me: Se souvenir de moi
+  login: Connexion
+  forgot_password: Mot de passe oublier
+logout:
+  logout: Déconnexion
+  logout_message: Voulez vous vraiment quitter cette session ?
+menu:
+  dashboard: Tableau de bord
+  users: Utlilisateurs
+  contents: Les contenus
+users:
+  list_title: Liste des utilisateurs
+  edit_title: Edition d'un utilisateur
+
+
+
+
+
+
+
+
+
+
+

@@ -55,6 +55,42 @@ resources:
               schema:
                 type : object
                 properties:
+                  company_name:
+                    type: string
+                    description: Company name
+                  zip_code:
+                    type: string
+                    description: zip code
+                  country:
+                    type: string
+                    description: country
+                  city:
+                    type: string
+                    description: City
+                  civility:
+                    type: integer
+                    description: civility
+                  firstname:
+                    type: string
+                    description: firstname
+                  lastname:
+                    type: string
+                    description: lastname
+                  phone:
+                    type: string
+                    description:  phone number
+#                  mobile:
+#                    type: string
+#                   description:  mobile phone number
+                  email:
+                    type: string
+                    description: email
+                  nb_licence:
+                    type: string
+                    description: Nb licence
+                  volume_size:
+                    type: string
+                    description: Total volume size
           responses:
             200:
               description: Success

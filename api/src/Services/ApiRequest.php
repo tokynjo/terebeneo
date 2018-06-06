@@ -1,15 +1,13 @@
 <?php
-
 namespace App\Services;
 
-use Symfony\Component\Cache\Exception\InvalidArgumentException;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiRequest extends Request
 {
     protected $dataContent = null;
+
     public function __construct()
     {
         $this->dataContent = \GuzzleHttp\json_decode($this->getContent());
@@ -25,6 +23,12 @@ class ApiRequest extends Request
 
     }
 
+    /**
+     * get parameter
+     * @param $property
+     * @param null $default
+     * @return mixed|null
+     */
     public function getBodyRawParam($property,$default = null)
     {
         if(
@@ -44,9 +48,10 @@ class ApiRequest extends Request
         }
     }
 
-    public function getContente(){
+    /**
+     * @return mixed|null|resource|string
+     */
+    public function getDataContent(){
         return $this->dataContent;
     }
-
-
 }

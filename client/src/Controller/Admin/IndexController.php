@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class IndexController
  * @package App\Controller\Admin
- * @Route("/admin", name="admin_controller")
+ * @Route("/admin", name="admin_")
  */
 class IndexController extends BaseController
 {
@@ -18,7 +18,7 @@ class IndexController extends BaseController
     /**
      * First step
      *
-     * @Route("/", defaults={"_format"="html"}, methods={"GET"}, name="admin_index")
+     * @Route("/", defaults={"_format"="html"}, methods={"GET"}, name="index")
      * @param Request $request
      * @return Response
      */

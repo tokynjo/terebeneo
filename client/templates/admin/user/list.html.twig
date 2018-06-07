@@ -15,7 +15,10 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h2><i class="fa fa-users"></i>{{ 'users.list_title'|trans({},'label', 'fr') }}</h2>
+                    <h2>
+                        <i class="fa fa-users"></i>{{ 'users.list_title'|trans({},'label', 'fr') }}
+                        <a class="add-entity" href="{{ path('admin_user_create')}}" title="Ajouter"><i class="fa fa-plus-circle"></i>Ajouter</a>
+                    </h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

@@ -3,10 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Constants\Constant;
+use App\Entity\User;
+use App\Form\Handler\UserHandler;
 use App\Form\Type\UserType;
 use App\Manager\UserManager;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,48 +34,45 @@ class UserController extends BaseController
     }
 
     /**
-     * First step
+     * create user
      *
+     * @Route("/user/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="user_create")
+     * @param Request $request
+     * @return Response
+     */
+    public function addAction(Request $request)
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $fosUserManager = $this->get('fos_user.user_manager');
+        $formHandler = new UserHandler(
+            $form,
+            $request,
+            $this->getDoctrine()->getManager(),
+            $fosUserManager,
+            $this->get('event_dispatcher')
+        );
+        if($formHandler->process()) {
+            return $this->redirectToRoute('admin_user_index');
+        }
+        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
      * @Route("/user/edit/{id}", defaults={"_format"="html"}, methods={"GET","POST"}, name="user_edit")
      * @param Request $request
      * @return Response
      */
     public function editAction(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository("App:User")->find($request->get('id'));
-        if (!$user) {
-            $this->get('session')->getFlashBag()->add('error', 'Utilisateur n\'existe pas.');
-            return $this->redirectToRoute('admin_user_index');
-        }
-        if ($request->get('id') != $this->getUser()->getId()) {
-            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')
-                && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
-            ) {
-                throw $this->createAccessDeniedException();
-            }
-        }
-
-        $dispatcher = $this->get('event_dispatcher');
-        $userManager = $this->get('fos_user.user_manager');
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
-
         $form = $this->createForm(
             UserType::class,
-            $user,
+            null,
             [
-                'action' => $this->generateUrl('admin_user_edit', ['id' => $request->get('id')])
+                'action' => $this->generateUrl('admin_user_create', [])
             ]
         );
-        /*$formHandler = new RegistrationHandler($form, $request, $userManager);
-
-        $form = $formHandler->getForm();
-        if ($formHandler->process()) {
-            return $this->redirectToRoute('admin_user_index');
-        }*/
-
-       return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
     }
 
     /**

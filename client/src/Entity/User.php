@@ -52,11 +52,10 @@ class User extends BaseUser
     private $mobile;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="civility", type="string" ,nullable=false, options={"default" : "1"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Civility", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(name="civility", referencedColumnName="id")
      */
-    private $civility = 1;
+    private $civility ;
 
 
     /**
@@ -87,22 +86,22 @@ class User extends BaseUser
      */
     private $deleted;
 
-
-
     /**
-     * @return string
+     * @return mixed
      */
-    public function getCivility(): string
+    public function getCivility()
     {
         return $this->civility;
     }
 
     /**
-     * @param string $civility
+     * @param mixed $civility
+     * @return User
      */
-    public function setCivility(string $civility): void
+    public function setCivility($civility)
     {
         $this->civility = $civility;
+        return $this;
     }
 
     /**
@@ -116,7 +115,7 @@ class User extends BaseUser
     /**
      * @param \Datetime $createdAt
      */
-    public function setCreatedAt(\Datetime $createdAt): void
+    public function setCreatedAt(\Datetime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -124,7 +123,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFirstname(): string
+    public function getFirstname()
     {
         return $this->firstname;
     }
@@ -132,7 +131,7 @@ class User extends BaseUser
     /**
      * @param string $firstname
      */
-    public function setFirstname(string $firstname): void
+    public function setFirstname(string $firstname)
     {
         $this->firstname = $firstname;
     }
@@ -148,7 +147,7 @@ class User extends BaseUser
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -156,7 +155,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname()
     {
         return $this->lastname;
     }
@@ -164,7 +163,7 @@ class User extends BaseUser
     /**
      * @param string $lastname
      */
-    public function setLastname(string $lastname): void
+    public function setLastname(string $lastname)
     {
         $this->lastname = $lastname;
     }
@@ -172,7 +171,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getMobile(): string
+    public function getMobile()
     {
         return $this->mobile;
     }
@@ -180,7 +179,7 @@ class User extends BaseUser
     /**
      * @param string $mobile
      */
-    public function setMobile(string $mobile): void
+    public function setMobile(string $mobile)
     {
         $this->mobile = $mobile;
     }
@@ -188,7 +187,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getPhone(): string
+    public function getPhone()
     {
         return $this->phone;
     }
@@ -196,7 +195,7 @@ class User extends BaseUser
     /**
      * @param string $phone
      */
-    public function setPhone(string $phone): void
+    public function setPhone(string $phone)
     {
         $this->phone = $phone;
     }
@@ -212,7 +211,7 @@ class User extends BaseUser
     /**
      * @param \Datetime $updatedAt
      */
-    public function setUpdatedAt(\Datetime $updatedAt): void
+    public function setUpdatedAt(\Datetime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
@@ -220,7 +219,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getUserApi(): string
+    public function getUserApi()
     {
         return $this->userApi;
     }
@@ -237,7 +236,7 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getDeleted(): string
+    public function getDeleted()
     {
         return $this->deleted;
     }

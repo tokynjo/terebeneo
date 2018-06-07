@@ -6,8 +6,8 @@ security:
         fos_userbundle:
             id: fos_user.user_provider.username
     role_hierarchy:
-        ROLE_USER: []
-        ROLE_ADMIN: [ROLE_USER]
+        ROLE_API: []
+        ROLE_ADMIN: [ROLE_API]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
 
     firewalls:
@@ -23,10 +23,10 @@ security:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: /admin/
-                check_path: /admin/login_check
-            logout:
-              path: /admin/logout
-              target: /
+                check_path: /login_check
+            #logout:
+            #  path: /admin/logout
+            #  target: /
 
             # activate different ways to authenticate
 

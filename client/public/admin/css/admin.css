@@ -185,3 +185,7 @@ label {
 .form-group {
     margin-bottom: 0.5rem;
 }
+
+.card-header .add-entity {
+    margin-left: 20px;
+}

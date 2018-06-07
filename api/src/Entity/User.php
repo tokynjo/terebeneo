@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace Api\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;

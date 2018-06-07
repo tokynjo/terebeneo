@@ -5,4 +5,6 @@ class Constant
 {
     const YES = 1;
     const NO = 0;
+    const ENABLED = 1;
+    const DISABLED = 0;
 }

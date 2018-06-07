@@ -7,6 +7,7 @@ class Constant
     const NO = 0;
     const ENABLED = 1;
     const DISABLED = 0;
+    const DELETED_SALT = "-deleted-";
 
 
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_API' => 'Utilisateur API'];

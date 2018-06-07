@@ -38,8 +38,15 @@ class AuthenticationController extends Controller
             $userName = $request->get("username");
             $password = $request->get("password");
         }
-        $userByName = $this->getDoctrine()->getRepository('App:User')->findOneBy(['username' => $userName]);
-        $userByEmail = $this->getDoctrine()->getRepository('App:User')->findOneBy(['email' => $userName]);
+        $userByName = $this->getDoctrine()->getRepository('App:User')->findOneBy(
+            ['username' => $userName]
+        );
+        $userByName = $userByName->hasRole('ROLE_API') ? $userByName : null;
+        $userByEmail = $this->getDoctrine()->getRepository('App:User')->findOneBy(
+            ['email' => $userName]
+        );
+        $userByEmail = $userByEmail->hasRole('ROLE_API') ? $userByEmail : null;
+
         $user = ($userByEmail)?$userByEmail:$userByName;
         if (!$user) {
             $response->setCode(Response::HTTP_NOT_FOUND)

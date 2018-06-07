@@ -7,4 +7,7 @@ class Constant
     const NO = 0;
     const ENABLED = 1;
     const DISABLED = 0;
+
+
+    public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_API' => 'Utilisateur API'];
 }

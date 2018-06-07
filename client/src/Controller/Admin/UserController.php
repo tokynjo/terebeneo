@@ -29,8 +29,7 @@ class UserController extends BaseController
     public function listAction(Request $request)
     {
         $users = $this->get(UserManager::SERVICE_NAME)->findBy(['enabled' => Constant::YES]);
-        //var_dump($users[0]); die;
-        return $this->render('admin/user/list.html.twig', ['users' => $users]);
+        return $this->render('admin/user/list.html.twig', ['users' => $users, 'roles'=>Constant::$roles]);
     }
 
     /**
@@ -55,7 +54,7 @@ class UserController extends BaseController
         if($formHandler->process()) {
             return $this->redirectToRoute('admin_user_index');
         }
-        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/user/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -65,15 +64,54 @@ class UserController extends BaseController
      */
     public function editAction(Request $request)
     {
+        $user = $this->get(UserManager::SERVICE_NAME)->find($request->get('id'));
         $form = $this->createForm(
             UserType::class,
-            null,
+            $user,
             [
-                'action' => $this->generateUrl('admin_user_create', [])
+                'action' => $this->generateUrl('admin_user_edit', ['id'=>$request->get('id')])
             ]
         );
+        $formHandler = new UserHandler(
+            $form,
+            $request,
+            $this->getDoctrine()->getManager(),
+            $this->get('fos_user.user_manager'),
+            $this->get('event_dispatcher')
+        );
+        if($formHandler->process()) {
+            return $this->redirectToRoute('admin_user_index');
+        }
         return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
     }
+
+    /**
+     * @Route("/user/profil", defaults={"_format"="html"}, methods={"GET","POST"}, name="user_user_profil")
+     * @param Request $request
+     * @return Response
+     */
+    /*public function editPasswordAction(Request $request)
+    {
+        $user = $this->get(UserManager::SERVICE_NAME)->find($request->get('id'));
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'action' => $this->generateUrl('admin_user_edit', ['id'=>$request->get('id')])
+            ]
+        );
+        $formHandler = new UserHandler(
+            $form,
+            $request,
+            $this->getDoctrine()->getManager(),
+            $this->get('fos_user.user_manager'),
+            $this->get('event_dispatcher')
+        );
+        if($formHandler->process()) {
+            return $this->redirectToRoute('admin_user_index');
+        }
+        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
+    }*/
 
     /**
      * First step

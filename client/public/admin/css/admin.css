@@ -189,3 +189,6 @@ label {
 .card-header .add-entity {
     margin-left: 20px;
 }
+.actions {
+    padding-left: 1.5rem!important;
+}

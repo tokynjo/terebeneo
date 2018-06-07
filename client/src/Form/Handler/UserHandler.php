@@ -45,10 +45,15 @@ class UserHandler
     public function process()
     {
         $this->form->handleRequest($this->request);
+
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $data = $this->form->getData();
             $data->setUsername($data->getEmail());
-            $data->setPlainPassword('123456');
+            if($this->request->get('id')) {
+
+            } else {
+                $data->setPlainPassword('123456');
+            }
             $data->setEnabled(Constant::ENABLED);
             $data->setDeleted(Constant::NO);
             $this->fosUserManager->updateUser($data);

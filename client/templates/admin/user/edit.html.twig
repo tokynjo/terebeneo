@@ -18,7 +18,7 @@
                     <h2><i class="fa fa-users"></i>{{ 'users.edit_title'|trans({},'label', 'fr') }}</h2>
                 </div>
                 <div class="card-body">
-                    {{ form_start(form,{'attr': {'class': 'form-control no-border'}}) }}
+                    {{ form_start(form, {'attr': {'class': 'form-control no-border'}}) }}
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -74,8 +74,14 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-2">
-                                    <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                                    <input type="submit" class="btn btn-primary btn-block" title="Enregistrer" value="Enregistrer">
                                 </div>
+                                <div class="col-md-2">
+                                    <a href="{{ path('admin_user_index') }}" class="btn btn-secondary" title="Annuler">Annuler</a>
+                                </div>
+                                {#<div class="col-md-2">
+                                    <a href="{{ path('admin_user_password_edit') }}" class="btn btn-secondary" title="Changer mot de passe">Changer mot de passe</a>
+                                </div>#}
                             </div>
                         </div>
 

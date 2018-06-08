@@ -9,13 +9,13 @@
         <li class="breadcrumb-item">
             <i class="fa fa-fw fa-chevron-right"></i><a href="{{ path('admin_user_index') }}">{{ 'menu.users'|trans({},'label', 'fr') }}</a>
         </li>
-        <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+        <li class="breadcrumb-item active">{{ 'common.create'|trans({},'label', 'fr') }}</li>
     </ol>
     <div class="row">
         <div class="col-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h2><i class="fa fa-users"></i>{{ 'users.edit_title'|trans({},'label', 'fr') }}</h2>
+                    <h2><i class="fa fa-users"></i>{{ 'users.create_title'|trans({},'label', 'fr') }}</h2>
                 </div>
                 <div class="card-body">
                     {{ form_start(form,{'action':path('admin_user_create'), 'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}

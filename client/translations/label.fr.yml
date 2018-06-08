@@ -11,6 +11,7 @@ button:
 common:
   no_data: Pas de données
   edition: Edition
+  create: Création
 
 login:
   title: Neobe-TER
@@ -33,6 +34,8 @@ menu:
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
+  create_title: Ajout d'un utilisateur
+
 
 
 

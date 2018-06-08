@@ -46,10 +46,10 @@
                                         {% if(users|length > 0) %}
                                             {% set nbApi = 0 %}
                                             {% set nbAdmin = 0 %}
-                                            {% for  u in users %}
-                                                {% if(u.roles[0] == 'ROLE_USER') %}
+                                            {% for  us in users %}
+                                                {% if(us.roles[0] == 'ROLE_USER') %}
                                                     {% set nbApi = nbApi + 1 %}
-                                                {% elseif (u.roles[0] == 'ROLE_USER') %}
+                                                {% elseif (us.roles[0] == 'ROLE_ADMIN') %}
                                                     {% set nbAdmin = nbAdmin + 1 %}
                                                 {% endif %}
                                             {% endfor %}

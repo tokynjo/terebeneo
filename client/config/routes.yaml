@@ -3,4 +3,15 @@
 #    controller: App\Controller\DefaultController::index
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-#    prefix: /admin
+    prefix: /admin
+
+#admin_login:
+#    path: /admin/login
+#    defaults: { _controller: FOSUserBundle:Security:login }
+
+#admin_check:
+#    path: /admin/login_check
+#    defaults: { _controller: FOSUserBundle:Security:check }
+
+#admin_logout:
+#    path: /admin/logout

@@ -5,6 +5,7 @@
         <div class="card card-login mx-auto mt-5">
             <div class="card-header"><img src="{{ asset('/admin/img/logo-neobe.jpg') }}" alt="logo" title="logo"></div>
             <div class="card-body">
+                {#<form id="login" action="{{ path("admin_login_check") }}" method="post">#}
                 <form id="login" action="{{ path("fos_user_security_check") }}" method="post">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                     <h2>{{ 'login.connect_to'|trans({},'label', 'fr') }}</h2>
@@ -29,7 +30,7 @@
                            value="{{ 'login.login'|trans({},'label', 'fr') }}"/>
                 </form>
                 <div class="text-center">
-                    <a class="d-block small" href="forgot-password.html">{{ 'login.forgot_password'|trans({},'label', 'fr') }}</a>
+                    <a class="d-block small" href="{{ path('fos_user_resetting_request') }}">{{ 'login.forgot_password'|trans({},'label', 'fr') }}</a>
                 </div>
             </div>
         </div>

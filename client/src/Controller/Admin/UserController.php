@@ -7,6 +7,10 @@ use App\Entity\User;
 use App\Form\Handler\UserHandler;
 use App\Form\Type\UserType;
 use App\Manager\UserManager;
+use FOS\UserBundle\Event\GetResponseNullableUserEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +24,7 @@ class UserController extends BaseController
 {
 
     /**
-     * First step
+     * User list
      *
      * @Route("/user", defaults={"_format"="html"}, methods={"GET"}, name="user_index")
      * @param Request $request
@@ -58,6 +62,7 @@ class UserController extends BaseController
     }
 
     /**
+     * edit user
      * @Route("/user/edit/{id}", defaults={"_format"="html"}, methods={"GET","POST"}, name="user_edit")
      * @param Request $request
      * @return Response
@@ -109,5 +114,107 @@ class UserController extends BaseController
                 $this->get('translator')->trans('users.user_not_found', ['%id%'=>$id], 'label', 'fr')
             );
         }
+    }
+
+    /**
+     * Resetting user password: submit form and send email.
+     *
+     * @Route("/user/resetting/send-email", methods={"POST"}, name="user_resetting_send_mail")
+     * @param Request $request
+     * @return Response
+     */
+    public function sendEmailAction(Request $request)
+    {
+        $username = $request->request->get('username');
+
+        /** @var $user UserInterface */
+        $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        /* Dispatch init event */
+        $event = new GetResponseNullableUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
+
+        if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_REQUEST, $event);
+
+            if (null !== $event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            if (null === $user->getConfirmationToken()) {
+                /** @var $tokenGenerator TokenGeneratorInterface */
+                $tokenGenerator = $this->get('fos_user.util.token_generator');
+                $user->setConfirmationToken($tokenGenerator->generateToken());
+            }
+
+            /* Dispatch confirm event */
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_CONFIRM, $event);
+
+            if (null !== $event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            //generate mail content
+            $url = $this->generateUrl(
+                'fos_user_resetting_reset',
+                ['token' => $user->getConfirmationToken()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+            $rendered = $this->renderView(
+                '@FOSUser/Resetting/email.txt.twig',['user' => $user,'confirmationUrl' => $url]
+            );
+            //sendgrid send mail
+            //$this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], (string) $user->getEmail());
+            $data = array();
+            $sender = new User();
+            $sender
+                ->setEmail($this->getParameter('no_reply_address'))
+                ->setNom($this->getParameter('no_reply_address'));
+            $data['send_by'] = $sender;
+            $sendTo = [$user->getEmail()];
+            $this->get('app.mailer')->sendMailGrid(
+                "Récupération de mot de passe",
+                $sendTo,
+                $rendered,
+                $data
+            );
+            $user->setPasswordRequestedAt(new \DateTime());
+            $this->get('fos_user.user_manager')->updateUser($user);
+
+            /* Dispatch completed event */
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_COMPLETED, $event);
+
+            if (null !== $event->getResponse()) {
+                return $event->getResponse();
+            }
+        }
+
+        /*return $this->redirectToRoute(
+            $this->generateUrl('admin_user_resetting_success', ['username' => $username])
+        );*/
+        return new RedirectResponse($this->generateUrl('admin_user_resetting_success', []));
+    }
+
+    /**
+     * Resetting user password: submit form and send email.
+     *
+     * @Route("/user/resetting/success", methods={"GET"}, name="user_resetting_success")
+     * @param Request $request
+     * @return Response
+     */
+    public function sendEmailSuccessAction(Request $request)
+    {
+        return $this->render('@FOSUser/Resetting/check_email.html.twig', ['username' => '$username']);
     }
 }

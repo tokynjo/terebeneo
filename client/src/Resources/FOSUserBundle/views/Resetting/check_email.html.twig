@@ -1,37 +1,15 @@
-{% trans_default_domain 'FOSUserBundle' %}
-<title>{% block title %}DROPSALE{% endblock %}</title>
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/sb-admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
-{% endblock %}
-{% block content %}
-
-    <style>
-        .form-signin {
-            max-width: 80%;
-            padding: 15px;
-            margin: 0 auto;
-        }
-
-        .login-container {
-            -webkit-box-shadow: 10px 12px 31px 1px rgba(102, 100, 102, 0.65);
-            -moz-box-shadow: 10px 12px 31px 1px rgba(102, 100, 102, 0.65);
-            box-shadow: 10px 12px 31px 1px rgba(102, 100, 102, 0.65);
-            width: 50%;
-        }
-    </style>
-
-    <div class="container login-container" style="background-color: #FFF">
-    <div class="login-box-body">
-        <div style="text-align: center!important;">{#<img src="{{ asset('icon.PNG') }}" class="logo rounded-circle"/>#}
-
+{% extends 'admin/login-layout.html.twig' %}
+{% block title %}{{ 'login.title'|trans({},'label', 'fr') }} - {{ 'login.reset_password'|trans({},'label', 'fr') }}{% endblock %}
+{% block body%}
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header"><img src="{{ asset('/admin/img/logo-neobe.jpg') }}" alt="logo" title="logo"></div>
+            <div class="card-body">
+                <p class="login-box-msg form-signin">Un e-mail a été envoyé à l'adresse email du compte. </p><p> Il contient un lien sur
+                    lequel il vous faudra cliquer afin de réinitialiser votre mot de passe.</p>
+                <p class="login-box-msg form-signin">Cliquez sur ce <b><a href="{{ path('fos_user_security_login') }}">lien</a></b> pour se connecter.</p>
+                <p>Merci</p>
+            </div>
         </div>
-        <p class="login-box-msg form-signin">Un e-mail a été envoyé à l'adresse email du compte. Il contient un lien sur
-            lequel il vous faudra cliquer afin de réinitialiser votre mot de passe.</p>
-        <p class="login-box-msg form-signin">Cliquez sur ce <a href="{{ path('homepage') }}">lien</a> pour se connecter.Merci</p>
-
-        </d iv>
     </div>
-{% endblock content %}
+{% endblock %}

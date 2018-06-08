@@ -97,22 +97,6 @@ class Civility
     }
 
     /**
-     * @return mixed
-     */
-    public function getContacts()
-    {
-        return $this->contacts;
-    }
-
-    /**
-     * @param mixed $contacts
-     */
-    public function setContacts($contacts)
-    {
-        $this->contacts = $contacts;
-    }
-
-    /**
      * @return string
      */
     public function getLongLabel()
@@ -155,64 +139,7 @@ class Civility
      */
     public function __construct()
     {
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add contact
-     *
-     * @param \AppBundle\Entity\Contact $contact
-     *
-     * @return Civility
-     */
-    public function addContact(\AppBundle\Entity\Contact $contact)
-    {
-        $this->contacts[] = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Remove contact
-     *
-     * @param \AppBundle\Entity\Contact $contact
-     */
-    public function removeContact(\AppBundle\Entity\Contact $contact)
-    {
-        $this->contacts->removeElement($contact);
-    }
-
-    /**
-     * Add user
-     *
-     * @param \UserBundle\Entity\User $user
-     *
-     * @return Civility
-     */
-    public function addUser(\UserBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
-
-        return $this;
-    }
-
-    /**
-     * Remove user
-     *
-     * @param \UserBundle\Entity\User $user
-     */
-    public function removeUser(\UserBundle\Entity\User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
 }

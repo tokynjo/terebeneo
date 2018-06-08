@@ -5,4 +5,10 @@ class Constant
 {
     const YES = 1;
     const NO = 0;
+    const ENABLED = 1;
+    const DISABLED = 0;
+    const DELETED_SALT = "-deleted-";
+
+
+    public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
 }

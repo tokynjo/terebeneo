@@ -7,6 +7,7 @@ button:
   cancel: Annuler
   yes: Oui
   no: Non
+  send: Envoyer
 common:
   no_data: Pas de données
   edition: Edition
@@ -19,6 +20,9 @@ login:
   remember_me: Se souvenir de moi
   login: Connexion
   forgot_password: Mot de passe oublier
+  reset_password: Réinitialiser mot de passe
+  reset_message: Enter votre adresse email
+
 logout:
   logout: Déconnexion
   logout_message: Voulez vous vraiment quitter cette session ?

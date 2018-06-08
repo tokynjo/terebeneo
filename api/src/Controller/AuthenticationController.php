@@ -41,11 +41,11 @@ class AuthenticationController extends Controller
         $userByName = $this->getDoctrine()->getRepository('App:User')->findOneBy(
             ['username' => $userName]
         );
-        $userByName = $userByName->hasRole('ROLE_API') ? $userByName : null;
+        $userByName = $userByName->hasRole('ROLE_USER') ? $userByName : null;
         $userByEmail = $this->getDoctrine()->getRepository('App:User')->findOneBy(
             ['email' => $userName]
         );
-        $userByEmail = $userByEmail->hasRole('ROLE_API') ? $userByEmail : null;
+        $userByEmail = $userByEmail->hasRole('ROLE_USER') ? $userByEmail : null;
 
         $user = ($userByEmail)?$userByEmail:$userByName;
         if (!$user) {

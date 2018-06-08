@@ -10,5 +10,5 @@ class Constant
     const DELETED_SALT = "-deleted-";
 
 
-    public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_API' => 'Utilisateur API'];
+    public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
 }

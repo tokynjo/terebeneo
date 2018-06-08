@@ -47,9 +47,9 @@
                                             {% set nbApi = 0 %}
                                             {% set nbAdmin = 0 %}
                                             {% for  u in users %}
-                                                {% if(u.roles[0] == 'ROLE_API') %}
+                                                {% if(u.roles[0] == 'ROLE_USER') %}
                                                     {% set nbApi = nbApi + 1 %}
-                                                {% elseif (u.roles[0] == 'ROLE_ADMIN') %}
+                                                {% elseif (u.roles[0] == 'ROLE_USER') %}
                                                     {% set nbAdmin = nbAdmin + 1 %}
                                                 {% endif %}
                                             {% endfor %}
@@ -62,7 +62,7 @@
                                                     <td class="actions">
                                                         <a href="{{ path('admin_user_edit',{'id':u.id}) }}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        {% if((u.roles[0] == 'ROLE_API' and nbApi > 1) or (u.roles[0] == 'ROLE_ADMIN' and nbAdmin > 1))  %}
+                                                        {% if((u.roles[0] == 'ROLE_USER' and nbApi > 1) or (u.roles[0] == 'ROLE_ADMIN' and nbAdmin > 1))  %}
                                                             <a href="{{ path('admin_user_delete',{'id':u.id}) }}" class="delete" data-uid="{{ u.id }}"
                                                                data-detail="{% if u.firstname %}{{ u.firstname|capitalize }} {% endif %} {% if u.lastname %} {{ u.lastname|upper }} {% endif %}"
                                                                data-title ="Suppression d'un utilisateur"

@@ -43,6 +43,12 @@ class Notification
     private $status;
 
     /**
+     * @ORM\OneToMany(targetEntity="NotificationContent", mappedBy="notification", cascade={"persist"})
+     */
+    private $notificationContents;
+
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -112,4 +118,23 @@ class Notification
         $this->status = $status;
         return $this;
     }
+    /**
+     * @return mixed
+     */
+    public function getNotificationContents()
+    {
+        return $this->notificationContents;
+    }
+
+    /**
+     * @param mixed $notificationContents
+     * @return $this
+     */
+    public function setNotificationContents($notificationContents)
+    {
+        $this->notificationContents = $notificationContents;
+        return $this;
+    }
+
+
 }

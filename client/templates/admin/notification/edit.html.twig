@@ -12,20 +12,20 @@
         <li class="breadcrumb-item">
             <a href="{{ path('admin_notification_index') }}">{{ 'menu.notifications'|trans({},'label', 'fr') }}</a>
         </li>
-        <li class="breadcrumb-item active">{{ 'common.create'|trans({},'label', 'fr') }}</li>
+        <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
     </ol>
     <div class="row">
         <div class="col-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h2><i class="fa fa-users"></i>{{ 'notifications.create_title'|trans({},'label', 'fr') }}</h2>
+                    <h2><i class="fa fa-users"></i>{{ 'notifications.edit_title'|trans({},'label', 'fr') }}</h2>
                 </div>
                 <div class="card-body">
-                    {{ form_start(form,{'action':path('admin_notification_create'), 'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                    {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputName">Name</label>
+                                    <label for="exampleInputName">{{ 'notifications.name'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputLastName">Description</label>
+                                    <label for="exampleInputLastName">{{ 'notifications.description'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
@@ -53,26 +53,30 @@
                                     <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
                                         <thead>
                                         <tr role="row">
+                                            <th class="sorting_asc text-left" colspan="4" style="width: 50px;" aria-sort="ascending" >{{ 'notifications.messages.list_title'|trans({},'label', 'fr') }} &nbsp;&nbsp;&nbsp;
+                                                <a class="add-entity" href="{{ path('admin_notification_message_create',{'notif_id':notification.id})}}" title="{{ 'button.add'|trans({},'label', 'fr') }}"><i class="fa fa-plus-circle"></i>{{ 'button.add'|trans({},'label', 'fr') }}</a></th>
+                                        </tr>
+                                        <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.name'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="description">{{ 'notifications.description'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.type'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="description">{{ 'notifications.message'|trans({},'label', 'fr') }}</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% if(notification.notificationContent|length > 0) %}
-                                            {% for  nc in notification.notificationContent %}
+                                        {% if(notification.notificationContents|length > 0) %}
+                                            {% for  nc in notification.notificationContents %}
                                                 <tr role="row" class="odd">
-                                                    <td class="sorting_1 text-right">{{ n.id }}</td>
-                                                    <td>{{ n.name }}</td>
-                                                    <td>{{ n.description}}</td>
+                                                    <td class="sorting_1 text-right">{{ nc.id }}</td>
+                                                    <td>{{ nc.type.name }}</td>
+                                                    <td>{{ nc.content|raw}}</td>
                                                     <td class="actions">
-                                                        <a href="{{ path('admin_user_edit',{'id':n.id}) }}"
+                                                        <a href="{{ path('admin_notification_message_edit',{'id':nc.id, 'notif_id':nc.notification.id}) }}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        <a href="{{ path('admin_user_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
-                                                           data-detail="{{ n.name }}"
-                                                           data-title ="Suppression d'un utilisateur"
-                                                           data-message = "Voulez vous supprimer l'utilisateur #{{ n.id }} "
+                                                        <a href="{{ path('admin_notification_message_delete',{'id':nc.id, 'notif_id':nc.notification.id }) }}" class="delete" data-uid="{{ nc.id }}"
+                                                           data-detail="{{ nc.id }}"
+                                                           data-title ="{{ 'notifications.messages.deletion_title'|trans({},'label', 'fr') }}"
+                                                           data-message = "{{ 'notifications.messages.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ nc.id }} "
                                                            title="{{ 'button.delete'|trans({},'label', 'fr') }}">
                                                             <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
                                                         </a>

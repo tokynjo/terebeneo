@@ -32,9 +32,13 @@ services:
         arguments: ['@doctrine.orm.entity_manager', 'App\Entity\User']
         public: true
     app.notification_manager:
-            class: App\Manager\NotificationManager
-            arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Notification']
-            public: true
+        class: App\Manager\NotificationManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Notification']
+        public: true
+    app.notification_content_manager:
+        class: App\Manager\NotificationContentManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\NotificationContent']
+        public: true
 
     app.mailer:
         class: App\Services\Mailer

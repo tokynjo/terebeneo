@@ -20,7 +20,7 @@
                 <div class="card-header">
                     <h2>
                         <i class="fa fa-users"></i>{{ 'notifications.list_title'|trans({},'label', 'fr') }}
-                        <a class="add-entity" href="{{ path('admin_notification_create')}}" title="Ajouter"><i class="fa fa-plus-circle"></i>Ajouter</a>
+                        <a class="add-entity" href="{{ path('admin_notification_create')}}" title="{{ 'button.add'|trans({},'label', 'fr') }}"><i class="fa fa-plus-circle"></i>{{ 'button.add'|trans({},'label', 'fr') }}</a>
                     </h2>
                 </div>
                 <div class="card-body">
@@ -45,12 +45,12 @@
                                                     <td>{{ n.name }}</td>
                                                     <td>{{ n.description}}</td>
                                                     <td class="actions">
-                                                        <a href="{{ path('admin_user_edit',{'id':n.id}) }}"
+                                                        <a href="{{ path('admin_notification_edit',{'id':n.id}) }}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="{{ path('admin_user_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
+                                                            <a href="{{ path('admin_notification_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
                                                                data-detail="{{ n.name }}"
-                                                               data-title ="Suppression d'un utilisateur"
-                                                               data-message = "Voulez vous supprimer l'utilisateur #{{ n.id }} "
+                                                               data-title ="{{ 'notifications.deletion_title'|trans({},'label', 'fr') }}"
+                                                               data-message = "{{ 'notifications.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ n.id }} ?"
                                                                title="{{ 'button.delete'|trans({},'label', 'fr') }}">
                                                                 <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
                                                             </a>
@@ -59,7 +59,7 @@
                                             {% endfor %}
                                         {% else %}
                                             <tr role="row" class="odd ">
-                                                <td colspan="5" class="text-center ">Pas de données</td>
+                                                <td colspan="4" class="text-center ">{{ 'common.table.no_data'|trans({},'label', 'fr') }}</td>
 
                                             </tr>
                                         {% endif %}
@@ -67,26 +67,6 @@
                                     </table>
                                 </div>
                             </div>
-                            {#<div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 51 to 57 of 57 entries</div>
-                                </div>
-                                <div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                        <ul class="pagination"><li class="paginate_button page-item previous" id="dataTable_previous">
-                                            <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                            <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                            <li class="paginate_button page-item next disabled" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>#}
                         </div>
                     </div>
                 </div>

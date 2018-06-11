@@ -27,3 +27,5 @@ yarn-error.log
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 /client/.env
+/client/config/packages/parameters.yml
+/api/config/packages/parameters.yml

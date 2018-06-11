@@ -41,7 +41,6 @@ class NotificationContent
      */
     private $type;
 
-
     /**
      * Constructor
      */
@@ -53,46 +52,60 @@ class NotificationContent
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
+/**
+ * @return mixed
+ */
+public function getType()
+{
+    return $this->type;
+}
 
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+/**
+ * @param mixed $type
+ */
+public function setType($type)
+{
+    $this->type = $type;
+}
 
-    /**
-     * @param string $name
-     * @return Notification
-     */
-    public function setName(string $name): Notification
-    {
-        $this->name = $name;
-        return $this;
-    }
+/**
+ * @return string
+ */
+public function getContent()
+{
+    return $this->content;
+}
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
+/**
+ * @param string $content
+ */
+public function setContent($content)
+{
+    $this->content = $content;
+}
 
-    /**
-     * @param string $description
-     * @return Notification
-     */
-    public function setDescription(string $description): Notification
-    {
-        $this->description = $description;
-        return $this;
-    }
+/**
+ * @return mixed
+ */
+public function getNotification()
+{
+    return $this->notification;
+}
+
+/**
+ * @param mixed $notification
+ */
+public function setNotification($notification)
+{
+    $this->notification = $notification;
+}
+
+
+
     
 }

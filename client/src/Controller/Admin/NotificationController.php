@@ -1,16 +1,15 @@
 <?php
-
 namespace App\Controller\Admin;
 
-use App\Entity\Constants\Constant;
 use App\Entity\Notification;
+use App\Entity\NotificationContent;
 use App\Entity\User;
+use App\Form\Handler\NotificationContentHandler;
 use App\Form\Handler\NotificationHandler;
-use App\Form\Handler\UserHandler;
+use App\Form\Type\NotificationContentType;
 use App\Form\Type\NotificationType;
-use App\Form\Type\UserType;
+use App\Manager\NotificationContentManager;
 use App\Manager\NotificationManager;
-use App\Manager\UserManager;
 use FOS\UserBundle\Event\GetResponseNullableUserEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -41,9 +40,9 @@ class NotificationController extends BaseController
     }
 
     /**
-     * create user
+     * create notification
      *
-     * @Route("/user/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_create")
+     * @Route("/notification/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_create")
      * @param Request $request
      * @return Response
      */
@@ -56,45 +55,49 @@ class NotificationController extends BaseController
             $request,
             $this->get('app.notification_manager')
         );
-        if($formHandler->process()) {
+        if ($formHandler->process()) {
             return $this->redirectToRoute('admin_notification_index');
         }
         return $this->render('admin/notification/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-     * edit user
+     * edit notification
      * @Route("/notification/edit/{id}", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_edit")
      * @param Request $request
      * @return Response
      */
     public function editAction(Request $request)
     {
-        $user = $this->get(NotificationManager::SERVICE_NAME)->find($request->get('id'));
+        $notification = $this->get(NotificationManager::SERVICE_NAME)->find($request->get('id'));
         $form = $this->createForm(
-            UserType::class,
-            $user,
+            NotificationType::class,
+            $notification,
             [
-                'action' => $this->generateUrl('admin_user_edit', ['id'=>$request->get('id')])
+                'action' => $this->generateUrl('admin_notification_edit', ['id' => $request->get('id')])
             ]
         );
-        $formHandler = new UserHandler(
+        $formHandler = new NotificationHandler(
             $form,
             $request,
-            $this->getDoctrine()->getManager(),
-            $this->get('fos_user.user_manager'),
-            $this->get('event_dispatcher')
+            $this->get('app.notification_manager')
         );
-        if($formHandler->process()) {
-            return $this->redirectToRoute('admin_user_index');
+        if ($formHandler->process()) {
+            return $this->redirectToRoute('admin_notification_index');
         }
-        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'admin/notification/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'notification' => $notification
+            ]
+        );
     }
 
     /**
-     * delete user
+     * delete notification
      *
-     * @Route("/user/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="user_delete")
+     * @Route("/notification/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="notification_delete")
      * @param Request $request
      * @return Response
      */
@@ -102,120 +105,83 @@ class NotificationController extends BaseController
     {
         $id = $request->get('id');
         $entityManager = $this->getDoctrine()->getManager();
-        if ($user = $entityManager->getRepository("App:User")->find($id)) {
-            //do not delete user physically. Just set it not enabled
-            $user->setEnabled(false);
-            $user->setDeleted(true);
-            $user->setUsernameCanonical($user->getUsernameCanonical().Constant::DELETED_SALT.date('YmdHis'));
-            $user->setEmailCanonical($user->getEmailCanonical().Constant::DELETED_SALT.date('YmdHis'));
-            $this->get('fos_user.user_manager')->updateUser($user);
-            return $this->redirectToRoute('admin_user_index');
+        if ($notification = $entityManager->getRepository("App:Notification")->find($id)) {
+            $this->get(NotificationManager::SERVICE_NAME)->delete($notification);
+            return $this->redirectToRoute('admin_notification_index');
         } else {
             throw $this->createNotFoundException(
-                $this->get('translator')->trans('users.user_not_found', ['%id%'=>$id], 'label', 'fr')
+                $this->get('translator')->trans('page.content_not_found', ['%id%' => $id], 'label', 'fr')
             );
         }
     }
 
     /**
-     * Resetting user password: submit form and send email.
-     *
-     * @Route("/user/resetting/send-email", methods={"POST"}, name="user_resetting_send_mail")
+     * edit notification message
+     * @Route("/notification/{notif_id}/message/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_message_create")
+     * @Route("/notification/{notif_id}/message/edit/{id}", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_message_edit")
      * @param Request $request
      * @return Response
      */
-    public function sendEmailAction(Request $request)
+    public function editMessageAction(Request $request)
     {
-        $username = $request->request->get('username');
-
-        /** @var $user UserInterface */
-        $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-
-        /* Dispatch init event */
-        $event = new GetResponseNullableUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_INITIALIZE, $event);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
-
-        $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
-
-        if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
-            $event = new GetResponseUserEvent($user, $request);
-            $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_REQUEST, $event);
-
-            if (null !== $event->getResponse()) {
-                return $event->getResponse();
-            }
-
-            if (null === $user->getConfirmationToken()) {
-                /** @var $tokenGenerator TokenGeneratorInterface */
-                $tokenGenerator = $this->get('fos_user.util.token_generator');
-                $user->setConfirmationToken($tokenGenerator->generateToken());
-            }
-
-            /* Dispatch confirm event */
-            $event = new GetResponseUserEvent($user, $request);
-            $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_CONFIRM, $event);
-
-            if (null !== $event->getResponse()) {
-                return $event->getResponse();
-            }
-
-            //generate mail content
+        $notification = $this->get(NotificationManager::SERVICE_NAME)->find($request->get('notif_id'));
+        if($request->get('id')) {
+            $notificationContent = $this->get(NotificationContentManager::SERVICE_NAME)->find($request->get('id'));
             $url = $this->generateUrl(
-                'fos_user_resetting_reset',
-                ['token' => $user->getConfirmationToken()],
-                UrlGeneratorInterface::ABSOLUTE_URL
+                'admin_notification_message_edit',
+                [
+                    'id' => $request->get('id'),
+                    'notif_id'=>$request->get('notif_id')
+                ]
             );
-            $rendered = $this->renderView(
-                '@FOSUser/Resetting/email.txt.twig',['user' => $user,'confirmationUrl' => $url]
-            );
-            //sendgrid send mail
-            //$this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], (string) $user->getEmail());
-            $data = array();
-            $sender = new User();
-            $sender
-                ->setEmail($this->getParameter('no_reply_address'))
-                ->setNom($this->getParameter('no_reply_address'));
-            $data['send_by'] = $sender;
-            $sendTo = [$user->getEmail()];
-            $this->get('app.mailer')->sendMailGrid(
-                "Récupération de mot de passe",
-                $sendTo,
-                $rendered,
-                $data
-            );
-            $user->setPasswordRequestedAt(new \DateTime());
-            $this->get('fos_user.user_manager')->updateUser($user);
-
-            /* Dispatch completed event */
-            $event = new GetResponseUserEvent($user, $request);
-            $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_COMPLETED, $event);
-
-            if (null !== $event->getResponse()) {
-                return $event->getResponse();
-            }
+        } else {
+            $notificationContent = new NotificationContent();
+            $url = $this->generateUrl('admin_notification_message_create', ['notif_id'=>$request->get('notif_id')]);
         }
-
-        /*return $this->redirectToRoute(
-            $this->generateUrl('admin_user_resetting_success', ['username' => $username])
-        );*/
-        return new RedirectResponse($this->generateUrl('admin_user_resetting_success', []));
+        $form = $this->createForm(
+            NotificationContentType::class,
+            $notificationContent,
+            [
+                'action' => $url
+            ]
+        );
+        $formHandler = new NotificationContentHandler(
+            $form,
+            $request,
+            $this->get('app.notification_manager')
+        );
+        if ($formHandler->process()) {
+            return $this->redirectToRoute('admin_notification_edit', ['id'=>$request->get('notif_id')]);
+        }
+        return $this->render(
+            'admin/notification/message_edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'notificationContent' => $notificationContent,
+                'notification' => $notification
+            ]
+        );
     }
 
+
     /**
-     * Resetting user password: submit form and send email.
+     * delete notification message
      *
-     * @Route("/user/resetting/success", methods={"GET"}, name="user_resetting_success")
+     * @Route("/notification/{notif_id}/message/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="notification_message_delete")
      * @param Request $request
      * @return Response
      */
-    public function sendEmailSuccessAction(Request $request)
+    public function deleteMessageAction(Request $request)
     {
-        return $this->render('@FOSUser/Resetting/check_email.html.twig', ['username' => '$username']);
+        $id = $request->get('id');
+        $entityManager = $this->getDoctrine()->getManager();
+        if ($notificationContent = $entityManager->getRepository("App:NotificationContent")->find($id)) {
+            $this->get(NotificationContentManager::SERVICE_NAME)->delete($notificationContent);
+            return $this->redirectToRoute('admin_notification_edit', ['id'=>$request->get('notif_id')]);
+        } else {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('page.content_not_found', ['%id%' => $id], 'label', 'fr')
+            );
+        }
     }
 }

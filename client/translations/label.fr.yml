@@ -1,5 +1,6 @@
 page:
   not_found: Page non trouvée
+  content_not_found: Contenu non trouvé
 button:
   delete: Supprimer
   add: Ajouter
@@ -12,6 +13,9 @@ common:
   no_data: Pas de données
   edition: Edition
   create: Création
+  table:
+    actions: Actions
+    no_data: Pas de données
 
 login:
   title: Neobe-TER
@@ -29,12 +33,33 @@ logout:
   logout_message: Voulez vous vraiment quitter cette session ?
 menu:
   dashboard: Tableau de bord
-  users: Utlilisateurs
+  users: Utilisateurs
   contents: Les contenus
+  notifications: Les notifications
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
   create_title: Ajout d'un utilisateur
+  firstname: Prénom
+  lastname: Nom
+  email: Email
+  civility: Civilité
+notifications:
+  list_title: Liste des notifications
+  edit_title: Edition d'un notification
+  create_title: Ajout d'un notification
+  name: Nom
+  description: Déscription
+  deletion_message_confirmation: Voulez vous supprimer la notification
+  deletion_title: Suppression d'un notification
+  type: Type
+  message: Message
+  messages:
+    list_title: Liste des messages
+    edit_title: Edition d'un message
+    create_title: Ajout d'un message
+    deletion_message_confirmation: Voulez vous supprimer le message
+    deletion_title: Suppression d'un notification
 
 
 

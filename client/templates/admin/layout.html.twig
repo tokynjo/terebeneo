@@ -38,14 +38,18 @@
                     <span class="nav-link-text">{{ 'menu.dashboard'|trans({},'label', 'fr') }}</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+            <li class="nav-item {% if current_route starts with 'admin_notif' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="Menu Levels">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-sitemap"></i>
+                    <i class="fa fa-fw fa-cogs"></i>
                     <span class="nav-link-text">{{ 'menu.contents'|trans({},'label', 'fr') }}</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseMulti">
-                    <li>
-                        <a href="#">Emails</a>
+                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_notification_' %}show {% endif %}" id="collapseMulti">
+                    <li class="nav-item nav-link-text {% if current_route starts with 'admin_notification_' %}active{% endif %}">
+                        <a href="{{ path('admin_notification_index') }}" class="nav-link-text">
+                            <span class="nav-link-text">
+                                {{ 'menu.notifications'|trans({},'label', 'fr') }}
+                            </span>
+                        </a>
                     </li>
                     <li>
                         <a href="#">CGV</a>

@@ -7,7 +7,10 @@
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.users'|trans({},'label', 'fr') }}
+            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.contents'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            {{ 'menu.notifications'|trans({},'label', 'fr') }}</a>
         </li>
         {#<li class="breadcrumb-item active">Blank Page</li>#}
     </ol>
@@ -16,67 +19,47 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <h2>
-                        <i class="fa fa-users"></i>{{ 'users.list_title'|trans({},'label', 'fr') }}
-                        <a class="add-entity" href="{{ path('admin_user_create')}}" title="Ajouter"><i class="fa fa-plus-circle"></i>Ajouter</a>
+                        <i class="fa fa-users"></i>{{ 'notifications.list_title'|trans({},'label', 'fr') }}
+                        <a class="add-entity" href="{{ path('admin_notification_create')}}" title="Ajouter"><i class="fa fa-plus-circle"></i>Ajouter</a>
                     </h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                            {#<div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div id="dataTable_filter" class="dataTables_filter">
-                                        <label>Search:<input class="form-control form-control-sm" placeholder="" aria-controls="dataTable" type="search"></label>
-                                    </div>
-                                </div>
-                            </div>#}
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 250px;" aria-sort="ascending" aria-label="Nom">Nom</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 250px;" aria-label="Email">Email</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="Role">Role</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">Actions</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.name'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="description">{{ 'notifications.description'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% if(users|length > 0) %}
-                                            {% set nbApi = 0 %}
-                                            {% set nbAdmin = 0 %}
-                                            {% for  us in users %}
-                                                {% if(us.roles[0] == 'ROLE_USER') %}
-                                                    {% set nbApi = nbApi + 1 %}
-                                                {% elseif (us.roles[0] == 'ROLE_ADMIN') %}
-                                                    {% set nbAdmin = nbAdmin + 1 %}
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for  u in users %}
+                                        {% if(list|length > 0) %}
+                                            {% for  n in list %}
                                                 <tr role="row" class="odd">
-                                                    <td class="sorting_1 text-right">{{ u.id }}</td>
-                                                    <td>{% if u.firstname %}{{ u.firstname|capitalize }} {% endif %} {% if u.lastname %} {{ u.lastname|upper }} {% endif %}</td>
-                                                    <td>{{ u.email }}</td>
-                                                    <td class="text-center">{{ roles[u.roles[0]] }}</td>
+                                                    <td class="sorting_1 text-right">{{ n.id }}</td>
+                                                    <td>{{ n.name }}</td>
+                                                    <td>{{ n.description}}</td>
                                                     <td class="actions">
-                                                        <a href="{{ path('admin_user_edit',{'id':u.id}) }}"
+                                                        <a href="{{ path('admin_user_edit',{'id':n.id}) }}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        {% if((u.roles[0] == 'ROLE_USER' and nbApi > 1) or (u.roles[0] == 'ROLE_ADMIN' and nbAdmin > 1))  %}
-                                                            <a href="{{ path('admin_user_delete',{'id':u.id}) }}" class="delete" data-uid="{{ u.id }}"
-                                                               data-detail="{% if u.firstname %}{{ u.firstname|capitalize }} {% endif %} {% if u.lastname %} {{ u.lastname|upper }} {% endif %}"
+                                                            <a href="{{ path('admin_user_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
+                                                               data-detail="{{ n.name }}"
                                                                data-title ="Suppression d'un utilisateur"
-                                                               data-message = "Voulez vous supprimer l'utilisateur #{{ u.id }} "
+                                                               data-message = "Voulez vous supprimer l'utilisateur #{{ n.id }} "
                                                                title="{{ 'button.delete'|trans({},'label', 'fr') }}">
                                                                 <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
                                                             </a>
-                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                             {% endfor %}
                                         {% else %}
-                                            <tr role="row" class="odd">
-                                                <td colspan="5">Pas de données</td>
+                                            <tr role="row" class="odd ">
+                                                <td colspan="5" class="text-center ">Pas de données</td>
 
                                             </tr>
                                         {% endif %}

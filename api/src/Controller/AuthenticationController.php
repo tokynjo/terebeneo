@@ -41,17 +41,22 @@ class AuthenticationController extends Controller
         $userByName = $this->getDoctrine()->getRepository('App:User')->findOneBy(
             ['username' => $userName]
         );
-        $userByName = $userByName->hasRole('ROLE_USER') ? $userByName : null;
+
         $userByEmail = $this->getDoctrine()->getRepository('App:User')->findOneBy(
             ['email' => $userName]
         );
-        $userByEmail = $userByEmail->hasRole('ROLE_USER') ? $userByEmail : null;
 
         $user = ($userByEmail)?$userByEmail:$userByName;
         if (!$user) {
             $response->setCode(Response::HTTP_NOT_FOUND)
                 ->setMessage("user not found");
             return new JsonResponse($response, Response::HTTP_NOT_FOUND);
+        }
+
+        if(!$user->hasRole('ROLE_USER')) {
+            $response->setCode(Response::HTTP_FORBIDDEN)
+                ->setMessage("Pas de droit");
+            return new JsonResponse($response, Response::HTTP_FORBIDDEN);
         }
         $isValid = $this->get('security.password_encoder')
             ->isPasswordValid($user, $password);

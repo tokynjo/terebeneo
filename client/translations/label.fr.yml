@@ -12,6 +12,8 @@ common:
   no_data: Pas de données
   edition: Edition
   create: Création
+  table:
+    actions: Actions
 
 login:
   title: Neobe-TER
@@ -29,13 +31,19 @@ logout:
   logout_message: Voulez vous vraiment quitter cette session ?
 menu:
   dashboard: Tableau de bord
-  users: Utlilisateurs
+  users: Utilisateurs
   contents: Les contenus
+  notifications: Les notifications
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
   create_title: Ajout d'un utilisateur
-
+notifications:
+  list_title: Liste des notifications
+  edit_title: Edition d'un notification
+  create_title: Ajout d'un notification
+  name: Nom
+  description: Déscription
 
 
 

@@ -27,6 +27,7 @@ login:
   forgot_password: Mot de passe oublier
   reset_password: Réinitialiser mot de passe
   reset_message: Enter votre adresse email
+  403_error: Vous n'avez pas le droit pour accéder a cette page
 
 logout:
   logout: Déconnexion

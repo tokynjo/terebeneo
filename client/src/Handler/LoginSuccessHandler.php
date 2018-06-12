@@ -37,23 +37,25 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface {
 
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    {
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            //authorise ROLE_ADMIN admin only
             $response = new RedirectResponse($this->router->generate('admin_index'));
         } else {
+            //if NOT ROLE_ADMIN
             try {
-                die('sdfsdfs');
-                /*$this->request->getSession()->invalidate();
+                $this->request->getSession()->invalidate();
                 $this->tokenStorage->setToken(null);
-                $response = new RedirectResponse($this->router->generate('fos_user_security_login'));*/
-                $response = new RedirectResponse($this->router->generate('fos_user_security_logout'));
-die('sdfsdfs');
+                $this->request->getSession()
+                    ->getFlashBag()
+                    ->add(Security::ACCESS_DENIED_ERROR, 'login.403_error')
+                ;
+                $response = new RedirectResponse($this->router->generate('fos_user_security_login'));
             } catch (\Exception $e) {
                 return false;
             }
-
         }
-
         return $response;
     }
 

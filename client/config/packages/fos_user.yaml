@@ -5,7 +5,7 @@ fos_user:
     service:                               # this lines
         mailer: fos_user.mailer.twig_swift
     from_email:
-        address: "no-replay@gmail.com"
+        address: "no-replay@neobe-ter.com"
         sender_name: "No Reply"
     resetting:
         token_ttl: 43200

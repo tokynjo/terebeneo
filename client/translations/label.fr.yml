@@ -9,6 +9,7 @@ button:
   yes: Oui
   no: Non
   send: Envoyer
+  modify: Modifier
 common:
   no_data: Pas de données
   edition: Edition
@@ -40,11 +41,21 @@ menu:
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
+  edit_profil_title: Edition de mon profil
   create_title: Ajout d'un utilisateur
   firstname: Prénom
   lastname: Nom
   email: Email
   civility: Civilité
+  my_profil: Mon profil
+  role: Rôle
+  password:
+    password: Mot de passe
+    current: Mot de passe actuel
+    new: Nouvel mot de passe
+    confirm: Confirmation nouvel mot de passe
+    change: Modification mot de passe
+    modified_success: Votre mot de pass a été modifié avec succés
 notifications:
   list_title: Liste des notifications
   edit_title: Edition d'un notification
@@ -61,7 +72,9 @@ notifications:
     create_title: Ajout d'un message
     deletion_message_confirmation: Voulez vous supprimer le message
     deletion_title: Suppression d'un notification
-
+roles:
+  administrateur: Administrateur
+  api: Utilisateur API
 
 
 

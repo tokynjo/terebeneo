@@ -44,7 +44,7 @@ class Civility
     private $rank;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="civilite", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="civility", cascade={"persist"})
      */
     private $users;
 

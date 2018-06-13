@@ -12,3 +12,6 @@ parameters:
     secret: S3C83T!T043N.
 
     project_api_dir: C:\wamp64\www\projets\dropcloud\neobe-ter\neobe-ter\api
+
+    #send grid config
+    api_key_send_grid: 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

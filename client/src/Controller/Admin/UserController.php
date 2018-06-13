@@ -5,8 +5,12 @@ namespace App\Controller\Admin;
 use App\Entity\Constants\Constant;
 use App\Entity\User;
 use App\Form\Handler\UserHandler;
+use App\Form\Handler\UserPasswordHandler;
+use App\Form\Type\UserPasswordType;
 use App\Form\Type\UserType;
 use App\Manager\UserManager;
+use App\Services\Mailer;
+use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseNullableUserEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -87,7 +91,37 @@ class UserController extends BaseController
         if($formHandler->process()) {
             return $this->redirectToRoute('admin_user_index');
         }
-        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * edit user
+     * @Route("/user/edit/{id}/password", defaults={"_format"="html"}, methods={"GET","POST"}, name="user_edit_password")
+     * @param Request $request
+     * @return Response
+     */
+    public function editPasswordAction(Request $request)
+    {
+        $user = $this->get(UserManager::SERVICE_NAME)->find($request->get('id'));
+        $dispatcher = $this->get('event_dispatcher');
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_INITIALIZE, $event);
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+        $form = $this->createForm(UserPasswordType::class, $user,[]);
+        $formHandler = new UserPasswordHandler(
+            $form,
+            $request,
+            $this->getDoctrine()->getManager(),
+            $this->get('fos_user.user_manager'),
+            $this->get('event_dispatcher')
+        );
+        if($formHandler->process()) {
+            $this->get('session')->getFlashBag()->add('success', 'users.password.modified_success');
+            return $this->redirectToRoute('admin_user_edit',['id' => $user->getId()]);
+        }
+        return $this->render('admin/user/change-password.html.twig', ['form' => $form->createView(),'user' => $user]);
     }
 
     /**
@@ -178,11 +212,11 @@ class UserController extends BaseController
             $data = array();
             $sender = new User();
             $sender
-                ->setEmail($this->getParameter('no_reply_address'))
-                ->setNom($this->getParameter('no_reply_address'));
+                ->setEmail($this->getParameter('no_reply@neobe-ter.com'))
+                ->setNom($this->getParameter('no_reply'));
             $data['send_by'] = $sender;
             $sendTo = [$user->getEmail()];
-            $this->get('app.mailer')->sendMailGrid(
+            $this->get(Mailer::SERVICE_NAME)->sendMailGrid(
                 "Récupération de mot de passe",
                 $sendTo,
                 $rendered,

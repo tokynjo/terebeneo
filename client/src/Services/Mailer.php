@@ -12,6 +12,7 @@ use Psr\Container\ContainerInterface;
  */
 class Mailer
 {
+    const SERVICE_NAME = 'app.mailer';
     private $mailer;
     private $container;
 
@@ -134,7 +135,7 @@ class Mailer
         $data['personalizations'][] = $pres;
         $from = new \stdClass();
         $from->email = $user->getEmail();
-        $from->name = $user->getPrenom() . " " . $user->getNom();
+        $from->name = $user->getFirstname() . " " . $user->getLastname();
         $data['from'] = $from;
         $data['content'] = [];
         $content = new \stdClass();

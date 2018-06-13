@@ -12,6 +12,13 @@
                     {% if error %}
                         <div class="alert alert-danger alert-dismissable">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
+                    {% if app.session.flashBag.has('_security.403_error') %}
+                        <div class="alert alert-danger alert-dismissable">
+                            {% for msg in app.session.flashBag.get('_security.403_error') %}
+                                {{ msg|trans({},'label', 'fr') }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="form-group">
                         {#<label for="exampleInputEmail1">Email address</label>#}
                         <input class="form-control" id="username" name="_username" type="email" aria-describedby="emailHelp" placeholder="{{ 'login.mail'|trans({},'label', 'fr') }}">
@@ -23,7 +30,9 @@
                     <div class="form-group">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox">{{ 'login.remember_me'|trans({},'label', 'fr') }}</label>
+                                <input type="checkbox" id="remember_me" name="_remember_me" value="on" class="form-check-input" />
+                                {{ 'login.remember_me'|trans({},'label', 'fr') }}
+                            </label>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary btn-block" id="_submit" name="_submit"

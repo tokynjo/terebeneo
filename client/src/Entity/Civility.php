@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,11 @@ class Civility
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="civility", cascade={"persist"})
      */
     private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Account", mappedBy="civility", cascade={"persist"})
+     */
+    private $accounts;
 
     /**
      * Get id
@@ -139,7 +145,8 @@ class Civility
      */
     public function __construct()
     {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->accounts = new ArrayCollection();
     }
 
 }

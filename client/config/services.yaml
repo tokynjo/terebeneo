@@ -51,5 +51,9 @@ services:
         tags:
             - { name: kernel.event_listener, event: user.on.create, method: onCreateUser}
     app.authentication.login_success_handler:
-            class:  app\Handler\LoginSuccessHandler
-            arguments:  ['@router', '@security.authorization_checker', '@request_stack']
+        class:  app\Handler\LoginSuccessHandler
+        arguments:  ['@router', '@security.authorization_checker', '@request_stack']
+    app.header_footer_manager:
+        class: App\Manager\HeaderFooterManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\HeaderFooter']
+        public: true

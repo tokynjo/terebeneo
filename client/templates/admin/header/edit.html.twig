@@ -1,0 +1,130 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}Activation pack - Etape 1{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.contents'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_notification_index') }}">{{ 'menu.notifications'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2><i class="fa fa-users"></i>{{ 'notifications.edit_title'|trans({},'label', 'fr') }}</h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputName">{{ 'notifications.name'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputLastName">{{ 'notifications.description'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc text-left" colspan="4" style="width: 50px;" aria-sort="ascending" >{{ 'notifications.messages.list_title'|trans({},'label', 'fr') }} &nbsp;&nbsp;&nbsp;
+                                                <a class="add-entity" href="{{ path('admin_notification_message_create',{'notif_id':notification.id})}}" title="{{ 'button.add'|trans({},'label', 'fr') }}"><i class="fa fa-plus-circle"></i>{{ 'button.add'|trans({},'label', 'fr') }}</a></th>
+                                        </tr>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.type'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="description">{{ 'notifications.message'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% if(notification.notificationContents|length > 0) %}
+                                            {% for  nc in notification.notificationContents %}
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1 text-right">{{ nc.id }}</td>
+                                                    <td>{{ nc.type.name }}</td>
+                                                    <td>{{ nc.content|raw}}</td>
+                                                    <td class="actions">
+                                                        <a href="{{ path('admin_notification_message_edit',{'id':nc.id, 'notif_id':nc.notification.id}) }}"
+                                                           title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                        <a href="{{ path('admin_notification_message_delete',{'id':nc.id, 'notif_id':nc.notification.id }) }}" class="delete" data-uid="{{ nc.id }}"
+                                                           data-detail="{{ nc.id }}"
+                                                           data-title ="{{ 'notifications.messages.deletion_title'|trans({},'label', 'fr') }}"
+                                                           data-message = "{{ 'notifications.messages.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ nc.id }} "
+                                                           title="{{ 'button.delete'|trans({},'label', 'fr') }}">
+                                                            <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr role="row" class="odd ">
+                                                <td colspan="5" class="text-center ">Pas de données</td>
+
+                                            </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            {#<div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 51 to 57 of 57 entries</div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        <ul class="pagination"><li class="paginate_button page-item previous" id="dataTable_previous">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                            <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                            <li class="paginate_button page-item next disabled" id="dataTable_next"><a href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

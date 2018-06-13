@@ -35,6 +35,11 @@ class NotificationType
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\NotificationContent", mappedBy="type", cascade={"persist"})
+     */
+    private $notificationContents;
+
 
     /**
      * Constructor

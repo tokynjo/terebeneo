@@ -38,6 +38,7 @@ menu:
   users: Utilisateurs
   contents: Les contenus
   notifications: Les notifications
+  header_footer: Header & footer
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
@@ -75,6 +76,10 @@ notifications:
 roles:
   administrateur: Administrateur
   api: Utilisateur API
+
+headers:
+  list_title: Liste des headers
+  edit_title: Edition d'un header
 
 
 

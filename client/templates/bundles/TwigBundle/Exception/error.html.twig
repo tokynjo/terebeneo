@@ -1,0 +1,19 @@
+{% extends 'admin/login-layout.html.twig' %}
+{% block title %}{{ 'login.title'|trans({},'label', 'fr') }} - {{ 'login.login'|trans({},'label', 'fr') }}{% endblock %}
+{% block body%}
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header"><img src="{{ asset('/admin/img/logo-neobe.jpg') }}" alt="logo" title="logo"></div>
+            <div class="card-body">
+                <h1>Oops! An Error Occurred</h1>
+                <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+
+                <div>
+                    Something is broken. Please let us know what you were doing when this error occurred.
+                    We will fix it as soon as possible. Sorry for any inconvenience caused.
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

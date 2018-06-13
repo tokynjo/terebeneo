@@ -1,0 +1,15 @@
+{% extends 'admin/login-layout.html.twig' %}
+{% block title %}{{ 'login.title'|trans({},'label', 'fr') }} - {{ 'login.login'|trans({},'label', 'fr') }}{% endblock %}
+{% block body%}
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header"><img src="{{ asset('/admin/img/logo-neobe.jpg') }}" alt="logo" title="logo"></div>
+            <div class="card-body">
+
+                    HTTP {{ status_code }} : <small>{{ status_text }}</small>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

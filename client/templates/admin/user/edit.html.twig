@@ -9,52 +9,70 @@
         <li class="breadcrumb-item">
             <i class="fa fa-fw fa-chevron-right"></i><a href="{{ path('admin_user_index') }}">{{ 'menu.users'|trans({},'label', 'fr') }}</a>
         </li>
-        <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+        {% if(user.id == app.user.id) %}
+            <li class="breadcrumb-item active">{{ 'users.my_profil'|trans({},'label', 'fr') }}</li>
+        {% else %}
+            <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+        {% endif %}
     </ol>
     <div class="row">
         <div class="col-12">
+            {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success alert-dismissable">
+                {% for msg in app.session.flashBag.get('success') %}
+                    <i class="fa fa-check "></i> {{ msg|trans({},'label', 'fr') }}
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="card mb-3">
                 <div class="card-header">
-                    <h2><i class="fa fa-users"></i>{{ 'users.edit_title'|trans({},'label', 'fr') }}</h2>
+                    <h2>
+                        {% if(user.id == app.user.id) %}
+                            <i class="fa fa-users"></i>{{ 'users.edit_profil_title'|trans({},'label', 'fr') }}
+                        {% else %}
+                            <i class="fa fa-users"></i>{{ 'users.edit_title'|trans({},'label', 'fr') }}
+                        {% endif %}
+                    </h2>
                 </div>
                 <div class="card-body">
                     {{ form_start(form, {'attr': {'class': 'form-control no-border'}}) }}
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputName">Civilité</label>
+                                <div class="col-md-7">
+                                    <label for="user_civility">{{ 'users.civility'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.civility, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputName">First name</label>
-                                    {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputLastName">Last name</label>
+                                <div class="col-md-7">
+                                    <label for="user_lastname">{{ 'users.lastname'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputLastName">Email</label>
+                                <div class="col-md-7">
+                                    <label for="user_firstname">{{ 'users.firstname'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-7">
+                                    <label for="user_email">{{ 'users.email'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="exampleInputLastName">Role</label>
+                                <div class="col-md-7">
+                                    <label for="user_roles">{{ 'users.role'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.roles, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
@@ -79,9 +97,11 @@
                                 <div class="col-md-2">
                                     <a href="{{ path('admin_user_index') }}" class="btn btn-secondary" title="Annuler">Annuler</a>
                                 </div>
-                                {#<div class="col-md-2">
-                                    <a href="{{ path('admin_user_password_edit') }}" class="btn btn-secondary" title="Changer mot de passe">Changer mot de passe</a>
-                                </div>#}
+                                {% if(user.id == app.user.id) %}
+                                    <div class="col-md-3">
+                                        <a href="{{ path('admin_user_edit_password',{'id':app.user.id}) }}" class="btn btn-secondary btn-block" title="Changer mot de passe">Changer mot de passe</a>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
 

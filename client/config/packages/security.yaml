@@ -24,7 +24,8 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: /admin/
                 check_path: fos_user_security_check
-#                success_handler: app.authentication.login_success_handler
+                login_path: fos_user_security_login
+                success_handler: app.authentication.login_success_handler
             logout:
               path: /admin/logout
               target: fos_user_security_login
@@ -40,9 +41,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/etape(.*), role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user/resetting/send-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user/resetting/success, role: IS_AUTHENTICATED_ANONYMOUSLY }

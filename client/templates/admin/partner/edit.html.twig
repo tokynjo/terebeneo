@@ -1,0 +1,99 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}
+    {% if(partner) %}
+        {{ 'partners.edit_title'|trans({},'label', 'fr') }}
+    {% else  %}
+        {{ 'partners.create_title'|trans({},'label', 'fr') }}
+    {% endif %}
+{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_partner_index') }}"><i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.partners'|trans({},'label', 'fr') }} </a>
+        </li>
+        {% if(partner) %}
+            <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+        {% else  %}
+            <li class="breadcrumb-item active">{{ 'common.create'|trans({},'label', 'fr') }}</li>
+        {% endif %}
+
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2><i class="fa fa-users"></i>
+                        {% if(partner) %}
+                            {{ 'partners.edit_title'|trans({},'label', 'fr') }}
+                        {% else  %}
+                            {{ 'partners.create_title'|trans({},'label', 'fr') }}
+                        {% endif %}
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_name">{{ 'partners.name'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.city, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_country">{{ 'partners.country'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.country, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

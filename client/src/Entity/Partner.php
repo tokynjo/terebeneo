@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,55 +32,55 @@ class Partner
     /**
      * @var string
      *
-     * @ORM\Column(name="address1", type="string", length=250)
+     * @ORM\Column(name="address1", type="string", length=250, nullable=true)
      */
     private $address1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address2", type="string", length=250)
+     * @ORM\Column(name="address2", type="string", length=250, nullable=true)
      */
     private $address2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=250)
+     * @ORM\Column(name="city", type="string", length=250, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=250)
+     * @ORM\Column(name="country", type="string", length=250, nullable=true)
      */
     private $country;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="source", type="string", length=250)
+     * @ORM\Column(name="source", type="string", length=250, nullable=true)
      */
     private $source;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="category", type="integer", length=2)
+     * @ORM\Column(name="category", type="integer", length=2, nullable=true)
      */
     private $category;
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="integer", length=2)
+     * @ORM\Column(name="type", type="integer", length=2, nullable=true)
      */
     private $type;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="integer", length=10)
+     * @ORM\Column(name="status", type="integer", length=10, nullable=true)
      */
     private $status;
 

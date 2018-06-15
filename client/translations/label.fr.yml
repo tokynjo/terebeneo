@@ -39,6 +39,7 @@ menu:
   contents: Les contenus
   notifications: Les notifications
   header_footer: Header & footer
+  partners: Partenaires
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
@@ -80,6 +81,20 @@ roles:
 headers:
   list_title: Liste des headers
   edit_title: Edition d'un header
+  header: Header
+  partner: Partenaire
+
+partners:
+  list_title: Liste des partenaires
+  edit_title: Edition d'un partenaire
+  create_title: Ajout d'un partenaire
+  name: Nom
+  address1: Adresse 1
+  address2: Adresse 2
+  city: Ville
+  country: Pays
+  deletion_message_confirmation: Voulez vous supprimer le partenaire
+  deletion_title: Suppression d'un partenaire
 
 
 

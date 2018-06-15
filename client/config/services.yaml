@@ -57,3 +57,7 @@ services:
         class: App\Manager\HeaderFooterManager
         arguments: ['@doctrine.orm.entity_manager', 'App\Entity\HeaderFooter']
         public: true
+    app.partner_manager:
+        class: App\Manager\PartnerManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner']
+        public: true

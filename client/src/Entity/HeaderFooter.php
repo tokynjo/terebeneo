@@ -42,6 +42,13 @@ class HeaderFooter
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="deleted", type="integer", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @var integer
      * @ORM\Column(name="isDeleted", type="integer", length=2, options={"default":0},nullable=false)
      */
     private $isDeleted;

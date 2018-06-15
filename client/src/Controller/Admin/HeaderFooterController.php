@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\HeaderFooter;
 use App\Entity\Notification;
 use App\Entity\NotificationContent;
 use App\Entity\User;
@@ -36,21 +37,21 @@ class HeaderFooterController extends BaseController
      */
     public function listAction(Request $request)
     {
-        $headers = $this->get(HeaderFooterManager::SERVICE_NAME)->findAll();
+        $headers = $this->get(HeaderFooterManager::SERVICE_NAME)->getHeaderFooterActive();
         return $this->render('admin/header/list.html.twig', ['list' => $headers]);
     }
 
     /**
      * create notification
      *
-     * @Route("/notification/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_create")
+     * @Route("/notification/header/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_header_create")
      * @param Request $request
      * @return Response
      */
     public function addAction(Request $request)
     {
-        $notification = new Notification();
-        $form = $this->createForm(NotificationType::class, $notification);
+        $notification = new HeaderFooter();
+        $form = $this->createForm(HeaderFooterType::class, $notification);
         $formHandler = new NotificationHandler(
             $form,
             $request,
@@ -59,7 +60,7 @@ class HeaderFooterController extends BaseController
         if ($formHandler->process()) {
             return $this->redirectToRoute('admin_notification_index');
         }
-        return $this->render('admin/notification/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/header/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**

@@ -96,6 +96,11 @@ partners:
   deletion_message_confirmation: Voulez vous supprimer le partenaire
   deletion_title: Suppression d'un partenaire
 
+accounts:
+  name: Nom
+  mail: Email
+  list_title: Liste des comptes NEOBE
+
 
 
 

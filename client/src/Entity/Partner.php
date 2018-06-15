@@ -311,4 +311,37 @@ class Partner
         $this->type = $type;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAccounts()
+    {
+        return $this->accounts;
+    }
+
+    /**
+     * @param mixed $accounts
+     */
+    public function setAccounts($accounts)
+    {
+        $this->accounts = $accounts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeadersFooters()
+    {
+        return $this->headersFooters;
+    }
+
+    /**
+     * @param mixed $headersFooters
+     */
+    public function setHeadersFooters($headersFooters)
+    {
+        $this->headersFooters = $headersFooters;
+    }
+
 }

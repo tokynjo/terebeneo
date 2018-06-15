@@ -45,6 +45,22 @@
                                     <label for="notification_content_content">{{ 'notifications.message'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.content, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+                                <div class="col-md-2">
+                                    <label>&nbsp;</label>
+                                    <div class="card-header">
+                                        <h2>Les variables</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li class="content-var" data-value="nom_du_societe">Nom du Société</li>
+                                            <li class="content-var"data-value="civilite">Civilité</li>
+                                            <li class="content-var" data-value="nom">Nom</li>
+                                            <li class="content-var" data-value="prenom">Prénom</li>
+                                            <li class="content-var" data-value="nb_license">Nombre de license </li>
+                                            <li class="content-var" data-value="volume_totale">Volume totale</li>
+                                        </ul>
+                                        </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -76,7 +92,9 @@
                 }
             }
         });
-
+        $(document).on('click', '.content-var', function(e){
+            editorContent.insertText('__' + $(this).attr('data-value') + '__');
+        });
     </script>
 
 {% endblock %}

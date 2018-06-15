@@ -5,8 +5,10 @@ use App\Entity\HeaderFooter;
 use App\Entity\Notification;
 use App\Entity\NotificationContent;
 use App\Entity\User;
+use App\Form\Handler\HeaderFooterHandler;
 use App\Form\Handler\NotificationContentHandler;
 use App\Form\Handler\NotificationHandler;
+use App\Form\Type\HeaderFooterType;
 use App\Form\Type\NotificationContentType;
 use App\Form\Type\NotificationType;
 use App\Manager\HeaderFooterManager;
@@ -31,7 +33,7 @@ class HeaderFooterController extends BaseController
     /**
      * User list
      *
-     * @Route("/notification/header", defaults={"_format"="html"}, methods={"GET"}, name="notification_header_index")
+     * @Route("/notification/header", defaults={"_format"="html"}, methods={"GET"}, name="notificationheader_index")
      * @param Request $request
      * @return Response
      */
@@ -42,74 +44,38 @@ class HeaderFooterController extends BaseController
     }
 
     /**
-     * create notification
+     * create or edit header
      *
-     * @Route("/notification/header/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_header_create")
-     * @param Request $request
-     * @return Response
-     */
-    public function addAction(Request $request)
-    {
-        $notification = new HeaderFooter();
-        $form = $this->createForm(HeaderFooterType::class, $notification);
-        $formHandler = new NotificationHandler(
-            $form,
-            $request,
-            $this->get('app.notification_manager')
-        );
-        if ($formHandler->process()) {
-            return $this->redirectToRoute('admin_notification_index');
-        }
-        return $this->render('admin/header/create.html.twig', ['form' => $form->createView()]);
-    }
-
-    /**
-     * edit notification
-     * @Route("/notification/edit/{id}", defaults={"_format"="html"}, methods={"GET","POST"}, name="notification_edit")
+     * @Route("/notification/header/create", defaults={"_format"="html"}, methods={"GET","POST"}, name="notificationheader_create")
+     * @Route("/notification/header/edit/{id}", defaults={"_format"="html"}, methods={"GET","POST"}, name="notificationheader_edit")
      * @param Request $request
      * @return Response
      */
     public function editAction(Request $request)
     {
-        $notification = $this->get(NotificationManager::SERVICE_NAME)->find($request->get('id'));
-        $form = $this->createForm(
-            NotificationType::class,
-            $notification,
-            [
-                'action' => $this->generateUrl('admin_notification_edit', ['id' => $request->get('id')])
-            ]
-        );
-        $formHandler = new NotificationHandler(
-            $form,
-            $request,
-            $this->get('app.notification_manager')
-        );
+        $header = $this->get(HeaderFooterManager::SERVICE_NAME)->find($request->get('id'));
+        $form = $this->createForm(HeaderFooterType::class, $header);
+        $formHandler = new HeaderFooterHandler($form, $request, $this->get('app.header_footer_manager'), $this->get('event_dispatcher'));
         if ($formHandler->process()) {
-            return $this->redirectToRoute('admin_notification_index');
+            return $this->redirectToRoute('admin_notificationheader_index');
         }
-        return $this->render(
-            'admin/notification/edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'notification' => $notification
-            ]
-        );
+
+        return $this->render('admin/header/edit.html.twig', ['form' => $form->createView(), 'header' => $header]);
     }
 
     /**
-     * delete notification
+     * delete header
      *
-     * @Route("/notification/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="notification_delete")
+     * @Route("/notification/header/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="notificationheader_delete")
      * @param Request $request
      * @return Response
      */
     public function deleteAction(Request $request)
     {
-        $id = $request->get('id');
-        $entityManager = $this->getDoctrine()->getManager();
-        if ($notification = $entityManager->getRepository("App:Notification")->find($id)) {
-            $this->get(NotificationManager::SERVICE_NAME)->delete($notification);
-            return $this->redirectToRoute('admin_notification_index');
+        $header = $this->get(HeaderFooterManager::SERVICE_NAME)->find($request->get('id'));
+        if ($header) {
+            $this->get(HeaderFooterManager::SERVICE_NAME)->delete($header);
+            return $this->redirectToRoute('admin_notificationheader_index');
         } else {
             throw $this->createNotFoundException(
                 $this->get('translator')->trans('page.content_not_found', ['%id%' => $id], 'label', 'fr')

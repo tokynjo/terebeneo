@@ -13,15 +13,15 @@ class HeaderFooterType extends AbstractType
     {
         $builder
             ->add('header')
-            ->add(
-                'partner',
-                ChoiceType::class,
-                [
-                    'choices' => ['Administrateur' => 'ROLE_ADMIN', 'API'=>'ROLE_USER' ],
-                    'expanded' => false,
-                    'multiple' => true,
-                ]
-            );
+            ->add('partner', EntityType::class, array(
+                'class' => 'App:Partner',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->where('p.deleted <> 1')
+                        ->orderBy('p.name', 'ASC');
+                },
+                'choice_label' => 'name',
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

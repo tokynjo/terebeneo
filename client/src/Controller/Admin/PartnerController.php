@@ -40,8 +40,7 @@ class PartnerController extends BaseController
     public function editAction(Request $request)
     {
         $partner = $this->get(PartnerManager::SERVICE_NAME)->find($request->get('id'));
-        $form = $this->createForm(PartnerType::class, $partner, []
-        );
+        $form = $this->createForm(PartnerType::class, $partner, []);
         $formHandler = new PartnerHandler($form, $request, $this->get('app.partner_manager'), $this->get('event_dispatcher'));
         if ($formHandler->process()) {
             return $this->redirectToRoute('admin_partner_index');

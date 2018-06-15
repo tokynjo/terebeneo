@@ -81,10 +81,15 @@ roles:
 headers:
   list_title: Liste des headers
   edit_title: Edition d'un header
+  create_title: Ajout d'un header
   header: Header
+  header_footer: Header & footer
   partner: Partenaire
+  deletion_message_confirmation: Voulez vous supprimer le header
+  deletion_title: Suppression d'un header
 
 partners:
+  partner: Partenaire/Client
   list_title: Liste des partenaires
   edit_title: Edition d'un partenaire
   create_title: Ajout d'un partenaire

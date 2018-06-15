@@ -49,7 +49,7 @@
                     <i class="fa fa-fw fa-cogs"></i>
                     <span class="nav-link-text">{{ 'menu.contents'|trans({},'label', 'fr') }}</span>
                 </a>
-                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_notification_' %}show {% endif %}" id="collapseMulti">
+                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_notification_' or current_route starts with 'admin_notificationh' %}show {% endif %}" id="collapseMulti">
                     <li class="nav-item nav-link-text {% if current_route starts with 'admin_notification_' %}active{% endif %}" title="{{ 'menu.notifications'|trans({},'label', 'fr') }}">
                         <a href="{{ path('admin_notification_index') }}" class="nav-link-text">
                             <span class="nav-link-text">

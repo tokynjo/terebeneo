@@ -198,3 +198,4 @@ label {
 .alert {border-radius: 0rem;}
 .alert-success {color: #007bff;}
 .content-var{cursor: pointer}
+ul.list-content-var {padding-left: 1.2rem}

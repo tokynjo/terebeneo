@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Form\Handler;
 
 use App\Entity\Constants\Constant;
-use App\Event\UserEvent;
+use App\Event\PartnerEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
@@ -17,18 +16,16 @@ class PartnerHandler
     protected $dispatcher;
 
     /**
-     * UserHandler constructor.
      * @param Form $form
      * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param null $fosUserManager
+     * @param $partnerManager
      * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         Form $form,
         Request $request,
         $partnerManager,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher = null
     ){
         $this->form = $form;
         $this->request = $request;
@@ -41,13 +38,28 @@ class PartnerHandler
      */
     public function process()
     {
+        $em = $this->partnerManager->getEntityManager();
         $this->form->handleRequest($this->request);
         if ($this->form->isSubmitted() && $this->form->isValid()) {
-            $data = $this->form->getData();
-            $data->setDeleted(Constant::NO);
-            $this->partnerManager->saveAndFlush($data);
-
-            return true;
+            $em->getConnection()->beginTransaction();
+            try {
+                $data = $this->form->getData();
+                $data->setDeleted(Constant::NO);
+                if(!$data->getId()){
+                    //hash
+                    $data->setHash(sha1(date('Ymdhis')));
+                    $this->partnerManager->saveAndFlush($data);
+                    //creating user api
+                    $partnerEvent = new PartnerEvent($data);
+                    $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_CREATE, $partnerEvent);
+                }
+                $em->commit();
+                return true;
+            } catch (\Exception $e) {
+                $em->getConnection()->rollback();
+                $em->close();
+                return false;
+            }
         }
         return false;
     }

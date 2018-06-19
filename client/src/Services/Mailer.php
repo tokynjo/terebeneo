@@ -148,6 +148,7 @@ class Mailer
             'Accept' => 'application/json',
             "Authorization" => "Bearer " . $container->getParameter('api_key_send_grid')
         ];
+        \Unirest\Request::verifyPeer(false);
         $response = \Unirest\Request::post('https://api.sendgrid.com/v3/mail/send', $headers, $body);
         $response->code;
         $response->headers;

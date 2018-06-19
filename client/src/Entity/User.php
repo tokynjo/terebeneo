@@ -6,6 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
@@ -61,14 +62,14 @@ class User extends BaseUser
     /**
      * @var \Datetime
      * @ORM\Column(name="created_at" ,type="datetime", nullable=true)
-
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @var \Datetime
      * @ORM\Column(name="updated_at" ,type="datetime", nullable=true)
-
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -85,6 +86,149 @@ class User extends BaseUser
      * @ORM\Column(name="deleted", type="integer", length=2, nullable=true)
      */
     private $deleted;
+
+    /**
+     * @return string
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param $deleted
+     * @return $this
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param $firstname
+     * @return $this
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param $lastname
+     * @return $this
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * @param $mobile
+     * @return $this
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param $phone
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return \Datetime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserApi()
+    {
+        return $this->userApi;
+    }
+
+    /**
+     * @param $userApi
+     * @return $this
+     */
+    public function setUserApi($userApi)
+    {
+        $this->userApi = $userApi;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
     /**
      * @return mixed
@@ -107,149 +251,19 @@ class User extends BaseUser
     /**
      * @return \Datetime
      */
-    public function getCreatedAt(): \Datetime
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
     /**
      * @param \Datetime $createdAt
+     * @return $this*
      */
     public function setCreatedAt(\Datetime $createdAt)
     {
         $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string $firstname
-     */
-    public function setFirstname(string $firstname)
-    {
-        $this->firstname = $firstname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param string $lastname
-     */
-    public function setLastname(string $lastname)
-    {
-        $this->lastname = $lastname;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMobile()
-    {
-        return $this->mobile;
-    }
-
-    /**
-     * @param string $mobile
-     */
-    public function setMobile(string $mobile)
-    {
-        $this->mobile = $mobile;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone(string $phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return \Datetime
-     */
-    public function getUpdatedAt(): \Datetime
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \Datetime $updatedAt
-     */
-    public function setUpdatedAt(\Datetime $updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserApi()
-    {
-        return $this->userApi;
-    }
-
-    /**
-     * @param string $userApi
-     */
-    public function setUserApi(string $userApi): User
-    {
-        $this->userApi = $userApi;
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getDeleted()
-    {
-        return $this->deleted;
-    }
-
-    /**
-     * @param string $deleted
-     * @return User
-     */
-    public function setDeleted(string $deleted): User
-    {
-        $this->deleted = $deleted;
-        return $this;
-    }
-
 
 }

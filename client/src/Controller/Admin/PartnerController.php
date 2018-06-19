@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Form\Handler\PartnerHandler;
 use App\Form\Type\PartnerType;
 use App\Manager\PartnerManager;
+use App\Services\PasswordEncoder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

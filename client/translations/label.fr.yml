@@ -98,6 +98,12 @@ partners:
   address2: Adresse 2
   city: Ville
   country: Pays
+  zipcode: Code postal
+  civility: Civilité
+  firstname: Prénom
+  lastname: Nom
+  mail: Email
+  phone: Téléphone
   deletion_message_confirmation: Voulez vous supprimer le partenaire
   deletion_title: Suppression d'un partenaire
 

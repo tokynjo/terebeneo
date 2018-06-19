@@ -42,6 +42,10 @@
                                     <label for="partner_name">{{ 'partners.name'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="partner_civility">{{ 'partners.civility'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.civility, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -49,6 +53,10 @@
                                 <div class="col-md-6">
                                     <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_lastname">{{ 'partners.lastname'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
                         </div>
@@ -58,6 +66,10 @@
                                     <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="partner_firstname">{{ 'partners.firstname'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -65,6 +77,22 @@
                                 <div class="col-md-6">
                                     <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.city, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_mail">{{ 'partners.mail'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.mail, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_zipcode">{{ 'partners.zipcode'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.zipcode, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_phone">{{ 'partners.phone'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.phone, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
                         </div>
@@ -104,8 +132,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% if(partner.accounts|length > 0) %}
-                                            {% for  a in partner.accounts %}
+                                        {% if(partner.children|length > 0) %}
+                                            {% for  a in partner.children %}
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1 text-right">{{ a.id }}</td>
                                                     <td>{{ a.firstname }}{{ a.lastname }}</td>

@@ -17,7 +17,22 @@ class PartnerType extends AbstractType
             ->add('address1')
             ->add('address2')
             ->add('city')
-            ->add('country');
+            ->add('zipcode')
+            ->add('country')
+            ->add('lastname')
+            ->add('civility', EntityType::class, array(
+                'class' => 'App:Civility',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.rank', 'ASC');
+                },
+                'choice_label' => 'longLabel',
+                'expanded' => false,
+                'multiple' => false
+            ))
+            ->add('mail')
+            ->add('phone')
+            ->add('firstname');
     }
 
     public function configureOptions(OptionsResolver $resolver)

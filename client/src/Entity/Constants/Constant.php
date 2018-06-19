@@ -13,7 +13,10 @@ class Constant
     const STATUS_DISABLED = 2;
     const STATUS_DELETED = 3;
 
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_USER = 'ROLE_USER';
 
+    const PASSWORD_LENGTH = 8;
 
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
 }

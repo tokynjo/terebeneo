@@ -1,0 +1,175 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}
+    {% if(partner) %}
+        {{ 'partners.edit_title'|trans({},'label', 'fr') }}
+    {% else  %}
+        {{ 'partners.create_title'|trans({},'label', 'fr') }}
+    {% endif %}
+{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_partner_index') }}"><i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.partners'|trans({},'label', 'fr') }} </a>
+        </li>
+        {% if(partner) %}
+            <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+        {% else  %}
+            <li class="breadcrumb-item active">{{ 'common.create'|trans({},'label', 'fr') }}</li>
+        {% endif %}
+
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2><i class="fa fa-users"></i>
+                        {% if(partner) %}
+                            {{ 'partners.edit_title'|trans({},'label', 'fr') }}
+                        {% else  %}
+                            {{ 'partners.create_title'|trans({},'label', 'fr') }}
+                        {% endif %}
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_name">{{ 'partners.name'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_civility">{{ 'partners.civility'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.civility, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_lastname">{{ 'partners.lastname'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_firstname">{{ 'partners.firstname'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.city, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_mail">{{ 'partners.mail'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.mail, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_zipcode">{{ 'partners.zipcode'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.zipcode, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_phone">{{ 'partners.phone'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.phone, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="partner_country">{{ 'partners.country'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.country, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+                {% if(partner) %}
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc text-left" colspan="4" style="width: 50px;" aria-sort="ascending" >{{ 'accounts.list_title'|trans({},'label', 'fr') }}</th>
+                                        </tr>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'accounts.name'|trans({},'label', 'fr') }}">{{ 'accounts.name'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="{{ 'account.mail'|trans({},'label', 'fr') }}">{{ 'accounts.mail'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% if(partner.children|length > 0) %}
+                                            {% for  a in partner.children %}
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1 text-right">{{ a.id }}</td>
+                                                    <td>{{ a.firstname }}{{ a.lastname }}</td>
+                                                    <td>{{ a.mail }}</td>
+                                                    <td class="actions">
+                                                        <a href="{{ path('admin_notification_message_edit',{'id':a.id, 'notif_id':a.notification.id}) }}"
+                                                           title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                        <a href="{{ path('admin_notification_message_delete',{'id':a.id, 'notif_id':a.notification.id }) }}" class="delete" data-uid="{{ a.id }}"
+                                                           data-detail="{{ a.id }}"
+                                                           data-title ="{{ 'notifications.messages.deletion_title'|trans({},'label', 'fr') }}"
+                                                           data-message = "{{ 'notifications.messages.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ a.id }} "
+                                                           title="{{ 'button.delete'|trans({},'label', 'fr') }}">
+                                                            <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr role="row" class="odd ">
+                                                <td colspan="5" class="text-center ">{{ 'common.no_data'|trans({},'label', 'fr') }}</td>
+
+                                            </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

@@ -197,3 +197,5 @@ label {
 .actions {padding-left: 1.5rem!important;}
 .alert {border-radius: 0rem;}
 .alert-success {color: #007bff;}
+.content-var{cursor: pointer}
+ul.list-content-var {padding-left: 1.2rem}

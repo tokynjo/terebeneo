@@ -33,7 +33,7 @@ class UserEvent extends Event
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
     }
@@ -42,7 +42,7 @@ class UserEvent extends Event
      * @param User $user
      * @return UserEvent
      */
-    public function setUser(User $user): UserEvent
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;

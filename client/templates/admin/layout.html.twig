@@ -38,12 +38,18 @@
                     <span class="nav-link-text">{{ 'menu.dashboard'|trans({},'label', 'fr') }}</span>
                 </a>
             </li>
+            <li class="nav-item {% if current_route starts with 'admin_partner' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="{{ 'menu.partners'|trans({},'label', 'fr') }}">
+                <a class="nav-link" href="{{ path('admin_partner_index') }}">
+                    <i class="fa fa-fw fa-user-secret"></i>
+                    <span class="nav-link-text">{{ 'menu.partners'|trans({},'label', 'fr') }}</span>
+                </a>
+            </li>
             <li class="nav-item {% if current_route starts with 'admin_notif' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="{{ 'menu.contents'|trans({},'label', 'fr') }}">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-cogs"></i>
                     <span class="nav-link-text">{{ 'menu.contents'|trans({},'label', 'fr') }}</span>
                 </a>
-                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_notification_' %}show {% endif %}" id="collapseMulti">
+                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_notification_' or current_route starts with 'admin_notificationh' %}show {% endif %}" id="collapseMulti">
                     <li class="nav-item nav-link-text {% if current_route starts with 'admin_notification_' %}active{% endif %}" title="{{ 'menu.notifications'|trans({},'label', 'fr') }}">
                         <a href="{{ path('admin_notification_index') }}" class="nav-link-text">
                             <span class="nav-link-text">
@@ -51,8 +57,8 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item nav-link-text {% if current_route starts with 'admin_notification_header' %}active{% endif %}" title="{{ 'menu.header_footer'|trans({},'label', 'fr') }}">
-                        <a href="{{ path('admin_notification_header_index') }}" class="nav-link-text"><span class="nav-link-text">{{ 'menu.header_footer'|trans({},'label', 'fr') }}</span></a>
+                    <li class="nav-item nav-link-text {% if current_route starts with 'admin_notificationheader' %}active{% endif %}" title="{{ 'menu.header_footer'|trans({},'label', 'fr') }}">
+                        <a href="{{ path('admin_notificationheader_index') }}" class="nav-link-text"><span class="nav-link-text">{{ 'menu.header_footer'|trans({},'label', 'fr') }}</span></a>
                     </li>
                     {#<li class="nav-item nav-link-text" title="CGV">
                         <a href="#" class="nav-link-text"><span class="nav-link-text">CGV</span></a>

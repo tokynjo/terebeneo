@@ -7,7 +7,7 @@
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <i class="fa fa-fw fa-chevron-right"></i><a href="index.html">{{ 'menu.users'|trans({},'label', 'fr') }}</a>
+            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.users'|trans({},'label', 'fr') }}
         </li>
         {#<li class="breadcrumb-item active">Blank Page</li>#}
     </ol>
@@ -15,7 +15,10 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h2><i class="fa fa-users"></i>{{ 'users.list_title'|trans({},'label', 'fr') }}</h2>
+                    <h2>
+                        <i class="fa fa-users"></i>{{ 'users.list_title'|trans({},'label', 'fr') }}
+                        <a class="add-entity" href="{{ path('admin_user_create')}}" title="Ajouter"><i class="fa fa-plus-circle"></i>Ajouter</a>
+                    </h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -41,19 +44,33 @@
                                         </thead>
                                         <tbody>
                                         {% if(users|length > 0) %}
+                                            {% set nbApi = 0 %}
+                                            {% set nbAdmin = 0 %}
+                                            {% for  us in users %}
+                                                {% if(us.roles[0] == 'ROLE_USER') %}
+                                                    {% set nbApi = nbApi + 1 %}
+                                                {% elseif (us.roles[0] == 'ROLE_ADMIN') %}
+                                                    {% set nbAdmin = nbAdmin + 1 %}
+                                                {% endif %}
+                                            {% endfor %}
                                             {% for  u in users %}
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1 text-right">{{ u.id }}</td>
                                                     <td>{% if u.firstname %}{{ u.firstname|capitalize }} {% endif %} {% if u.lastname %} {{ u.lastname|upper }} {% endif %}</td>
                                                     <td>{{ u.email }}</td>
-                                                    <td class="text-center">{{ u.roles[0] }}</td>
-                                                    <td class="text-center actions">
+                                                    <td class="text-center">{{ roles[u.roles[0]] }}</td>
+                                                    <td class="actions">
                                                         <a href="{{ path('admin_user_edit',{'id':u.id}) }}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        <a href="#" class="delete" data-uid="{{ u.id }}"
-                                                           data-detail="{% if u.firstname %}{{ u.firstname|capitalize }} {% endif %} {% if u.lastname %} {{ u.lastname|upper }} {% endif %}" title="{{ 'button.delete'|trans({},'label', 'fr') }}">
-                                                            <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
-                                                        </a>
+                                                        {% if((u.roles[0] == 'ROLE_USER' and nbApi > 1) or (u.roles[0] == 'ROLE_ADMIN' and nbAdmin > 1))  %}
+                                                            <a href="{{ path('admin_user_delete',{'id':u.id}) }}" class="delete" data-uid="{{ u.id }}"
+                                                               data-detail="{% if u.firstname %}{{ u.firstname|capitalize }} {% endif %} {% if u.lastname %} {{ u.lastname|upper }} {% endif %}"
+                                                               data-title ="Suppression d'un utilisateur"
+                                                               data-message = "Voulez vous supprimer l'utilisateur #{{ u.id }} "
+                                                               title="{{ 'button.delete'|trans({},'label', 'fr') }}">
+                                                                <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
+                                                            </a>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                             {% endfor %}

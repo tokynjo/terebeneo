@@ -1,5 +1,6 @@
 page:
   not_found: Page non trouvée
+  content_not_found: Contenu non trouvé
 button:
   delete: Supprimer
   add: Ajouter
@@ -7,9 +8,15 @@ button:
   cancel: Annuler
   yes: Oui
   no: Non
+  send: Envoyer
+  modify: Modifier
 common:
   no_data: Pas de données
   edition: Edition
+  create: Création
+  table:
+    actions: Actions
+    no_data: Pas de données
 
 login:
   title: Neobe-TER
@@ -19,16 +26,91 @@ login:
   remember_me: Se souvenir de moi
   login: Connexion
   forgot_password: Mot de passe oublier
+  reset_password: Réinitialiser mot de passe
+  reset_message: Enter votre adresse email
+  403_error: Vous n'avez pas le droit pour accéder a cette page
+
 logout:
   logout: Déconnexion
   logout_message: Voulez vous vraiment quitter cette session ?
 menu:
   dashboard: Tableau de bord
-  users: Utlilisateurs
+  users: Utilisateurs
   contents: Les contenus
+  notifications: Les notifications
+  header_footer: Header & footer
+  partners: Partenaires
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
+  edit_profil_title: Edition de mon profil
+  create_title: Ajout d'un utilisateur
+  firstname: Prénom
+  lastname: Nom
+  email: Email
+  civility: Civilité
+  my_profil: Mon profil
+  role: Rôle
+  password:
+    password: Mot de passe
+    current: Mot de passe actuel
+    new: Nouvel mot de passe
+    confirm: Confirmation nouvel mot de passe
+    change: Modification mot de passe
+    modified_success: Votre mot de pass a été modifié avec succés
+notifications:
+  list_title: Liste des notifications
+  edit_title: Edition d'un notification
+  create_title: Ajout d'un notification
+  name: Nom
+  description: Déscription
+  deletion_message_confirmation: Voulez vous supprimer la notification
+  deletion_title: Suppression d'un notification
+  type: Type
+  message: Message
+  messages:
+    list_title: Liste des messages
+    edit_title: Edition d'un message
+    create_title: Ajout d'un message
+    deletion_message_confirmation: Voulez vous supprimer le message
+    deletion_title: Suppression d'un notification
+roles:
+  administrateur: Administrateur
+  api: Utilisateur API
+
+headers:
+  list_title: Liste des headers
+  edit_title: Edition d'un header
+  create_title: Ajout d'un header
+  header: Header
+  header_footer: Header & footer
+  partner: Partenaire
+  deletion_message_confirmation: Voulez vous supprimer le header
+  deletion_title: Suppression d'un header
+
+partners:
+  partner: Partenaire/Client
+  list_title: Liste des partenaires
+  edit_title: Edition d'un partenaire
+  create_title: Ajout d'un partenaire
+  name: Nom
+  address1: Adresse 1
+  address2: Adresse 2
+  city: Ville
+  country: Pays
+  zipcode: Code postal
+  civility: Civilité
+  firstname: Prénom
+  lastname: Nom
+  mail: Email
+  phone: Téléphone
+  deletion_message_confirmation: Voulez vous supprimer le partenaire
+  deletion_title: Suppression d'un partenaire
+
+accounts:
+  name: Nom
+  mail: Email
+  list_title: Liste des comptes NEOBE
 
 
 

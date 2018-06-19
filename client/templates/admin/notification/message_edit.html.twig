@@ -1,0 +1,128 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}Message - Edition{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.contents'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_notification_index') }}">{{ 'menu.notifications'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_notification_edit',{'id':notification.id}) }}">{{ notification.name }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ 'common.create'|trans({},'label', 'fr') }}</li>
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2><i class="fa fa-users"></i>
+                        {% if(notificationContent.id) %}
+                            {{ 'notifications.messages.edit_title'|trans({},'label', 'fr') }}
+                        {% else %}
+                            {{ 'notifications.messages.create_title'|trans({},'label', 'fr') }}
+                        {% endif %}
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="notification_content_type">{{ 'notifications.type'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.type, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-10">
+                                    <label for="notification_content_content">{{ 'notifications.message'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.content, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-2">
+                                    <label>&nbsp;</label>
+                                    <div class="card-header">
+                                        <h2>Les variables</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-content-var">
+                                            <li class="content-var" data-value="nom_du_societe">Nom du Société</li>
+                                            <li class="content-var"data-value="civilite">Civilité</li>
+                                            <li class="content-var" data-value="nom">Nom</li>
+                                            <li class="content-var" data-value="prenom">Prénom</li>
+                                            <li class="content-var" data-value="nb_license">Nombre de license </li>
+                                            <li class="content-var" data-value="volume_totale">Volume totale</li>
+                                        </ul>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+    {{ parent() }}
+    <script type="text/javascript">
+        $.fn.insertAtCaret = function (text) {
+            return this.each(function () {
+                if (document.selection && this.tagName == 'TEXTAREA') {
+                    //IE textarea support
+                    this.focus();
+                    sel = document.selection.createRange();
+                    sel.text = text;
+                    this.focus();
+                } else if (this.selectionStart || this.selectionStart == '0') {
+                    //MOZILLA/NETSCAPE support
+                    startPos = this.selectionStart;
+                    endPos = this.selectionEnd;
+                    scrollTop = this.scrollTop;
+                    this.value = this.value.substring(0, startPos) + text + this.value.substring(endPos, this.value.length);
+                    this.focus();
+                    this.selectionStart = startPos + text.length;
+                    this.selectionEnd = startPos + text.length;
+                    this.scrollTop = scrollTop;
+                } else {
+                    // IE input[type=text] and other browsers
+                    this.value += text;
+                    this.focus();
+                    this.value = this.value; // forces cursor to end
+                }
+            });
+        };
+
+        if($('#notification_content_type').val() == 1) {
+            editorContent = CKEDITOR.replace('notification_content[content]');
+        }
+        $(document).on('change', '#notification_content_type', function(e){
+            if ($(this).val() == '1') { //email
+                editorContent = CKEDITOR.replace('notification_content[content]');
+            } else {
+                for(name in CKEDITOR.instances){
+                    CKEDITOR.instances[name].destroy()
+                }
+            }
+        });
+        $(document).on('click', '.content-var', function(e){
+            editorContent.insertText('__' + $(this).attr('data-value') + '__');
+            $('#notification_content_content').insertAtCaret('__' + $(this).attr('data-value') + '__');
+        });
+    </script>
+
+{% endblock %}

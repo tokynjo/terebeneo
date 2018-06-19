@@ -19,7 +19,13 @@ yarn-error.log
 ###< symfony/phpunit-bridge ###
 
 /.idea/
+/.idea
+.idea/
+
 
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+/client/.env
+/client/config/packages/parameters.yml
+/api/config/packages/parameters.yml

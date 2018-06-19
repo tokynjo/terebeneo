@@ -14,17 +14,18 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * File event Listener
- * Listen file event
+ * user event Listener
+ * Listen user event
  *
  * @package App\EventListener
  */
 class UserListener
 {
-    private $em;
+    private $entityManager;
     private $tokenStorage;
     private $translator;
     private $mailer;
+    private $template;
 
     /**
      * UserListener constructor.
@@ -32,20 +33,20 @@ class UserListener
      * @param TokenStorageInterface $tokenStorage
      * @param TranslatorInterface $translator
      * @param null $mailer
-     * @param null template
+     * @param EventDispatcherInterface $eventDispatcher,
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         TokenStorageInterface $tokenStorage,
         TranslatorInterface $translator,
-        $mailer = null
-        //$template = null
+        $mailer = null,
+        $template = null
     ) {
-        $this->em = $entityManager;
+        $this->entityManager = $entityManager;
         $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
         $this->mailer = $mailer;
-
+        $this->template = $template;
 
         return $this;
     }
@@ -58,14 +59,15 @@ class UserListener
      */
     public function onCreateUser(UserEvent $userEvent)
     {
-        $container = $GLOBALS['kernel']->getContainer();
-        $data = new \StdClass();
-        $data->firstname =  $userEvent->getUser()->getFirstname();
-        $data->lastname =  $userEvent->getUser()->getLastname();
-        $data->email =  $userEvent->getUser()->getEmail();
-        //$template = $this->template->render('admin/user/email/creation.html.twig', $userEvent->getUser());
-        $template = $container->get('templating')->render('admin/user/email/creation.html.twig', $userEvent->getUser());
-        $this->idMail = $this->mailer->sendMailGrid('Création de compte', $userEvent->getEmail(), $template, null);
+        $template = $this->template->render(
+            'admin/user/email/creation.html.twig', ['user' => $userEvent->getUser()]
+        );
+        $this->idMail = $this->mailer->sendMailGrid(
+            'Création de compte ',
+            [$userEvent->getUser()->getEmail()],
+            $template,
+            null
+        );
 
     }
 }

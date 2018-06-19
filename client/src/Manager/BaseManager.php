@@ -135,4 +135,9 @@ abstract class BaseManager
     {
         return  $this->repository->findOneBy($criteria);
     }
+
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
 }

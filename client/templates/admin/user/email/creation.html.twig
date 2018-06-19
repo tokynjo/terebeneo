@@ -1,8 +1,8 @@
-Bonjour {{ data.firstname }} {{ data.lastname }}, <br>
+Bonjour {{ user.firstname|capitalize }} {{ user.lastname|upper }}, <br>
 <br>
 Voici vos identifiants sur Neobe-ter <br>
-Identifiant : {{ data.email }} <br>
-Mot de passe : 123456 <br>
+Identifiant : {{ user.email }} <br>
+Mot de passe : {{ user.plainPassword }} <br>
 <br>
 Cordialement,
 <br><br>

@@ -50,9 +50,9 @@ class Civility
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Account", mappedBy="civility", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="civility", cascade={"persist"})
      */
-    private $accounts;
+    private $partners;
 
     /**
      * Get id
@@ -146,7 +146,6 @@ class Civility
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->accounts = new ArrayCollection();
+        $this->partners = new ArrayCollection();
     }
-
 }

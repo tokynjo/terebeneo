@@ -1,5 +1,6 @@
 <?php
 namespace App\Repository;
+use App\Entity\Constants\Constant;
 
 /**
  * HeaderFooterRepository
@@ -9,4 +10,15 @@ namespace App\Repository;
  */
 class HeaderFooterRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * get header footer active
+     * @return mixed
+     */
+    public function getHeaderFooterActive() {
+        $qb = $this->createQueryBuilder("hf")
+            ->innerJoin('App:Partner', 'p', 'WITH', 'p.id = hf.partner')
+            ->where("hf.deleted = :deleted")
+            ->setParameter('deleted', Constant::NO);
+        return  $qb->getQuery()->getResult();
+    }
 }

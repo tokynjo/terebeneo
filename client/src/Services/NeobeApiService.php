@@ -1,9 +1,7 @@
 <?php
 namespace App\Services;
 
-use AppBundle\Entity\Api\ApiResponse;
-use AppBundle\Entity\Society;
-use AppBundle\Manager\ContactManager;
+use AppBundle\Models\Api\ApiResponse;
 use AppBundle\Services\Rest\RestRequest;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Unirest\Request;
@@ -16,7 +14,7 @@ use Unirest\Request;
  */
 class NeobeApiService
 {
-    const SERVICE_NAME = 'api.neobe_service';
+    const SERVICE_NAME = 'api.neobe.create_account';
 
     const API_CREATE_SAFEDATA_ACCOUNT = '/app_dev.php/create_compte_NeoBeTER';
 
@@ -63,13 +61,14 @@ class NeobeApiService
         return $response->body;
     }
 
+
     /**
-     * Call api to create partner Neobe
+     * Call api to create Neobe account
      *
      * @param array $data array of input data from the uploaded csv file
      * @return ApiResponse
      */
-    public function createSafeDataAccount($data = [])
+    public function createNeobeAccount($data = [])
     {
         $return = new ApiResponse();
         if (sizeof($data) >0) {

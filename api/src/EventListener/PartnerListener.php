@@ -66,7 +66,6 @@ class PartnerListener
         $template = $this->template->render(
             'emails/creation-ter-account.html.twig', ['user' => $partner]
         );
-        print_r($template); die;
         $this->idMail = $this->mailer->sendMailGrid(
             'Création de compte ',
             [$partner->getMail()],

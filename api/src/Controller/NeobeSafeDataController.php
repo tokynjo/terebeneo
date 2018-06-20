@@ -2,12 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Api\ApiResponse;
-use App\Manager\FileManager;
-use App\Manager\FileUserManager;
-use App\Manager\FolderManager;
-use App\Manager\FolderUserManager;
-use App\Manager\ViewManager;
+use App\Entity\ApiResponse;
+use App\Manager\PartnerManager;
 use Doctrine\DBAL\Schema\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,9 +25,7 @@ class NeobeSafeDataController extends Controller
      */
     public function createAccount(Request $request)
     {
-        $resp = new ApiResponse();
-
-
+        $resp = $this->get(PartnerManager::SERVICE_NAME)->createPartner($request);
         return new JsonResponse($resp, Response::HTTP_OK);
     }
 

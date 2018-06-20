@@ -23,9 +23,9 @@ api_platform:
 
     enable_fos_user: true
     swagger:
-             api_keys:
-                 apiKey:
-                    name: Authorization
-                    type: header
+         api_keys:
+             apiKey:
+                name: Authorization
+                type: header
 framework:
     form: { enabled: true }

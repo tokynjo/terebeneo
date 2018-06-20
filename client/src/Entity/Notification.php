@@ -59,7 +59,7 @@ class Notification
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -77,7 +77,7 @@ class Notification
      * @param string $name
      * @return Notification
      */
-    public function setName(string $name): Notification
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
@@ -95,7 +95,7 @@ class Notification
      * @param string $description
      * @return Notification
      */
-    public function setDescription(string $description): Notification
+    public function setDescription(string $description)
     {
         $this->description = $description;
         return $this;
@@ -113,7 +113,7 @@ class Notification
      * @param string $status
      * @return Notification
      */
-    public function setStatus(string $status): Notification
+    public function setStatus(string $status)
     {
         $this->status = $status;
         return $this;

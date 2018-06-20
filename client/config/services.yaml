@@ -61,7 +61,7 @@ services:
         class: App\Manager\PartnerManager
         arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner']
         public: true
-    app.event.folder:
+    app.event.partner:
         class: App\EventListener\PartnerListener
         arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.mailer', '@fos_user.user_manager','@event_dispatcher']
         tags:

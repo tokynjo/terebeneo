@@ -152,6 +152,7 @@ class Partner
      * @ORM\Column(name="status", type="integer", length=10, nullable=true)
      */
     private $status;
+
     /**
      * @var integer
      *
@@ -417,7 +418,8 @@ class Partner
     }
 
     /**
-     * @param mixed $accounts
+     * @param $accounts
+     * @return $this
      */
     public function setAccounts($accounts)
     {
@@ -650,11 +652,13 @@ class Partner
     }
 
     /**
-     * @param string $createdAt
+     * @param $createdAt
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+        return $this;
     }
 
     /**
@@ -666,11 +670,13 @@ class Partner
     }
 
     /**
-     * @param int $nbLicense
+     * @param $nbLicense
+     * @return $this
      */
     public function setNbLicense($nbLicense)
     {
         $this->nbLicense = $nbLicense;
+        return $this;
     }
 
     /**
@@ -682,11 +688,13 @@ class Partner
     }
 
     /**
-     * @param string $updatedAt
+     * @param $updatedAt
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     /**
@@ -698,14 +706,14 @@ class Partner
     }
 
     /**
-     * @param int $volumeSize
+     * @param $volumeSize
+     * @return $this
      */
     public function setVolumeSize($volumeSize)
     {
         $this->volumeSize = $volumeSize;
+        return $this;
     }
-
-
 
 
 }

@@ -1,8 +1,8 @@
 <?php
 namespace App\Services;
 
-use AppBundle\Models\Api\ApiResponse;
-use AppBundle\Services\Rest\RestRequest;
+use App\Models\Api\ApiResponse;
+use App\Services\Rest\RestRequest;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Unirest\Request;
 

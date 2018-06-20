@@ -61,6 +61,7 @@ class PartnerManager extends BaseManager
      */
     public function createPartner(Request $request)
     {
+
         $apiRequest = new ApiRequest();
         $resp = new ApiResponse();
         $is_valid = true;

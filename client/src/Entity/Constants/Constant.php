@@ -27,6 +27,10 @@ class Constant
     const NOTIFICATION_TYPE_MAIL = 1;
     const NOTIFICATION_TYPE_SMS = 2;
 
+    const STEP_ONE = 1;
+    const STEP_TWO = 2;
+    const STEP_THREE = 3;
+
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
     public static $neobeNbLicense = [2, 5, 10];
     public static $neobeVolumeSize = [40, 100, 200];

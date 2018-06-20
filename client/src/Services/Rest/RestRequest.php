@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Services\Rest;
+namespace App\Services\Rest;
 
 use Unirest\Request;
 use Unirest\Method;

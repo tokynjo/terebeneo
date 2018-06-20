@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Models\Api;
+namespace App\Models\Api;
 
 
 /**

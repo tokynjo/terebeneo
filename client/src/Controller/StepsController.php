@@ -23,7 +23,7 @@ class StepsController extends Controller
      */
     public function stepOneAction(Request $request, $token = null)
     {
-        $partener = $this->get(PartnerManager::SERVICE_NAME)->findOneBy(["hash" => $token]);
+        $partener = $this->get(PartnerManager::SERVICE_NAME)->etape1($token);
         return $this->render('front/steps/step1.html.twig', ['partener' => $partener]);
     }
 
@@ -37,35 +37,7 @@ class StepsController extends Controller
      */
     public function stepTwoAction(Request $request, $token = null)
     {
-        $partener = $this->get(PartnerManager::SERVICE_NAME)->findOneBy(["hash"=>($token?$token:"")]);
-        if($partener) {
-            $existLog = $this->get(ValidationLogManager::SERVICE_NAME)->findBy(
-                [
-                    "etape" => Constant::STEP_TWO,
-                    "partner" => $partener
-                ]
-            );
-            if (!$existLog) {
-                $validation = $this->get(ValidationLogManager::SERVICE_NAME)->createNew();
-                $validation->setPartner($partener);
-                $validation->setEtape(Constant::STEP_TWO);
-                $this->get(PartnerManager::SERVICE_NAME)->saveAndFlush($validation);
-            }
-            if ($request->getMethod() == "POST") {
-                $existLog = $this->get(ValidationLogManager::SERVICE_NAME)->findBy(
-                    [
-                        "etape" => Constant::STEP_ONE,
-                        "partner" => $partener
-                    ]
-                );
-                if (!$existLog) {
-                    $validation = $this->get(ValidationLogManager::SERVICE_NAME)->createNew();
-                    $validation->setPartner($partener);
-                    $validation->setEtape(Constant::STEP_ONE);
-                    $this->get(PartnerManager::SERVICE_NAME)->saveAndFlush($validation);
-                }
-            }
-        }
+        $this->get(PartnerManager::SERVICE_NAME)->etape2($request, $token);
         return $this->render('front/steps/step2.html.twig', ["token" => $token]);
     }
 

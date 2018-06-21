@@ -31,10 +31,37 @@
             {% else %}
             <form action="{{ path('steps_two_') }}" method="post">
             {% endif %}
-                <p style="text-align: center">
-                    <input type="checkbox" style="margin-right: 15px">
-                    <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
-                </p>
+                <div class="container">
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Nombre de licences:</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="nombre_de_licences" class="form-control" id="nombre_de_licences" placeholder="00">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Volume global de sauvegarde(Go):</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="volume_global_de_sauvegarde_Go" class="form-control" id="volume_global_de_sauvegarde_Go" placeholder="00 Go">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Nombre de licences à créer:</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="nb_licences_a_creer" class="form-control" id="nb_licences_a_creer" placeholder="00">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Volume par licence(Go:</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="volume_par_licence_Go" class="form-control" id="volume_par_licence_Go" placeholder="00 Go">
+                        </div>
+                    </div>
+                    <p style="text-align: center">
+                        <input type="checkbox" style="margin-right: 15px" required="required">
+                        <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
+                    </p>
+                </div>
+
                 <div class="col" style="text-align: center;">
                     <button type="submit"  class="link_1 wra" >Je valide et je recois mes identifients NeoBe+</button>
                 </div>

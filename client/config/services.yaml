@@ -59,7 +59,7 @@ services:
         public: true
     app.partner_manager:
         class: App\Manager\PartnerManager
-        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner']
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner', '@app.validation_log_manager']
         public: true
     app.event.partner:
         class: App\EventListener\PartnerListener

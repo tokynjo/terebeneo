@@ -11,6 +11,7 @@ use App\Entity\Constants\Constant;
 use App\Entity\User;
 use App\Event\PartnerEvent;
 use App\Event\UserEvent;
+use App\Services\NotificationService;
 use App\Services\PasswordEncoder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,27 +29,24 @@ class PartnerListener
     private $entityManager;
     private $tokenStorage;
     private $translator;
-    private $mailer;
-    private $template;
+    private $notificationService;
 
     /**
      * @param EntityManagerInterface $entityManager
      * @param TokenStorageInterface $tokenStorage
      * @param TranslatorInterface $translator
-     * @param null $mailer
+     * @param NotificationService $notification
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         TokenStorageInterface $tokenStorage,
         TranslatorInterface $translator,
-        $mailer = null,
-        $template = null
+        NotificationService $notification
     ) {
         $this->entityManager = $entityManager;
         $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
-        $this->mailer = $mailer;
-        $this->template = $template;
+        $this->notificationService = $notification;
 
         return $this;
     }
@@ -62,16 +60,10 @@ class PartnerListener
     public function onCreateClientTer(PartnerEvent $partnerEvent)
     {
         //sending confirmation email.
+        $notification = $this->entityManager->getRepository('App:Notification')->find(Constant::NOTIF_CONFIRM_ACCOUNT_CREATION);
         $partner = $partnerEvent->getPartner();
-        $template = $this->template->render(
-            'emails/creation-ter-account.html.twig', ['user' => $partner]
-        );
-        $this->idMail = $this->mailer->sendMailGrid(
-            'Création de compte ',
-            [$partner->getMail()],
-            $template,
-            null
-        );
-
+        if($notification) {
+            $this->notificationService->sendNotification ($partner, $notification);
+        }
     }
 }

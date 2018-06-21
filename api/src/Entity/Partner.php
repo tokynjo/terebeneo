@@ -432,7 +432,10 @@ class Partner
      */
     public function getHeadersFooters()
     {
-        return $this->headersFooters;
+        if(sizeof($this->headersFooters) > 0) {
+            return $this->headersFooters[0];
+        }
+        return null;
     }
 
     /**

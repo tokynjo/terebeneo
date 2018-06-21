@@ -30,4 +30,13 @@ class Constant
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
     public static $neobeNbLicense = [2, 5, 10];
     public static $neobeVolumeSize = [40, 100, 200];
+    public static $dataMailList = [
+        '__partenaire_nom_societe__' => 'Nom société partenaire',
+        '__client_nom_societe__' => 'Nom société client',
+        '__client_nom__' => 'Nom client',
+        '__client_prenom__' => 'Prénom client',
+        '__client_civilite__' => 'Civilité client',
+        '__client_nb_license__' => 'Nombre de license client',
+        '__client_volume_total__' => 'Volume total'
+    ];
 }

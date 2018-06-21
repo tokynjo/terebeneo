@@ -3,12 +3,7 @@ namespace App\Services;
 
 use App\Entity\Constants\Constant;
 use App\Entity\Notification;
-use App\Entity\NotificationContent;
 use App\Entity\Partner;
-use AppBundle\Entity\Api\ApiResponse;
-use AppBundle\Entity\Society;
-use AppBundle\Manager\ContactManager;
-use AppBundle\Services\Rest\RestRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Unirest\Request;
@@ -20,41 +15,92 @@ use Unirest\Request;
  */
 class NotificationService
 {
-    const SERVICE_NAME = 'api.notification_service';
+    const SERVICE_NAME = 'app.notification_service';
 
     protected $em;
+    protected $template;
     protected $mailer;
     protected $sms;
-    protected $template;
 
-
-    public function __construct(EntityManagerInterface $entityManager, $mailer, $sms, $template)
+    public function __construct(EntityManagerInterface $entityManager,$template, $mailer, $sms = null )
     {
         $this->em = $entityManager;
-        $this->template = $entityManager;
+        $this->template = $template;
+        $this->mailer = $mailer;
     }
 
     public function sendNotification (Partner $partner, Notification $notification)
     {
+
         foreach ($notification->getNotificationContents() as $content) {
-            switch ($content->getType()) {
+            switch ($content->getType()->getId()) {
                 case Constant::NOTIFICATION_TYPE_MAIL :
+                    $header = '';
+                    $footer = '';
+                    $mailContent = $content->getContent();
+                    $parent = $partner->getParent();
+                    if ($parent->getHeadersFooters()){
+                        $header = $parent->getHeadersFooters()->getHeader() ? $parent->getHeadersFooters()->getHeader() : '';
+                        $footer = $parent->getHeadersFooters()->getFooter() ? $parent->getHeadersFooters()->getfooter() : '';
+                    }
+                    $header = $this->replaceDataVars($partner, $header);
+                    $footer = $this->replaceDataVars($partner, $footer);
+                    $mailContent = $this->replaceDataVars($partner, $mailContent);
+
                     $template = $this->template->render(
-                        'emails/creation-ter-account.html.twig', ['user' => $partner]
+                        'emails/creation-ter-account.html.twig',
+                        [
+                            'header' => $header,
+                            'content' => $mailContent,
+                            'footer' => $footer
+                        ]
+                    );
+                    $this->mailer->sendMailGrid(
+                        'Confirmation de création de compte Neobe',
+                        [$partner->getMail()],
+                        $template,
+                        []
                     );
                     break;
                 case Constant::NOTIFICATION_TYPE_SMS :
+                    $sms = $this->replaceDataVars($partner, $content->getContent());
                     break;
             }
         }
     }
 
-    protected function renderNotificationContent (NotificationContent $content, Partner $partner)
+    /**
+     * replace variable to this value from the bdd
+     * @param Partner $partner
+     * @param $content
+     * @return mixed
+     */
+    protected function replaceDataVars(Partner $partner, $content)
     {
+        foreach(Constant::$dataMailList as $key => $label) {
+            switch ($key) {
+                case '__partenaire_nom_societe__' :
+                    $content = str_replace($key, $partner->getParent()->getName(), $content);
+                    break;
+                case '__client_nom__' :
+                    $content = str_replace($key, $partner->getLastname(), $content);
+                    break;
+                case '__client_prenom__' :
+                    $content = str_replace($key, $partner->getFirstname(), $content);
+                    break;
+                case '__client_civilite__' :
+                    $content = str_replace($key, $partner->getCivility()->getLabel(), $content);
+                    break;
+                case '__client_nb_license__' :
+                    $content = str_replace($key, $partner->getNbLicense(), $content);
+                    break;
+                case '__client_volume_total__' :
+                    $content = str_replace($key, $partner->getVolumeSize(), $content);
+                    break;
+            }
+        }
 
-        $template = $this->template->render(
-            'emails/creation-ter-account.html.twig', ['user' => $partner]
-        );
+        return $content;
     }
 
 

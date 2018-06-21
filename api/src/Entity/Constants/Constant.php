@@ -12,18 +12,23 @@ final class Constant
     const DEFAULT_CIVILITY = 1;
     const NOT_DELETED = 0;
     const DELETED = 1;
+    const NOTIF_CONFIRM_ACCOUNT_CREATION = 1;
+
+    const NOTIFICATION_TYPE_MAIL = 1;
+    const NOTIFICATION_TYPE_SMS = 2;
 
     public static $neobeNbLicense = [2, 5, 10];
     public static $neobeVolumeSize = [40, 100, 200];
 
     public static $dataMailList = [
-        'partenaire_nom_societe' => 'Nom société partenaire',
-        'client_nom_societe' => 'Nom société client',
-        'client_nom' => 'Nom client',
-        'client_prenom' => 'Prénom client',
-        'client_civilite' => 'Civilité client',
-        'client_civilite' => 'Civilité client',
-        'client_nb_license' => 'Nombre de license client',
-        'client_volume_total' => 'Volume total'
+        '__partenaire_nom_societe__' => 'Nom société partenaire',
+        '__client_nom_societe__' => 'Nom société client',
+        '__client_nom__' => 'Nom client',
+        '__client_prenom__' => 'Prénom client',
+        '__client_civilite__' => 'Civilité client',
+        '__client_nb_license__' => 'Nombre de license client',
+        '__client_volume_total__' => 'Volume total'
     ];
+
+
 }

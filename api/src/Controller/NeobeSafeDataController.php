@@ -19,7 +19,7 @@ class NeobeSafeDataController extends Controller
      *
      * @Route(
      *     name="api_create_account",
-     *     path="/create-account",
+     *     path="/api/create-account",
      *     methods={"POST"}
      * )
      */

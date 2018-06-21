@@ -9,6 +9,7 @@ use App\Services\ApiRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class PartnerManager
@@ -35,21 +36,25 @@ class PartnerManager extends BaseManager
     protected $class;
 
     protected $dispatcher = null;
+    protected $tokenStorage;
 
     /**
-     *
      * @param EntityManagerInterface $entityManager
-     * @param type                   $class
+     * @param type $class
+     * @param null $eventDispatcher
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EntityManagerInterface $entityManager,
         $class,
-        $eventDispatcher = null
+        $eventDispatcher = null,
+        TokenStorageInterface $tokenStorage
     ){
         $this->entityManager = $entityManager;
         $this->class = $class;
         $this->repository = $this->entityManager->getRepository($this->class);
         $this->dispatcher = $eventDispatcher;
+        $this->tokenStorage = $tokenStorage;
     }
 
 
@@ -61,6 +66,7 @@ class PartnerManager extends BaseManager
      */
     public function createPartner(Request $request)
     {
+
         $apiRequest = new ApiRequest();
         $resp = new ApiResponse();
         $is_valid = true;
@@ -117,7 +123,10 @@ class PartnerManager extends BaseManager
         }
         $partner->setVolumeSize($volumeSize);
 
-        $partner->setParent($apiRequest->getBodyRawParam(1))
+        $parent = $this->entityManager->getRepository('App:Partner')->find(
+            $this->tokenStorage->getToken()->getUser()->getId()
+        );
+        $partner->setParent($parent)
             ->setAddress1($apiRequest->getBodyRawParam('address1'))
             ->setAddress2($apiRequest->getBodyRawParam('address2'))
             ->setZipCode($apiRequest->getBodyRawParam('zip_code'))
@@ -135,6 +144,7 @@ class PartnerManager extends BaseManager
         //creating user api
         $partnerEvent = new PartnerEvent($partner);
         $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_CREATE, $partnerEvent);
+
         return $resp;
     }
 }

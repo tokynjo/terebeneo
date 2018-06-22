@@ -1,7 +1,9 @@
 resources:
   App\Entity\User:
-    collectionOperations : {}
+    collectionOperations:
+      get: ~
     itemOperations:
+      get: ~
       get_token:
         route_name: 'get_token'
         controller: 'App\Controller\AuthenticationController'
@@ -44,7 +46,7 @@ resources:
               description: User not found
 
       create_account:
-        route_name: 'api_create_account'
+        route_name: 'neobe_api_create_account'
         controller: 'App\Controller\NeobeSafeDataController'
         swagger_context:
           summary: Create account to neobe safedata
@@ -55,42 +57,58 @@ resources:
               schema:
                 type : object
                 properties:
-                  company_name:
+                  society:
                     type: string
-                    description: Company name
+                    description: Nom du société
+                    required: true
+                  address_1:
+                    type: string
+                    description: Adresse 1
+                  address_2:
+                    type: string
+                    description: Adresse 2
                   zip_code:
                     type: string
-                    description: zip code
-                  country:
-                    type: string
-                    description: country
+                    description: Code postal
                   city:
                     type: string
-                    description: City
-                  civility:
-                    type: integer
-                    description: civility
-                  firstname:
+                    description: Ville
+                  country:
                     type: string
-                    description: firstname
+                    description: Pays
+                  civility:
+                    type: string
+                    description: Civilité [M|MLLE|MME]
                   lastname:
                     type: string
-                    description: lastname
-                  phone:
+                    description: Nom
+                    required: true
+                  firstname:
                     type: string
-                    description:  phone number
-#                  mobile:
-#                    type: string
-#                   description:  mobile phone number
+                    description: Prénom
+                    required: true
+                  phone:
+                    type: integer
+                    description:  Numéro de téléphone
+                  mobile:
+                    type: integer
+                    description:  Numéro du mobile
                   email:
                     type: string
                     description: email
+                    required: true
+                  category:
+                    type: integer
+                    description: Categorie [1|2]
+                    required: true
                   nb_licence:
-                    type: string
-                    description: Nb licence
+                    type: integer
+                    required: true
+                    description: Nombre de licence [2|5|10]
                   volume_size:
-                    type: string
-                    description: Total volume size
+                    type: integer
+                    required: true
+                    description: Volume total de sauvegarde [40|100|1200]
           responses:
             200:
               description: Success

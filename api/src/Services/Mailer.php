@@ -128,7 +128,11 @@ class Mailer
         $data['personalizations'][] = $pres;
         $from = new \stdClass();
         $from->email = "no-replay@neobe.com";
+<<<<<<< HEAD
+        $from->name = "no-replay@neobe.com";
+=======
         $from->name = "NEOBE";
+>>>>>>> develop
         $data['from'] = $from;
         $data['content'] = [];
         $content = new \stdClass();

@@ -7,7 +7,7 @@ parameters:
 
 api_platform:
     mapping:
-        paths: ['%kernel.project_dir%/src/Entity','%kernel.project_dir%/config/api_platform']
+        paths: ['%kernel.project_dir%/config/api_platform']
     title: NEOBE-TER API
     description: "NEOBE-TER Documentation"
     version: 1.0.0
@@ -23,8 +23,8 @@ api_platform:
 
     enable_fos_user: true
     swagger:
-         api_keys:
-             apiKey:
+        api_keys:
+            apiKey:
                 name: Authorization
                 type: header
 framework:

@@ -16,13 +16,24 @@ class PartnerManager extends BaseManager
         $this->validationLogManager = $validationLogManager;
     }
 
+    /**
+     * get partner details by token
+     *
+     * @param null $token
+     * @return object
+     */
     public function etape1($token = null){
         $partener = $this->findOneBy(["hash" => $token]);
         return $partener;
     }
 
+    /**
+     * @param Request $request
+     * @param null $token
+     * @return object
+     */
     public function etape2(Request $request, $token = null){
-        $partener = $this->findOneBy(["hash"=>($token?$token:"")]);
+        $partener = $this->findOneBy(["hash"=>($token ? $token : "")]);
         if($partener) {
             $existLog = $this->validationLogManager->findBy(
                 [

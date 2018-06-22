@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -197,6 +198,11 @@ class Partner
     private $headersFooters;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ValidationLog", mappedBy="partner", cascade={"persist"})
+     */
+    private $validation;
+
+    /**
      * Get id
      *
      * @return int
@@ -226,6 +232,8 @@ class Partner
     {
         $this->accounts = new  ArrayCollection();
         $this->headersFooters = new  ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->validation = new ArrayCollection();
     }
 
     /**
@@ -705,7 +713,81 @@ class Partner
         $this->volumeSize = $volumeSize;
     }
 
+    public function addChild(Partner $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
+        }
 
+        return $this;
+    }
 
+    public function removeChild(Partner $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addHeadersFooter(HeaderFooter $headersFooter): self
+    {
+        if (!$this->headersFooters->contains($headersFooter)) {
+            $this->headersFooters[] = $headersFooter;
+            $headersFooter->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHeadersFooter(HeaderFooter $headersFooter): self
+    {
+        if ($this->headersFooters->contains($headersFooter)) {
+            $this->headersFooters->removeElement($headersFooter);
+            // set the owning side to null (unless already changed)
+            if ($headersFooter->getPartner() === $this) {
+                $headersFooter->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ValidationLog[]
+     */
+    public function getValidation(): Collection
+    {
+        return $this->validation;
+    }
+
+    public function addValidation(ValidationLog $validation): self
+    {
+        if (!$this->validation->contains($validation)) {
+            $this->validation[] = $validation;
+            $validation->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(ValidationLog $validation): self
+    {
+        if ($this->validation->contains($validation)) {
+            $this->validation->removeElement($validation);
+            // set the owning side to null (unless already changed)
+            if ($validation->getPartner() === $this) {
+                $validation->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

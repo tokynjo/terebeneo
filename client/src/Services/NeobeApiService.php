@@ -1,8 +1,8 @@
 <?php
 namespace App\Services;
 
-use AppBundle\Models\Api\ApiResponse;
-use AppBundle\Services\Rest\RestRequest;
+use App\Models\Api\ApiResponse;
+use App\Services\Rest\RestRequest;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Unirest\Request;
 
@@ -16,7 +16,7 @@ class NeobeApiService
 {
     const SERVICE_NAME = 'api.neobe.create_account';
 
-    const API_CREATE_SAFEDATA_ACCOUNT = '/app_dev.php/create_compte_NeoBeTER';
+    const API_CREATE_SAFEDATA_ACCOUNT = '/app_dev.php/create';
 
     const CODE_SUCCESS = 200;
     const CODE_LOGIN_INCORECT = 151;

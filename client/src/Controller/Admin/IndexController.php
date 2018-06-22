@@ -24,6 +24,7 @@ class IndexController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('admin/index.html.twig', []);
+        return $this->redirectToRoute('steps_one', array('token' => 0));
+        //return $this->render('admin/index.html.twig', []);
     }
 }

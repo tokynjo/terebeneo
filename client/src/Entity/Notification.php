@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,13 +55,13 @@ class Notification
      */
     public function __construct()
     {
-
+        $this->notificationContents = new ArrayCollection();
     }
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -77,7 +79,7 @@ class Notification
      * @param string $name
      * @return Notification
      */
-    public function setName(string $name): Notification
+    public function setName(string $name)
     {
         $this->name = $name;
         return $this;
@@ -95,7 +97,7 @@ class Notification
      * @param string $description
      * @return Notification
      */
-    public function setDescription(string $description): Notification
+    public function setDescription(string $description)
     {
         $this->description = $description;
         return $this;
@@ -113,7 +115,7 @@ class Notification
      * @param string $status
      * @return Notification
      */
-    public function setStatus(string $status): Notification
+    public function setStatus(string $status)
     {
         $this->status = $status;
         return $this;
@@ -133,6 +135,29 @@ class Notification
     public function setNotificationContents($notificationContents)
     {
         $this->notificationContents = $notificationContents;
+        return $this;
+    }
+
+    public function addNotificationContent(NotificationContent $notificationContent): self
+    {
+        if (!$this->notificationContents->contains($notificationContent)) {
+            $this->notificationContents[] = $notificationContent;
+            $notificationContent->setNotification($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotificationContent(NotificationContent $notificationContent): self
+    {
+        if ($this->notificationContents->contains($notificationContent)) {
+            $this->notificationContents->removeElement($notificationContent);
+            // set the owning side to null (unless already changed)
+            if ($notificationContent->getNotification() === $this) {
+                $notificationContent->setNotification(null);
+            }
+        }
+
         return $this;
     }
 

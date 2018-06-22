@@ -59,10 +59,15 @@ services:
         public: true
     app.partner_manager:
         class: App\Manager\PartnerManager
-        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner']
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner', '@app.validation_log_manager']
         public: true
-    app.event.folder:
+    app.event.partner:
         class: App\EventListener\PartnerListener
         arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.mailer', '@fos_user.user_manager','@event_dispatcher']
         tags:
             - { name: kernel.event_listener, event: partner.client.on.create, method: onCreatePartnerClient}
+
+    app.validation_log_manager:
+        class: App\Manager\ValidationLogManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\ValidationLog']
+        public: true

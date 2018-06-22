@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\ApiResponse;
 use App\Entity\Constants\Constant;
-use App\Manager\EmailAutomatiqueManager;
 use App\Services\ApiRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,12 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AuthenticationController extends Controller
 {
-
-    public function __construct()
-    {
-
-    }
-
     /**
      * @Route(
      *     name="get_token",

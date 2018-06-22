@@ -32,3 +32,20 @@ services:
         arguments: [ '@App\Swagger\SwaggerDecorator.inner' ]
         autoconfigure: false
 
+    app.mailer:
+        class: App\Services\Mailer
+        arguments: ['@service_container','@mailer']
+        public: true
+    app.partner_manager:
+        class: App\Manager\PartnerManager
+        arguments: ['@doctrine.orm.entity_manager','App\Entity\Partner','@event_dispatcher','@security.token_storage']
+        public: true
+    app.notification_service:
+        class: App\Services\NotificationService
+        arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer']
+        public: true
+    app.event.partner:
+        class: App\EventListener\PartnerListener
+        arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.notification_service']
+        tags:
+            - { name: kernel.event_listener, event: neobe_ter.client.child.on.create, method: onCreateClientTer}

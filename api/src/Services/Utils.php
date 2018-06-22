@@ -39,68 +39,6 @@ class Utils
         $this->objectStore = $objectStore;
     }
 
-    /**
-     * Convert size file
-     *
-     * @param string $size
-     *
-     * @return string
-     */
-    public function getSizeFile($size)
-    {
-        $size = intval($size);
-        if ($size >= 1048576) {
-            return number_format(($size / 1048576), 2, '.', ' ')." Go";
-        }
-        if ($size >= 1024) {
-            return number_format(($size / 1024), 2, '.', ' ')." Mo";
-        } else {
-            return $size." Ko";
-        }
-    }
-
-
-    public function sendMailCreateUser($adress)
-    {
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByEmail($adress);
-        if (!$user) {
-            $client = $this->container->get(ClientManager::SERVICE_NAME)->create($adress);
-            $user = $userManager->createUser();
-            $user->setEnabled(true);
-            $user->setEmail($adress);
-            $user->setCreatedIp(getenv('SERVER_ADDR'));
-            $user->setConfirmationToken(md5($adress.time()));
-            $password = substr(md5($user->getUsername()), 0, 10);
-            $user->setPlainPassword($password);
-            $user->setClient($client);
-            $user->setUserName($user->getEmail());
-            $userManager->updateUser($user);
-            $userPref = $this->container->get(UserPreferenceManager::SERVICE_NAME)->create($user);
-            if (!$user->getOsContainer()) {
-                try {
-                    $container = $this->objectStore->createContainer($user);
-                    $user->setOsContainer($container->name);
-                    $userManager->updateUser($user);
-                } catch (\Exception $e) {
-
-                }
-            }
-            $modelEMail = $this->container->get(EmailAutomatiqueManager::SERVICE_NAME)->findBy(
-                ['declenchement' => Constant::CREATE_USER, 'deletedAt' => null],
-                ['id' => 'DESC'],
-                1
-            );
-            $dataFrom['send_by'] = $modelEMail[0]->getEmitter();
-            $template = $modelEMail[0]->getTemplate();
-            $modele = ["__utilisateur__", "__password__"];
-            $real = [$adress, $password];
-            $template = str_replace($modele, $real, $template);
-            $mailer = $this->mailer;
-
-            return $mailer->sendMailGrid($modelEMail[0]->getObjet(), $adress, $template, $dataFrom);
-        }
-    }
 
     /**
      * To validate a mail format

@@ -71,20 +71,54 @@ class PartnerManager extends BaseManager
         $resp = new ApiResponse();
         $is_valid = true;
         $partner = new Partner();
-        //$partnerMgr = $this->container->get(PartnerManager::SERVICE_NAME);
+
         //test society name unicity
-        if ($apiRequest->getBodyRawParam('company_name')!= null) {
-            if (!is_null($this->findOneBy(['name' => $apiRequest->getBodyRawParam('company_name')] ))) {
+        if ($apiRequest->getBodyRawParam('society')!= null) {
+            if (!is_null($this->findOneBy(['name' => $apiRequest->getBodyRawParam('society')] ))) {
                 $resp->setCode(400)
-                    ->setMessage('Parameter company_name already exists');
+                    ->setMessage('Parameter society already exists');
                 return $resp;
             }
         } else {
             $resp->setCode(400)
-                ->setMessage('Parameter company_name is mandatory');
+                ->setMessage('Parameter society is mandatory');
             return $resp;
         }
-        $partner->setName($apiRequest->getBodyRawParam('company_name'));
+        $partner->setName($apiRequest->getBodyRawParam('society'));
+
+        //test category
+        $category = $apiRequest->getBodyRawParam('category');
+        if (is_null($category) || !in_array($category, Constant::$partnerCategory)) {
+            $resp->setCode(400)
+                ->setMessage('Parameter category is not valid');
+            return $resp;
+        }
+        $partner->setCategory($apiRequest->getBodyRawParam('category'));
+
+        //check civility
+        $civility = $apiRequest->getBodyRawParam('civility');
+        if (is_null($civility) || !in_array(ucfirst($civility), Constant::$partnerCivility)) {
+            $resp->setCode(400)
+                ->setMessage('Parameter civility is not valid');
+            return $resp;
+        } else {
+            $civility = $this->entityManager->getRepository('App:Civility')->findOneBy(['label' => ucfirst($civility)]);
+        }
+        $partner->setCivility($civility);
+
+        //check last name first name
+        if (is_null($apiRequest->getBodyRawParam('lastname'))) {
+            $resp->setCode(400)
+                ->setMessage('Parameter lastname is mandatory');
+            return $resp;
+        }
+        $partner->setLastname($apiRequest->getBodyRawParam('firstname'));
+        if (is_null($apiRequest->getBodyRawParam('firstname'))) {
+            $resp->setCode(400)
+                ->setMessage('Parameter firstname is mandatory');
+            return $resp;
+        }
+        $partner->setFirstname($apiRequest->getBodyRawParam('firstname'));
 
         //test society contact mail unicity
         $email = $apiRequest->getBodyRawParam('email');
@@ -101,10 +135,7 @@ class PartnerManager extends BaseManager
         }
         $partner->setMail($email);
 
-        $civility = $this->entityManager->getRepository('App:Civility')->find(
-            $apiRequest->getBodyRawParam('civility', Constant::DEFAULT_CIVILITY)
-        );
-        $partner->setCivility($civility);
+
 
         //test nb licence
         $nbLicence = $apiRequest->getBodyRawParam('nb_licence');
@@ -123,19 +154,17 @@ class PartnerManager extends BaseManager
         }
         $partner->setVolumeSize($volumeSize);
 
-        $parent = $this->entityManager->getRepository('App:Partner')->find(
-            $this->tokenStorage->getToken()->getUser()->getId()
-        );
+        $parent = $this->tokenStorage->getToken()->getUser()->getPartner();
         $partner->setParent($parent)
-            ->setAddress1($apiRequest->getBodyRawParam('address1'))
-            ->setAddress2($apiRequest->getBodyRawParam('address2'))
+            ->setAddress1($apiRequest->getBodyRawParam('address_1'))
+            ->setAddress2($apiRequest->getBodyRawParam('address_2'))
             ->setZipCode($apiRequest->getBodyRawParam('zip_code'))
-            ->setCountry($apiRequest->getBodyRawParam('country'))
-            ->setCity($apiRequest->getBodyRawParam('city'))
-            ->setFirstname($apiRequest->getBodyRawParam('firstname'))
-            ->setLastname($apiRequest->getBodyRawParam('lastname'))
+            ->setCountry($apiRequest->getBodyRawParam('city'))
+            ->setCity($apiRequest->getBodyRawParam('country'))
             ->setPhone($apiRequest->getBodyRawParam('phone'))
-            ->setDeleted(Constant::NOT_DELETED);
+            ->setPhone($apiRequest->getBodyRawParam('mobile'))
+            ->setDeleted(Constant::NOT_DELETED)
+            ->setSource($parent->getName());
         $partner->setHash(sha1(uniqid().date('YmdHis')));
 
         $this->entityManager->persist($partner);

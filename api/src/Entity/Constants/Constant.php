@@ -19,6 +19,8 @@ final class Constant
 
     public static $neobeNbLicense = [2, 5, 10];
     public static $neobeVolumeSize = [40, 100, 200];
+    public static $partnerCategory = [1, 2];
+    public static $partnerCivility = ['M', 'Mlle', 'Mme'];
 
     public static $dataMailList = [
         '__partenaire_nom_societe__' => 'Nom société partenaire',

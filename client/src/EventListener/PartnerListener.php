@@ -11,6 +11,7 @@ use App\Entity\Constants\Constant;
 use App\Entity\User;
 use App\Event\PartnerEvent;
 use App\Event\UserEvent;
+use App\Services\NeobeApiService;
 use App\Services\PasswordEncoder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,6 +32,7 @@ class PartnerListener
     private $mailer;
     private $fosUserManager;
     private $dispatcher;
+    private $apiService;
 
     /**
      * @param EntityManagerInterface $entityManager
@@ -39,6 +41,7 @@ class PartnerListener
      * @param null $mailer
      * @param null $fosUserManager
      * @param EventDispatcherInterface $eventDispatcher
+     * @param NeobeApiService $apiService
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -46,7 +49,8 @@ class PartnerListener
         TranslatorInterface $translator,
         $mailer = null,
         $fosUserManager = null,
-        EventDispatcherInterface $eventDispatcher = null
+        EventDispatcherInterface $eventDispatcher = null,
+        NeobeApiService $apiService
     ) {
         $this->entityManager = $entityManager;
         $this->tokenStorage = $tokenStorage;
@@ -54,6 +58,7 @@ class PartnerListener
         $this->mailer = $mailer;
         $this->fosUserManager = $fosUserManager;
         $this->dispatcher = $eventDispatcher;
+        $this->apiService = $apiService;
 
         return $this;
     }
@@ -91,5 +96,18 @@ class PartnerListener
         $user->setPlainPassword($password);
         $userEvent = new UserEvent($user);
         $this->dispatcher->dispatch($userEvent::USER_ON_CREATE, $userEvent);
+    }
+
+
+    public function onStep1Validation (PartnerEvent $partnerEvent)
+    {
+        $partner = $partnerEvent->getPartner();
+
+        $this->apiService->createNeobeAccount(
+            $partner,
+            $partnerEvent->getPartner(),
+            $partnerEvent->getVolumeParLicenceGo()
+        );
+
     }
 }

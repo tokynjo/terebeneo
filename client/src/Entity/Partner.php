@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Constants\Constant;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -439,6 +440,18 @@ class Partner
     public function getHeadersFooters()
     {
         return $this->headersFooters;
+    }
+
+    public function getActiveHeadersFooters()
+    {
+        if($this->headersFooters > 0) {
+           foreach($this->headersFooters as $hf) {
+               if($hf->getDeleted() == Constant::NOT_DELETED) {
+                   return $hf;
+               }
+           }
+        }
+        return null;
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Entity\Partner;
 use App\Models\Api\ApiResponse;
 use App\Services\Rest\RestRequest;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,7 +17,7 @@ class NeobeApiService
 {
     const SERVICE_NAME = 'api.neobe.create_account';
 
-    const API_CREATE_SAFEDATA_ACCOUNT = '/app_dev.php/create';
+    const API_CREATE_NEOBE_ACCOUNT = '/app_dev.php/create';
 
     const CODE_SUCCESS = 200;
     const CODE_LOGIN_INCORECT = 151;
@@ -34,9 +35,9 @@ class NeobeApiService
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->username = $container->getParameter('prospect_api_dc_username');
-        $this->pwd = $container->getParameter('prospect_api_dc_pwd');
-        $this->url = $container->getParameter('prospect_api_dc_url');
+        $this->username = $container->getParameter('neobe_api_username');
+        $this->pwd = $container->getParameter('neobe_api_pwd');
+        $this->url = $container->getParameter('neobe_api__url');
         $this->headers = [
             'Content-Type'  => 'application/json',
             'Accept'        => 'text/plain',
@@ -51,9 +52,7 @@ class NeobeApiService
             'password' => $this->pwd
             ];
         $request = new RestRequest();
-        $request::verifyPeer(false);
-        $request::verifyHost(false);
-        if ($this->container->getParameter('prospect_api_dc_envtest')) {
+        if ($this->container->getParameter('neobe_api_envtest')) {
             $request::verifyPeer(false);
             $request::verifyHost(false);
         }
@@ -68,17 +67,34 @@ class NeobeApiService
      * @param array $data array of input data from the uploaded csv file
      * @return ApiResponse
      */
-    public function createNeobeAccount($data = [])
+    public function createNeobeAccount(Partner $partner = null, $nbLicencesToCreate, $sizeGo)
     {
         $return = new ApiResponse();
-        if (sizeof($data) >0) {
-            $bodyData = ['userLists'=>[]];
-            foreach ($data as $key => $value) {
-                $bodyData['userLists'][]= implode(';', $value);
-            }
+        if (!is_null($partner)) {
+            $bodyData = [
+                'societe' => $partner->getName(),
+                'adresse_1' => $partner->address1(),
+                'adresse_2' => $partner->address2(),
+                'code_postal' => $partner->getZipCode(),
+                'ville' => $partner->getCity(),
+                'pays' => $partner->getCountry(),
+                'source' => $partner->getParent()->getName(),
+                'id_category' => $partner->getCategory(),
+                'civilite' => strtoupper($partner->getCivility()->getLabel()),
+                'nom' => $partner->getLastname(),
+                'prenom' =>$partner->getFirstname(),
+                'email' =>$partner->getMail(),
+                'telephone' =>$partner->getPhone(),
+                'mobile' =>$partner->getMobile(),
+                'nombre_de_licences' => $partner->getNbLicense(),
+                'volume_global_de_sauvegarde_Go' => $partner->getVolumeSize(),
+                'nb_licences_a_creer' => $nbLicencesToCreate,
+                'volume_par_licence_Go' => $sizeGo
+            ];
+
             try {
                 $request = new RestRequest();
-                if ($this->container->getParameter('prospect_api_dc_envtest')) {
+                if ($this->container->getParameter('neobe_api_envtest')) {
                     $request::verifyPeer(false);
                     $request::verifyHost(false);
                 }
@@ -88,7 +104,7 @@ class NeobeApiService
                     $this->headers['Authorization'] = 'Bearer ' . $authData->id_token;
                     $body = Request\Body::Form($bodyData);
                     $response = $request::post(
-                        $this->url  . self::API_CREATE_SAFEDATA_ACCOUNT,
+                        $this->url  . self::API_CREATE_NEOBE_ACCOUNT,
                         $this->headers,
                         $body
                     );

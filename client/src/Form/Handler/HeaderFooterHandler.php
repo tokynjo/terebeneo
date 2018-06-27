@@ -42,9 +42,15 @@ class HeaderFooterHandler
         $this->form->handleRequest($this->request);
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $data = $this->form->getData();
+            if (!$data->getId()) {
+                $activeHf = $this->headerManager->getHeaderFooterActiveByPartner($data->getPartner());
+                if ($activeHf) {
+                    $activeHf->setDeleted(Constant::DELETED);
+                    $this->headerManager->saveAndFlush($activeHf);
+                }
+            }
             $data->setDeleted(Constant::NO);
             $this->headerManager->saveAndFlush($data);
-
             return true;
         }
         return false;

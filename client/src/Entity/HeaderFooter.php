@@ -47,12 +47,6 @@ class HeaderFooter
      */
     private $deleted;
 
-    /**
-     * @var integer
-     * @ORM\Column(name="isDeleted", type="integer", length=2, options={"default":0},nullable=false)
-     */
-    private $isDeleted;
-
 
 
     /**
@@ -61,7 +55,7 @@ class HeaderFooter
 
     public function __construct()
     {
-        $this->isDeleted = 0;
+        $this->deleted = 0;
     }
 
     /**
@@ -120,22 +114,6 @@ class HeaderFooter
     public function setHeader($header)
     {
         $this->header = $header;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-
-    /**
-     * @param int $isDeleted
-     */
-    public function setIsDeleted($isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
     }
 
     /**

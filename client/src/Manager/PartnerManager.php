@@ -59,7 +59,10 @@ class PartnerManager extends BaseManager
                     $validation->setPartner($partener);
                     $validation->setEtape(Constant::STEP_ONE);
                     $this->saveAndFlush($validation);
+
                 }
+
+
             }
         }
         return $partener;

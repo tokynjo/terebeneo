@@ -14,7 +14,7 @@ class HeaderFooterRepository extends \Doctrine\ORM\EntityRepository
      * get header footer active
      * @return mixed
      */
-    public function getHeaderFooterActive() {
+    public function getAllHeaderFooterActive() {
         $qb = $this->createQueryBuilder("hf")
             ->innerJoin('App:Partner', 'p', 'WITH', 'p.id = hf.partner')
             ->where("hf.deleted = :deleted")

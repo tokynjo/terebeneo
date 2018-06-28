@@ -189,6 +189,27 @@ class Partner
     private $deleted;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="neobe_id_client", type="integer", length=11)
+     */
+    private $neobeIdClient;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="neobe_password", type="string", length=255)
+     */
+    private $neobePassword;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="neobe_creationDate", type="datetime", length=255)
+     */
+    private $neobeCreationDate;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="parent", cascade={"persist"})
      */
     private $children;
@@ -196,6 +217,11 @@ class Partner
      * @ORM\OneToMany(targetEntity="App\Entity\HeaderFooter", mappedBy="partner", cascade={"persist"})
      */
     private $headersFooters;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\NeobeAccount", mappedBy="partner", cascade={"persist"})
+     */
+    private $neobeAccounts;
 
     /**
      * partner api user

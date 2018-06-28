@@ -16,9 +16,18 @@ class HeaderFooterType extends AbstractType
             ->add('partner', EntityType::class, array(
                 'class' => 'App:Partner',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('p')
+
+                    $partners =  $er->createQueryBuilder('p')
                         ->where('p.deleted <> 1')
                         ->orderBy('p.name', 'ASC');
+                    /*$partnersWithoutHF = [];
+                    foreach($partners as $partner) {
+                         if($partner->getActiveHeadersFooters()) {
+                             //array_push($partnersWithoutHF, $partner);
+                             $partners->remove($partners);
+                         }
+                    }*/
+                    return $partners;
                 },
                 'choice_label' => 'name',
             ));

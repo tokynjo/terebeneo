@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Constants\Constant;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -166,6 +167,13 @@ class Partner
      * @ORM\Column(name="volume_size", type="integer", length=5, nullable=true)
      */
     private $volumeSize;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="neobe_account_id", type="integer", length=5, nullable=true)
+     */
+    private $neobeAccountId;
 
     /**
      * @var string
@@ -441,6 +449,18 @@ class Partner
         return $this->headersFooters;
     }
 
+    public function getActiveHeadersFooters()
+    {
+        if($this->headersFooters > 0) {
+           foreach($this->headersFooters as $hf) {
+               if($hf->getDeleted() == Constant::NOT_DELETED) {
+                   return $hf;
+               }
+           }
+        }
+        return null;
+    }
+
     /**
      * @param $headersFooters
      * @return $this
@@ -706,6 +726,24 @@ class Partner
     }
 
     /**
+     * @return int
+     */
+    public function getNeobeAccountId()
+    {
+        return $this->neobeAccountId;
+    }
+
+    /**
+     * @param int $neobeAccountId
+     */
+    public function setNeobeAccountId($neobeAccountId)
+    {
+        $this->neobeAccountId = $neobeAccountId;
+        return $this;
+    }
+
+
+    /**
      * @param int $volumeSize
      */
     public function setVolumeSize($volumeSize)
@@ -789,5 +827,4 @@ class Partner
 
         return $this;
     }
-
 }

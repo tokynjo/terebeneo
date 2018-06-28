@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\Constants\Constant;
 use App\Entity\Notification;
 use App\Entity\NotificationContent;
 use App\Entity\User;
@@ -158,7 +159,8 @@ class NotificationController extends BaseController
             [
                 'form' => $form->createView(),
                 'notificationContent' => $notificationContent,
-                'notification' => $notification
+                'notification' => $notification,
+                'mailVars' => Constant::$dataMailList
             ]
         );
     }

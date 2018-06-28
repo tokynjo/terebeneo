@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,7 +48,7 @@ class NotificationType
      */
     public function __construct()
     {
-
+        $this->notificationContents = new ArrayCollection();
     }
 
     /**
@@ -91,6 +93,37 @@ class NotificationType
     public function setDescription(string $description): Notification
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return Collection|NotificationContent[]
+     */
+    public function getNotificationContents(): Collection
+    {
+        return $this->notificationContents;
+    }
+
+    public function addNotificationContent(NotificationContent $notificationContent): self
+    {
+        if (!$this->notificationContents->contains($notificationContent)) {
+            $this->notificationContents[] = $notificationContent;
+            $notificationContent->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotificationContent(NotificationContent $notificationContent): self
+    {
+        if ($this->notificationContents->contains($notificationContent)) {
+            $this->notificationContents->removeElement($notificationContent);
+            // set the owning side to null (unless already changed)
+            if ($notificationContent->getType() === $this) {
+                $notificationContent->setType(null);
+            }
+        }
+
         return $this;
     }
 

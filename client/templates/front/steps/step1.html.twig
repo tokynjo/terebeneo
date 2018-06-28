@@ -4,7 +4,7 @@
 
 {% block body %}
     <br>
-    <p>Bonjour Monsieur Dupont,</p>
+    <p>Bonjour Monsieur {% if partener.id is defined %}{{ partener.lastname }}{% endif %},</p>
     <p>Dans le cadre de votre contrat SAFE DATA vous bénéficiez d’un pack de sauvegarde informatique en ligne NeoBe pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
     <h2 class="text-black"> NeoBe est la solution de sauvegarde informatique intégrée à votre contrat SAFE DATA qui vous permet d’assurer la protection complète de vos données.</h2>
     <p><strong>Votre compte NeoBe inclut : </strong></p>
@@ -26,11 +26,42 @@
                 (identifient et mot de passe) pour réaliser la sauvegarde de votre premier poste informatique.
             </p>
             <br>
-            <form action="{{ path('steps_two') }}" method="post">
-                <p style="text-align: center">
-                    <input type="checkbox" style="margin-right: 15px">
-                    <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
-                </p>
+            {% if partener.hash is defined %}
+            <form action="{{ path('steps_two',{'token':partener.hash}) }}" method="post">
+            {% else %}
+            <form action="{{ path('steps_two_') }}" method="post">
+            {% endif %}
+                <div class="container">
+                    {# <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Nombre de licences:</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="nombre_de_licences" class="form-control" id="nombre_de_licences" placeholder="00">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Volume global de sauvegarde(Go):</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="volume_global_de_sauvegarde_Go" class="form-control" id="volume_global_de_sauvegarde_Go" placeholder="00 Go">
+                        </div>
+                    </div> #}
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Nombre de licences à créer:</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="nb_licences_a_creer" class="form-control" id="nb_licences_a_creer" placeholder="00">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Volume par licence(Go):</label>
+                        <div class="col-sm-8">
+                            <input required="required" type="number" name="volume_par_licence_Go" class="form-control" id="volume_par_licence_Go" placeholder="00 Go">
+                        </div>
+                    </div>
+                    <p style="text-align: center">
+                        <input type="checkbox" style="margin-right: 15px" required="required">
+                        <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
+                    </p>
+                </div>
+
                 <div class="col" style="text-align: center;">
                     <button type="submit"  class="link_1 wra" >Je valide et je recois mes identifients NeoBe+</button>
                 </div>

@@ -39,7 +39,7 @@ class HeaderFooterController extends BaseController
      */
     public function listAction(Request $request)
     {
-        $headers = $this->get(HeaderFooterManager::SERVICE_NAME)->getHeaderFooterActive();
+        $headers = $this->get(HeaderFooterManager::SERVICE_NAME)->getAllHeaderFooterActive();
         return $this->render('admin/header/list.html.twig', ['list' => $headers]);
     }
 

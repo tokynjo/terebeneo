@@ -40,3 +40,8 @@ doctrine:
 #                dir: '%project_api_dir%/src/Entity'
 #                prefix: 'App\Entity'
 #                alias: App
+stof_doctrine_extensions:
+    orm:
+        default:
+            timestampable: true
+            sluggable: true

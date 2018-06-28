@@ -78,11 +78,7 @@ class Mailer
     public function sendMailGrid($subject, $mailTo, $template, $dataFrom = null)
     {
         $container = $this->container;
-        if (!empty($dataFrom['send_by'])) {
-            $user = $dataFrom['send_by'];
-        } else {
-            $user = $container->get('security.token_storage')->getToken()->getUser();
-        }
+
         $data = [];
         if (isset($dataFrom['pj'])) {
             foreach ($dataFrom['pj'] as $fichier) {
@@ -134,8 +130,8 @@ class Mailer
         }
         $data['personalizations'][] = $pres;
         $from = new \stdClass();
-        $from->email = $user->getEmail();
-        $from->name = $user->getFirstname() . " " . $user->getLastname();
+        $from->email = 'no-replay@neobe.com';
+        $from->name = 'no-replay@neobe.com';
         $data['from'] = $from;
         $data['content'] = [];
         $content = new \stdClass();

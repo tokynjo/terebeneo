@@ -44,6 +44,7 @@ class PartnerHandler
             $em->getConnection()->beginTransaction();
             try {
                 $data = $this->form->getData();
+                //print_r($data->getNeobeAccountId()); die;
                 $data->setDeleted(Constant::NO);
                 if(!$data->getId()){
                     //hash
@@ -52,6 +53,8 @@ class PartnerHandler
                     //creating user api
                     $partnerEvent = new PartnerEvent($data);
                     $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_CREATE, $partnerEvent);
+                } else {
+                    $this->partnerManager->saveAndFlush($data);
                 }
                 $em->commit();
                 return true;

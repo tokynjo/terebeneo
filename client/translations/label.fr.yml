@@ -93,7 +93,8 @@ partners:
   list_title: Liste des partenaires
   edit_title: Edition d'un partenaire
   create_title: Ajout d'un partenaire
-  name: Nom
+  name: Societé
+  neobeAccountId: Identifiant Neobe
   address1: Adresse 1
   address2: Adresse 2
   city: Ville
@@ -106,11 +107,12 @@ partners:
   phone: Téléphone
   deletion_message_confirmation: Voulez vous supprimer le partenaire
   deletion_title: Suppression d'un partenaire
+  neobe_account_id: Id neobe
 
 accounts:
   name: Nom
   mail: Email
-  list_title: Liste des comptes NEOBE
+  list_title: Liste des comptes client NEOBE
 
 
 

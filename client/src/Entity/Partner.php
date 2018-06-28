@@ -1,7 +1,9 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Constants\Constant;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -152,6 +154,26 @@ class Partner
      * @ORM\Column(name="status", type="integer", length=10, nullable=true)
      */
     private $status;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nb_license", type="integer", length=5, nullable=true)
+     */
+    private $nbLicense;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="volume_size", type="integer", length=5, nullable=true)
+     */
+    private $volumeSize;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="neobe_account_id", type="integer", length=5, nullable=true)
+     */
+    private $neobeAccountId;
 
     /**
      * @var string
@@ -184,6 +206,11 @@ class Partner
     private $headersFooters;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ValidationLog", mappedBy="partner", cascade={"persist"})
+     */
+    private $validation;
+
+    /**
      * Get id
      *
      * @return int
@@ -213,6 +240,8 @@ class Partner
     {
         $this->accounts = new  ArrayCollection();
         $this->headersFooters = new  ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->validation = new ArrayCollection();
     }
 
     /**
@@ -418,6 +447,18 @@ class Partner
     public function getHeadersFooters()
     {
         return $this->headersFooters;
+    }
+
+    public function getActiveHeadersFooters()
+    {
+        if($this->headersFooters > 0) {
+           foreach($this->headersFooters as $hf) {
+               if($hf->getDeleted() == Constant::NOT_DELETED) {
+                   return $hf;
+               }
+           }
+        }
+        return null;
     }
 
     /**
@@ -628,7 +669,162 @@ class Partner
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbLicense()
+    {
+        return $this->nbLicense;
+    }
+
+    /**
+     * @param int $nbLicense
+     */
+    public function setNbLicense($nbLicense)
+    {
+        $this->nbLicense = $nbLicense;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param string $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVolumeSize()
+    {
+        return $this->volumeSize;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNeobeAccountId()
+    {
+        return $this->neobeAccountId;
+    }
+
+    /**
+     * @param int $neobeAccountId
+     */
+    public function setNeobeAccountId($neobeAccountId)
+    {
+        $this->neobeAccountId = $neobeAccountId;
+        return $this;
+    }
 
 
+    /**
+     * @param int $volumeSize
+     */
+    public function setVolumeSize($volumeSize)
+    {
+        $this->volumeSize = $volumeSize;
+    }
 
+    public function addChild(Partner $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Partner $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addHeadersFooter(HeaderFooter $headersFooter): self
+    {
+        if (!$this->headersFooters->contains($headersFooter)) {
+            $this->headersFooters[] = $headersFooter;
+            $headersFooter->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHeadersFooter(HeaderFooter $headersFooter): self
+    {
+        if ($this->headersFooters->contains($headersFooter)) {
+            $this->headersFooters->removeElement($headersFooter);
+            // set the owning side to null (unless already changed)
+            if ($headersFooter->getPartner() === $this) {
+                $headersFooter->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ValidationLog[]
+     */
+    public function getValidation(): Collection
+    {
+        return $this->validation;
+    }
+
+    public function addValidation(ValidationLog $validation): self
+    {
+        if (!$this->validation->contains($validation)) {
+            $this->validation[] = $validation;
+            $validation->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(ValidationLog $validation): self
+    {
+        if ($this->validation->contains($validation)) {
+            $this->validation->removeElement($validation);
+            // set the owning side to null (unless already changed)
+            if ($validation->getPartner() === $this) {
+                $validation->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
 }

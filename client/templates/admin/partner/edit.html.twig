@@ -39,56 +39,38 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
+                                    <label for="partner_neobeAccountId">{{ 'partners.neobeAccountId'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.neobeAccountId, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
                                     <label for="partner_name">{{ 'partners.name'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
-                                <div class="col-md-6">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-4">
                                     <label for="partner_civility">{{ 'partners.civility'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.civility, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
-                                    {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="partner_lastname">{{ 'partners.lastname'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
-                                    {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="partner_firstname">{{ 'partners.firstname'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
-                                    {{ form_widget(form.city, { 'attr': {'class': 'form-control'} }) }}
-                                </div>
                                 <div class="col-md-6">
                                     <label for="partner_mail">{{ 'partners.mail'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.mail, { 'attr': {'class': 'form-control'} }) }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="partner_zipcode">{{ 'partners.zipcode'|trans({},'label', 'fr') }}</label>
-                                    {{ form_widget(form.zipcode, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
                                     <label for="partner_phone">{{ 'partners.phone'|trans({},'label', 'fr') }}</label>
@@ -99,9 +81,36 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
+                                    <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <label for="partner_zipcode">{{ 'partners.zipcode'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.zipcode, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.city, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-4">
                                     <label for="partner_country">{{ 'partners.country'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.country, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -139,9 +148,9 @@
                                                     <td>{{ a.firstname }}{{ a.lastname }}</td>
                                                     <td>{{ a.mail }}</td>
                                                     <td class="actions">
-                                                        <a href="{{ path('admin_notification_message_edit',{'id':a.id, 'notif_id':a.notification.id}) }}"
+                                                        <a href="{#{ path('admin_notification_message_edit',{'id':a.id, 'notif_id':a.notification.id}) }}#}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        <a href="{{ path('admin_notification_message_delete',{'id':a.id, 'notif_id':a.notification.id }) }}" class="delete" data-uid="{{ a.id }}"
+                                                        <a href="{#{{ path('admin_notification_message_delete',{'id':a.id, 'notif_id':a.notification.id }) }}#}" class="delete" data-uid="{{ a.id }}"
                                                            data-detail="{{ a.id }}"
                                                            data-title ="{{ 'notifications.messages.deletion_title'|trans({},'label', 'fr') }}"
                                                            data-message = "{{ 'notifications.messages.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ a.id }} "

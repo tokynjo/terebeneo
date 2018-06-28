@@ -32,7 +32,8 @@ class PartnerType extends AbstractType
             ))
             ->add('mail')
             ->add('phone')
-            ->add('firstname');
+            ->add('firstname')
+            ->add('neobeAccountId');
     }
 
     public function configureOptions(OptionsResolver $resolver)

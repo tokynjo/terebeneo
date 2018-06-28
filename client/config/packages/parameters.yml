@@ -12,6 +12,13 @@ parameters:
     secret: S3C83T!T043N.
 
     project_api_dir: C:\wamp64\www\projets\dropcloud\neobe-ter\neobe-ter\api
+    front_url: https://preprod-ter.dropcloud.fr
 
     #send grid config
     api_key_send_grid: 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
+
+    #neobe api config
+    neobe_api_username: nrandianina@bocasay.com
+    neobe_api_pwd: '123456'
+    neobe_api_envtest: true
+    neobe_api_url: 'https://prospects-api.dropcloud.fr'

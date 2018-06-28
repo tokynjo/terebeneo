@@ -71,3 +71,7 @@ services:
         class: App\Manager\ValidationLogManager
         arguments: ['@doctrine.orm.entity_manager', 'App\Entity\ValidationLog']
         public: true
+    api.neobe.create_account:
+        class: App\Services\NeobeApiService
+        arguments: ['@service_container']
+        public: true

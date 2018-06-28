@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Neobe
  *
- * @ORM\Table(name="partner", options={"comment":"Table pour les comptes du partenaire "})
+ * @ORM\Table(name="neobe_account", options={"comment":"Table pour les comptes du partenaire "})
  * @ORM\Entity(repositoryClass="App\Repository\NeobeAccountRepository")
  *
  */
@@ -89,6 +89,13 @@ class NeobeAccount
     private $updatedAt;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_account", type="integer", length=2, nullable=true)
+     */
+    private $idAccount;
+
+    /**
      * Get id
      *
      * @return int
@@ -118,4 +125,130 @@ class NeobeAccount
     {
         $this->accounts = new  ArrayCollection();
     }
+
+    /**
+     * @return int
+     */
+    public function getIdAccount()
+    {
+        return $this->idAccount;
+    }
+
+    /**
+     * @param int $idAccount
+     */
+    public function setIdAccount($idAccount)
+    {
+        $this->idAccount = $idAccount;
+    }
+
+    public function getInstalled(): ?int
+    {
+        return $this->installed;
+    }
+
+    public function setInstalled(?int $installed): self
+    {
+        $this->installed = $installed;
+
+        return $this;
+    }
+
+    public function getSaved(): ?int
+    {
+        return $this->saved;
+    }
+
+    public function setSaved(?int $saved): self
+    {
+        $this->saved = $saved;
+
+        return $this;
+    }
+
+    public function getLogin(): ?string
+    {
+        return $this->login;
+    }
+
+    public function setLogin(string $login): self
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getTotalSize(): ?int
+    {
+        return $this->totalSize;
+    }
+
+    public function setTotalSize(int $totalSize): self
+    {
+        $this->totalSize = $totalSize;
+
+        return $this;
+    }
+
+    public function getUsedSize(): ?string
+    {
+        return $this->usedSize;
+    }
+
+    public function setUsedSize(?string $usedSize): self
+    {
+        $this->usedSize = $usedSize;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+
 }

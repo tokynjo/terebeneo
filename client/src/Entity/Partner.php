@@ -211,6 +211,13 @@ class Partner
     private $validation;
 
     /**
+     * partner api user
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="partner")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
      * Get id
      *
      * @return int
@@ -739,6 +746,24 @@ class Partner
     public function setNeobeAccountId($neobeAccountId)
     {
         $this->neobeAccountId = $neobeAccountId;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
         return $this;
     }
 

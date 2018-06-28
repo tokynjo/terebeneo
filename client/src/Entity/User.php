@@ -88,6 +88,12 @@ class User extends BaseUser
     private $deleted;
 
     /**
+     * partner
+     * @ORM\OneToOne(targetEntity="App\Entity\Partner", mappedBy="user")
+     */
+    private $partner;
+
+    /**
      * @return string
      */
     public function getDeleted()
@@ -265,5 +271,24 @@ class User extends BaseUser
         $this->createdAt = $createdAt;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPartner()
+    {
+        return $this->partner;
+    }
+
+    /**
+     * @param $partner
+     * @return $this
+     */
+    public function setPartner($partner)
+    {
+        $this->partner = $partner;
+        return $this;
+    }
+
 
 }

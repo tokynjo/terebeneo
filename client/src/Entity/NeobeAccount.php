@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Neobe
  *
- * @ORM\Table(name="partner", options={"comment":"Table pour les comptes du partenaire "})
+ * @ORM\Table(name="neobe_account", options={"comment":"Table pour les comptes du partenaire "})
  * @ORM\Entity(repositoryClass="App\Repository\NeobeAccountRepository")
  *
  */

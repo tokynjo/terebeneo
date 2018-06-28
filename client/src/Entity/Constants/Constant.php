@@ -12,6 +12,8 @@ class Constant
     const ENABLED = 1;
     const DISABLED = 0;
     const DELETED_SALT = "-deleted-";
+    const NOTIF_CONFIRM_ACCOUNT_CREATION = 1;
+    const NOTIF_USER_API_CREATION = 2;
 
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 2;
@@ -40,7 +42,7 @@ class Constant
         '__partenaire_prenom__' => 'Partenaire - prenom',
         '__partenaire_api_login__' => 'Partenaire - Api login',
         '__partenaire_api_mot_de_passe__' => 'Partenaire - Api mot de passe',
-        '__partenaire_nom_societe__' => 'Nom société partenaire',
+        '__partenaire_api_url' => 'Partenaire - Api url',
         '__client_nom_societe__' => 'Nom société client',
         '__client_nom__' => 'Nom client',
         '__client_prenom__' => 'Prénom client',

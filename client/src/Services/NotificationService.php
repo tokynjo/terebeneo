@@ -21,13 +21,22 @@ class NotificationService
     protected $mailer;
     protected $sms;
     protected $frontUrl;
+    protected $apiUrl;
 
-    public function __construct(EntityManagerInterface $entityManager,$template, $mailer, $sms = null, $frontUrl )
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        $template,
+        $mailer,
+        $sms = null,
+        $frontUrl = null,
+        $apiUrl = null
+    ){
         $this->em = $entityManager;
         $this->template = $template;
         $this->mailer = $mailer;
+        $this->sms = $sms;
         $this->frontUrl = $frontUrl;
+        $this->apiUrl = $apiUrl;
     }
 
     public function sendNotification (Partner $partner, Notification $notification)
@@ -40,7 +49,7 @@ class NotificationService
                     $footer = '';
                     $mailContent = $content->getContent();
                     $parent = $partner->getParent();
-                    if ($parent->getHeadersFooters()){
+                    if (!is_null($parent) && $parent->getActiveHeadersFooters()){
                         $header = $parent->getActiveHeadersFooters()->getHeader() ? $parent->getActiveHeadersFooters()->getHeader() : '';
                         $footer = $parent->getActiveHeadersFooters()->getFooter() ? $parent->getActiveHeadersFooters()->getfooter() : '';
                     }
@@ -80,8 +89,36 @@ class NotificationService
     {
         foreach(Constant::$dataMailList as $key => $label) {
             switch ($key) {
+                //partner
                 case '__partenaire_nom_societe__' :
-                    $content = str_replace($key, $partner->getParent()->getName(), $content);
+                    $name = $partner->getName();
+                    if($partner->getParent()) {
+                        $name = $partner->getParent()->getName();
+                    }
+                    $content = str_replace($key, $name, $content);
+                    break;
+                case '__partenaire_nom__' :
+                    $lastName = $partner->getLastname();
+                    if($partner->getParent()) {
+                        $lastName = $partner->getParent()->getLastname();
+                    }
+                    $content = str_replace($key, $lastName, $content);
+                    break;
+                case '__partenaire_prenom__' :
+                    $firstName = $partner->getFirstname();
+                    if($partner->getParent()) {
+                        $firstName = $partner->getParent()->getFirstname();
+                    }
+                    $content = str_replace($key, $firstName, $content);
+                    break;
+                case '__partenaire_api_login__' :
+                    $content = str_replace($key, $partner->getUser()->getEmail(), $content);
+                    break;
+                case '__partenaire_api_mot_de_passe__' :
+                    $content = str_replace($key, $partner->getUser()->getPlainPassword(), $content);
+                    break;
+                case '__partenaire_api_url' :
+                    $content = str_replace($key, $this->apiUrl.'/create', $content);
                     break;
                 case '__client_nom__' :
                     $content = str_replace($key, $partner->getLastname(), $content);
@@ -107,6 +144,4 @@ class NotificationService
 
         return $content;
     }
-
-
 }

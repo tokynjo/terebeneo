@@ -59,7 +59,6 @@ class PartnerListener
      */
     public function onCreateClientTer(PartnerEvent $partnerEvent)
     {
-        die('sdfdsff onCreateClientTer');
         //sending confirmation email.
         $notification = $this->entityManager->getRepository('App:Notification')->find(Constant::NOTIF_CONFIRM_ACCOUNT_CREATION);
         $partner = $partnerEvent->getPartner();

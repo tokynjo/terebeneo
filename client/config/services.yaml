@@ -47,7 +47,7 @@ services:
 
     app.event.user:
         class: App\EventListener\UserListener
-        arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.mailer', '@templating']
+        arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.notification_service']
         tags:
             - { name: kernel.event_listener, event: user.on.create, method: onCreateUser}
     app.authentication.login_success_handler:
@@ -70,4 +70,8 @@ services:
     app.validation_log_manager:
         class: App\Manager\ValidationLogManager
         arguments: ['@doctrine.orm.entity_manager', 'App\Entity\ValidationLog']
+        public: true
+    app.notification_service:
+        class: App\Services\NotificationService
+        arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer', null, '%front_url%', '%api_url%']
         public: true

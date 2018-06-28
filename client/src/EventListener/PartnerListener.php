@@ -82,7 +82,8 @@ class PartnerListener
             ->setUsername($partner->getMail())
             ->setLastname($partner->getLastname())
             ->setFirstname($partner->getFirstname())
-            ->setUserApi(Constant::YES);
+            ->setUserApi(Constant::YES)
+            ->setPartner($partner);
         //password
         $pwdEncoder = new PasswordEncoder();
         $password = $pwdEncoder->random_str('alphanum', Constant::PASSWORD_LENGTH);

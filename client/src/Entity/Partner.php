@@ -169,6 +169,13 @@ class Partner
     private $volumeSize;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="neobe_account_id", type="integer", length=5, nullable=true)
+     */
+    private $neobeAccountId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
@@ -719,6 +726,24 @@ class Partner
     }
 
     /**
+     * @return int
+     */
+    public function getNeobeAccountId()
+    {
+        return $this->neobeAccountId;
+    }
+
+    /**
+     * @param int $neobeAccountId
+     */
+    public function setNeobeAccountId($neobeAccountId)
+    {
+        $this->neobeAccountId = $neobeAccountId;
+        return $this;
+    }
+
+
+    /**
      * @param int $volumeSize
      */
     public function setVolumeSize($volumeSize)
@@ -802,5 +827,4 @@ class Partner
 
         return $this;
     }
-
 }

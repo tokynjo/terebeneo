@@ -7,11 +7,10 @@ use App\Entity\Partner;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Unirest\Request;
+
 /**
- * Created by PhpStorm.
- * User: rnasolo@gmail.com
- * Date: 24/10/2017
- * Time: 10:39
+ * Class NotificationService
+ * @package App\Services
  */
 class NotificationService
 {
@@ -21,12 +20,14 @@ class NotificationService
     protected $template;
     protected $mailer;
     protected $sms;
+    protected $frontUrl;
 
-    public function __construct(EntityManagerInterface $entityManager,$template, $mailer, $sms = null )
+    public function __construct(EntityManagerInterface $entityManager,$template, $mailer, $sms = null, $frontUrl )
     {
         $this->em = $entityManager;
         $this->template = $template;
         $this->mailer = $mailer;
+        $this->frontUrl = $frontUrl;
     }
 
     public function sendNotification (Partner $partner, Notification $notification)
@@ -40,8 +41,8 @@ class NotificationService
                     $mailContent = $content->getContent();
                     $parent = $partner->getParent();
                     if ($parent->getHeadersFooters()){
-                        $header = $parent->getHeadersFooters()->getHeader() ? $parent->getHeadersFooters()->getHeader() : '';
-                        $footer = $parent->getHeadersFooters()->getFooter() ? $parent->getHeadersFooters()->getfooter() : '';
+                        $header = $parent->getActiveHeadersFooters()->getHeader() ? $parent->getActiveHeadersFooters()->getHeader() : '';
+                        $footer = $parent->getActiveHeadersFooters()->getFooter() ? $parent->getActiveHeadersFooters()->getfooter() : '';
                     }
                     $header = $this->replaceDataVars($partner, $header);
                     $footer = $this->replaceDataVars($partner, $footer);

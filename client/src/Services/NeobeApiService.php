@@ -37,7 +37,7 @@ class NeobeApiService
         $this->container = $container;
         $this->username = $container->getParameter('neobe_api_username');
         $this->pwd = $container->getParameter('neobe_api_pwd');
-        $this->url = $container->getParameter('neobe_api__url');
+        $this->url = $container->getParameter('neobe_api_url');
         $this->headers = [
             'Content-Type'  => 'application/json',
             'Accept'        => 'text/plain',

@@ -91,7 +91,6 @@ class PartnerListener
         $partner->setPassword($pwdEncoder->encode($password));
         $this->entityManager->persist($partner);
         $this->entityManager->flush();
-
         //sending email password/username
         $user->setPlainPassword($password);
         $userEvent = new UserEvent($user);

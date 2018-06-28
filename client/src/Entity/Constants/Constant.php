@@ -41,6 +41,7 @@ class Constant
         '__client_prenom__' => 'Prénom client',
         '__client_civilite__' => 'Civilité client',
         '__client_nb_license__' => 'Nombre de license client',
-        '__client_volume_total__' => 'Volume total'
+        '__client_volume_total__' => 'Volume total',
+        '__url_create_account_validation__' => 'Url de validation de création de compte'
     ];
 }

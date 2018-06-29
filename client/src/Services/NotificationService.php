@@ -53,8 +53,10 @@ class NotificationService
                         $header = $parent->getActiveHeadersFooters()->getHeader() ? $parent->getActiveHeadersFooters()->getHeader() : '';
                         $footer = $parent->getActiveHeadersFooters()->getFooter() ? $parent->getActiveHeadersFooters()->getfooter() : '';
                     }
-                    $header = $this->replaceDataVars($partner, $header);
-                    $footer = $this->replaceDataVars($partner, $footer);
+                    //var_dump($footer); die;
+                    //$header = $this->replaceDataVars($partner, $header);
+                    //$footer = $this->replaceDataVars($partner, $footer);
+                    //print_r($mailContent); die;
                     $mailContent = $this->replaceDataVars($partner, $mailContent);
 
                     $template = $this->template->render(
@@ -87,6 +89,7 @@ class NotificationService
      */
     protected function replaceDataVars(Partner $partner, $content)
     {
+        $pwdEncoder = new PasswordEncoder();
         foreach(Constant::$dataMailList as $key => $label) {
             switch ($key) {
                 //partner
@@ -110,12 +113,19 @@ class NotificationService
                         $firstName = $partner->getParent()->getFirstname();
                     }
                     $content = str_replace($key, $firstName, $content);
+
                     break;
+
                 case '__partenaire_api_login__' :
-                    $content = str_replace($key, $partner->getUser()->getEmail(), $content);
+                    if($partner->getUser()) {
+                        $content = str_replace($key, $partner->getUser()->getEmail(), $content);
+                    }
                     break;
+
                 case '__partenaire_api_mot_de_passe__' :
-                    $content = str_replace($key, $partner->getUser()->getPlainPassword(), $content);
+                    if($partner->getUser()) {
+                        $content = str_replace($key, $partner->getUser()->getPlainPassword(), $content);
+                    }
                     break;
                 case '__partenaire_api_url' :
                     $content = str_replace($key, $this->apiUrl.'/create', $content);
@@ -138,6 +148,32 @@ class NotificationService
                 case '__url_create_account_validation__' :
                     $frontUrl = $this->frontUrl.'/'.$partner->getHash();
                     $content = str_replace($key, $frontUrl, $content);
+                    break;
+                case '__details_comptes_neobe__' :
+                    $details = '';
+                    if (sizeof($partner->getAccounts()) > 0) {
+                        foreach($partner->getAccounts() as $c) {
+                            $details .= '<ul>';
+                            $details .= '<li>Id : '.$c->getNeobeAccountId().'</li>';
+                            $details .= '<li>Login : '.$c->getLogin().'</li>';
+                            $details .= '<li>Mot de passe : '.$pwdEncoder->decode($c->getPassword()).'</li>';
+                            $details .= '<li>Espace total en Mo : '.$c->getTotalSize().'</li>';
+                            $details .= '<li>Espace utilisé en Mo : '.$c->getUsedSize().'</li>';
+                            $details .= '</ul>';
+                        }
+
+                    } else {
+                        $details .= '<p>Vous n\'avez pas encore activé de compte. Veuillez vous connecter sue votre éspace
+                        d\'administration Neobe pour le faire. </p>';
+                    }
+
+                    $content = str_replace($key, $details, $content);
+                    break;
+                case '__details_acces_neobe__' :
+                    $str = 'Id_client : '.$partner->getNeobeAccountId().'<br>';
+                    $str .= 'Email : '.$partner->getMail().'<br>';
+                    $str .= 'Mot de passe : '.$pwdEncoder->decode($partner->getPassword()).'<br>';
+                    $content = str_replace($key, $str, $content);
                     break;
             }
         }

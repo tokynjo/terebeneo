@@ -59,13 +59,14 @@ services:
         public: true
     app.partner_manager:
         class: App\Manager\PartnerManager
-        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner', '@app.validation_log_manager']
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\Partner', '@app.validation_log_manager', '@event_dispatcher']
         public: true
     app.event.partner:
         class: App\EventListener\PartnerListener
-        arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.mailer', '@fos_user.user_manager','@event_dispatcher']
+        arguments: ['@doctrine.orm.entity_manager','@security.token_storage','@translator','@app.notification_service', '@fos_user.user_manager','@event_dispatcher']
         tags:
             - { name: kernel.event_listener, event: partner.client.on.create, method: onCreatePartnerClient}
+            - { name: kernel.event_listener, event: partner.client.on.validate.account, method: onValidateNeobeAccountCreation}
 
     app.validation_log_manager:
         class: App\Manager\ValidationLogManager
@@ -74,4 +75,9 @@ services:
     app.notification_service:
         class: App\Services\NotificationService
         arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer', null, '%front_url%', '%api_url%']
+        public: true
+
+    api.neobe.create_account:
+        class: App\Services\NeobeApiService
+        arguments: ['@service_container']
         public: true

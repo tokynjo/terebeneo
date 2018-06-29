@@ -4,7 +4,7 @@
 
 {% block body %}
     <br>
-    <p>Bonjour Monsieur {% if partener.id is defined %}{{ partener.lastname }}{% endif %},</p>
+    <p>Bonjour Monsieur {% if partner.id is defined %}{{ partner.lastname }}{% endif %},</p>
     <p>Dans le cadre de votre contrat SAFE DATA vous bénéficiez d’un pack de sauvegarde informatique en ligne NeoBe pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
     <h2 class="text-black"> NeoBe est la solution de sauvegarde informatique intégrée à votre contrat SAFE DATA qui vous permet d’assurer la protection complète de vos données.</h2>
     <p><strong>Votre compte NeoBe inclut : </strong></p>
@@ -26,8 +26,8 @@
                 (identifient et mot de passe) pour réaliser la sauvegarde de votre premier poste informatique.
             </p>
             <br>
-            {% if partener.hash is defined %}
-            <form action="{{ path('steps_two',{'token':partener.hash}) }}" method="post">
+            {% if partner.hash is defined %}
+            <form action="{{ path('steps_two',{'token':partner.hash}) }}" method="post">
             {% else %}
             <form action="{{ path('steps_two_') }}" method="post">
             {% endif %}

@@ -14,6 +14,7 @@ class Constant
     const DELETED_SALT = "-deleted-";
     const NOTIF_CONFIRM_ACCOUNT_CREATION = 1;
     const NOTIF_USER_API_CREATION = 2;
+    const NOTIF_NEOBE_ACCOUNT_CREATION = 3;
 
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 2;
@@ -25,6 +26,7 @@ class Constant
     const PASSWORD_LENGTH = 8;
 
     const DEFAULT_CIVILITY = 1;
+    const DEFAULT_CATEGORY = 1;
 
     const NOTIFICATION_TYPE_MAIL = 1;
     const NOTIFICATION_TYPE_SMS = 2;
@@ -49,6 +51,8 @@ class Constant
         '__client_civilite__' => 'Civilité client',
         '__client_nb_license__' => 'Nombre de license client',
         '__client_volume_total__' => 'Volume total',
-        '__url_create_account_validation__' => 'Url de validation de création de compte'
+        '__url_create_account_validation__' => 'Url de validation de création de compte',
+        '__details_comptes_neobe__' => 'Details des comptes neobe',
+        '__details_acces_neobe__' => 'Acces neobe'
     ];
 }

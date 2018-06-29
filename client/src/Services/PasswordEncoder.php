@@ -63,7 +63,7 @@ class PasswordEncoder
      */
     public function encode($password = '', $salt = '')
     {
-        $salt = substr($salt,self::BEGIN_SALT,self::SALT_LENGTH).$salt;
+        $salt = substr($salt, self::BEGIN_SALT, self::SALT_LENGTH).$salt;
         $aSalt = str_split($salt, 1);
         $aPwd = str_split($password, 1);
         $pwdFinal = [];

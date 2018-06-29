@@ -141,6 +141,8 @@ class Partner
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
+
+
     /**
      * @var string
      *
@@ -174,6 +176,18 @@ class Partner
      * @ORM\Column(name="neobe_account_id", type="integer", length=5, nullable=true)
      */
     private $neobeAccountId;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="neobe_password", type="string", length=255, nullable=true)
+     */
+    private $neobePassword;
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="neobe_created_at", type="datetime", length=255, nullable=true)
+     */
+    private $neobeCreatedAt;
 
     /**
      * @var string
@@ -216,6 +230,11 @@ class Partner
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\NeobeAccount", mappedBy="partner", cascade={"persist"})
+     */
+    private $accounts;
 
     /**
      * Get id
@@ -322,6 +341,23 @@ class Partner
         $this->city = $city;
         return $this;
     }
+
+    /**
+     * @return datetime
+     */
+    public function getNeobeCreatedAt()
+    {
+        return $this->neobeCreatedAt;
+    }
+
+    /**
+     * @param datetime $neobeCreatedAt
+     */
+    public function setNeobeCreatedAt($neobeCreatedAt)
+    {
+        $this->neobeCreatedAt = $neobeCreatedAt;
+    }
+
 
     /**
      * @return string
@@ -458,7 +494,7 @@ class Partner
 
     public function getActiveHeadersFooters()
     {
-        if($this->headersFooters > 0) {
+        if(sizeof($this->headersFooters) > 0) {
            foreach($this->headersFooters as $hf) {
                if($hf->getDeleted() == Constant::NOT_DELETED) {
                    return $hf;
@@ -766,6 +802,24 @@ class Partner
         $this->user = $user;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getNeobePassword()
+    {
+        return $this->neobePassword;
+    }
+
+    /**
+     * @param string $neobePassword
+     */
+    public function setNeobePassword($neobePassword)
+    {
+        $this->neobePassword = $neobePassword;
+        return $this;
+    }
+
 
 
     /**

@@ -48,11 +48,11 @@ EOT
                     if (isset($auth->data->compte)) {
                         $now = new \DateTime("now");
                         foreach ($auth->data->compte as $compte) {
-                            $compteNeobe = $this->em->getRepository("App:NeobeAccount")->findOneBy(["idAccount" => $compte->id]);
+                            $compteNeobe = $this->em->getRepository("App:NeobeAccount")->findOneBy(["neobeAccountId" => $compte->id]);
                             if (!$compteNeobe) {
                                 $compteNeobe = new NeobeAccount();
                                 $compteNeobe->setPartner($partner);
-                                $compteNeobe->setIdAccount($compte->id);
+                                $compteNeobe->setNeobeAccountId($compte->id);
                                 $compteNeobe->setUpdatedAt($now);
                                 $compteNeobe->setCreatedAt($now);
                             }

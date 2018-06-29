@@ -99,6 +99,7 @@ class NeobeAccount
      */
     private $updatedAt;
 
+    
     /**
      * Get id
      *
@@ -326,4 +327,5 @@ class NeobeAccount
         $this->usedSize = $usedSize;
         return $this;
     }
+
 }

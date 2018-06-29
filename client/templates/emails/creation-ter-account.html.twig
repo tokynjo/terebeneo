@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+        }
+        .content-wrapper {
+            margin-left: auto;
+            padding-top: 0px;
+        }
+        header {
+            margin-bottom: 30px;
+        }
+        .container-fluid {
+            max-width: 1082px;
+        }
+        .container-fluid {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+        footer .warning {
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body class="bg-white" id="page-top">
+<!-- Navigation-->
+<div class="content-wrapper">
+    <header id="header">
+        <div class="container-fluid">
+            <div class="row">
+                {{ header|raw }}
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-12 page-content">
+                {{ content|raw }}
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="">
+        <div class="container-fluid">
+            <div class="row">
+                <div  style="width:100%;text-align: center">
+                    NEOBE pour SAFE DATA <br>
+                    DROPCLOUD SOLUTIONS<br>
+                    11 Avenue du val de Fondenay<br>
+                    94120 FONTENAY SOUS BOIS<br>
+                    commercial@neobe.com
+                </div>
+                <div class="warning" style="width:100%;text-align: center; margin-top: 20px">
+                    Cet email a été envoyé à rnasolo@gmail.com <br>
+                    Vous aver réçu cet email car vous vous êtes client SAFE DATA
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+</body>
+
+</html>
+

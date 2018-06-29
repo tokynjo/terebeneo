@@ -8,10 +8,12 @@
 namespace App\EventListener;
 
 use App\Entity\Constants\Constant;
+use App\Entity\NeobeAccount;
 use App\Entity\User;
 use App\Event\PartnerEvent;
 use App\Event\UserEvent;
 use App\Services\NeobeApiService;
+use App\Services\NotificationService;
 use App\Services\PasswordEncoder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -29,7 +31,7 @@ class PartnerListener
     private $entityManager;
     private $tokenStorage;
     private $translator;
-    private $mailer;
+    private $notificationService;
     private $fosUserManager;
     private $dispatcher;
     private $apiService;
@@ -38,7 +40,7 @@ class PartnerListener
      * @param EntityManagerInterface $entityManager
      * @param TokenStorageInterface $tokenStorage
      * @param TranslatorInterface $translator
-     * @param null $mailer
+     * @param null $notificationService
      * @param null $fosUserManager
      * @param EventDispatcherInterface $eventDispatcher
      * @param NeobeApiService $apiService
@@ -47,7 +49,7 @@ class PartnerListener
         EntityManagerInterface $entityManager,
         TokenStorageInterface $tokenStorage,
         TranslatorInterface $translator,
-        $mailer = null,
+        NotificationService $notificationService = null,
         $fosUserManager = null,
         EventDispatcherInterface $eventDispatcher = null,
         NeobeApiService $apiService
@@ -55,7 +57,7 @@ class PartnerListener
         $this->entityManager = $entityManager;
         $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
-        $this->mailer = $mailer;
+        $this->notificationService = $notificationService;
         $this->fosUserManager = $fosUserManager;
         $this->dispatcher = $eventDispatcher;
         $this->apiService = $apiService;
@@ -82,7 +84,8 @@ class PartnerListener
             ->setUsername($partner->getMail())
             ->setLastname($partner->getLastname())
             ->setFirstname($partner->getFirstname())
-            ->setUserApi(Constant::YES);
+            ->setUserApi(Constant::YES)
+            ->setPartner($partner);
         //password
         $pwdEncoder = new PasswordEncoder();
         $password = $pwdEncoder->random_str('alphanum', Constant::PASSWORD_LENGTH);
@@ -98,15 +101,52 @@ class PartnerListener
     }
 
 
-    public function onStep1Validation (PartnerEvent $partnerEvent)
+    /**
+     * to do on client validation create account.
+     * post from step 1
+     * @param PartnerEvent $partnerEvent
+     */
+    public function onValidateNeobeAccountCreation (PartnerEvent $partnerEvent)
     {
         $partner = $partnerEvent->getPartner();
-
-        $this->apiService->createNeobeAccount(
+        $response = $this->apiService->createNeobeAccount(
             $partner,
-            $partnerEvent->getPartner(),
+            $partnerEvent->getNbLicencesToCreate(),
             $partnerEvent->getVolumeParLicenceGo()
         );
 
+        if($response->getCode() == NeobeApiService::CODE_SUCCESS) {
+            //maj client details
+            $partner->setNeobeAccountId($response->getData()->id_client);
+            $pwdEncoder = new PasswordEncoder();
+            $partner->setNeobePassword($pwdEncoder->encode($response->getData()->password, $partner->getHash()));
+            $partner->setNeobeCreatedAt(
+                    \DateTime::createFromFormat('m/d/Y H:i:s', $response->getData()->created_at)
+                );
+            $this->entityManager->persist($partner);
+
+            $this->entityManager->flush();
+            //create account
+            if(isset($response->getData()->compte) && sizeof($response->getData()->compte) >0) {
+                foreach($response->getData()->compte as $a ) {
+                    $account = new NeobeAccount();
+                    $account->setNeobeAccountId($a->id)
+                        ->setLogin($a->login)
+                        ->setPassword($pwdEncoder->encode($a->password, $partner->getHash()))
+                        ->setTotalSize($a->espace_total_mo)
+                        ->setUsedSize($a->espace_utilise_mo)
+                        ->setNeobeCreationDate(
+                            \DateTime::createFromFormat('m/d/Y H:i:s', $a->creat_at))
+                        ->setPartner($partner);
+                $this->entityManager->persist($account);
+                $this->entityManager->flush();
+                }
+            }
+
+            //send notification mail
+            $notification = $this->entityManager->getRepository('App:Notification')->find(Constant::NOTIF_NEOBE_ACCOUNT_CREATION);
+            $this->notificationService->sendNotification($partner, $notification);
+            die('sdfdsfsdfsdf');
+        }
     }
 }

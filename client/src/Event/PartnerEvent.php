@@ -18,6 +18,7 @@ use Symfony\Component\EventDispatcher\Event;
 class PartnerEvent extends Event
 {
     const PARTNER_CLIENT_ON_CREATE = "partner.client.on.create";
+    const PARTNER_CLIENT_ON_VALIDATE_ACCOUNT = "partner.client.on.validate.account";
 
     private $partner;
     private $nb_licences_to_create = null;

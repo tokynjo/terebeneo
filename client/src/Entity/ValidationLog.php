@@ -64,12 +64,12 @@ class ValidationLog
         return $this;
     }
 
-    public function getpartner(): ?partner
+    public function getPartner(): ?Partner
     {
         return $this->partner;
     }
 
-    public function setpartner(?partner $partner): self
+    public function setPartner(?Partner $partner): self
     {
         $this->partner = $partner;
 

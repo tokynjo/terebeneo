@@ -61,4 +61,20 @@ class ApiResponse
         $this->data = $data;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
 }

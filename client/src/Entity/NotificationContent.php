@@ -29,6 +29,13 @@ class NotificationContent
     private $content;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=255, nullable=true)
+     */
+    private $subject;
+
+    /**
      *
      * @ORM\ManyToOne(targetEntity="Notification", inversedBy="notificationContents", cascade={"persist"})
      * @ORM\JoinColumn(name="id_notification", referencedColumnName="id")
@@ -57,55 +64,67 @@ class NotificationContent
         return $this->id;
     }
 
-/**
- * @return mixed
- */
-public function getType()
-{
-    return $this->type;
-}
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
-/**
- * @param mixed $type
- */
-public function setType($type)
-{
-    $this->type = $type;
-}
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
-/**
- * @return string
- */
-public function getContent()
-{
-    return $this->content;
-}
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
 
-/**
- * @param string $content
- */
-public function setContent($content)
-{
-    $this->content = $content;
-}
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
 
-/**
- * @return mixed
- */
-public function getNotification()
-{
-    return $this->notification;
-}
+    /**
+     * @return mixed
+     */
+    public function getNotification()
+    {
+        return $this->notification;
+    }
 
-/**
- * @param mixed $notification
- */
-public function setNotification($notification)
-{
-    $this->notification = $notification;
-}
+    /**
+     * @param mixed $notification
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+    }
 
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 
-
-    
+    /**
+     * @param string $subject
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+    }
 }

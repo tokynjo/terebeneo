@@ -1,7 +1,9 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Constants\Constant;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -139,6 +141,8 @@ class Partner
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
+
+
     /**
      * @var string
      *
@@ -152,7 +156,6 @@ class Partner
      * @ORM\Column(name="status", type="integer", length=10, nullable=true)
      */
     private $status;
-
     /**
      * @var integer
      *
@@ -166,6 +169,25 @@ class Partner
      * @ORM\Column(name="volume_size", type="integer", length=5, nullable=true)
      */
     private $volumeSize;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="neobe_account_id", type="integer", length=5, nullable=true)
+     */
+    private $neobeAccountId;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="neobe_password", type="string", length=255, nullable=true)
+     */
+    private $neobePassword;
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="neobe_created_at", type="datetime", length=255, nullable=true)
+     */
+    private $neobeCreatedAt;
 
     /**
      * @var string
@@ -189,27 +211,6 @@ class Partner
     private $deleted;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="neobe_id_client", type="integer", length=11)
-     */
-    private $neobeIdClient;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="neobe_password", type="string", length=255)
-     */
-    private $neobePassword;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="neobe_creationDate", type="datetime", length=255)
-     */
-    private $neobeCreationDate;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="parent", cascade={"persist"})
      */
     private $children;
@@ -219,9 +220,9 @@ class Partner
     private $headersFooters;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\NeobeAccount", mappedBy="partner", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ValidationLog", mappedBy="partner", cascade={"persist"})
      */
-    private $neobeAccounts;
+    private $validation;
 
     /**
      * partner api user
@@ -229,6 +230,12 @@ class Partner
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\NeobeAccount", mappedBy="partner", cascade={"persist"})
+     */
+    private $accounts;
+
 
     /**
      * Get id
@@ -260,6 +267,8 @@ class Partner
     {
         $this->accounts = new  ArrayCollection();
         $this->headersFooters = new  ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->validation = new ArrayCollection();
     }
 
     /**
@@ -333,6 +342,23 @@ class Partner
         $this->city = $city;
         return $this;
     }
+
+    /**
+     * @return datetime
+     */
+    public function getNeobeCreatedAt()
+    {
+        return $this->neobeCreatedAt;
+    }
+
+    /**
+     * @param datetime $neobeCreatedAt
+     */
+    public function setNeobeCreatedAt($neobeCreatedAt)
+    {
+        $this->neobeCreatedAt = $neobeCreatedAt;
+    }
+
 
     /**
      * @return string
@@ -451,8 +477,7 @@ class Partner
     }
 
     /**
-     * @param $accounts
-     * @return $this
+     * @param mixed $accounts
      */
     public function setAccounts($accounts)
     {
@@ -465,8 +490,17 @@ class Partner
      */
     public function getHeadersFooters()
     {
+        return $this->headersFooters;
+    }
+
+    public function getActiveHeadersFooters()
+    {
         if(sizeof($this->headersFooters) > 0) {
-            return $this->headersFooters[0];
+           foreach($this->headersFooters as $hf) {
+               if($hf->getDeleted() == Constant::NOT_DELETED) {
+                   return $hf;
+               }
+           }
         }
         return null;
     }
@@ -688,13 +722,11 @@ class Partner
     }
 
     /**
-     * @param $createdAt
-     * @return $this
+     * @param string $createdAt
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-        return $this;
     }
 
     /**
@@ -706,13 +738,11 @@ class Partner
     }
 
     /**
-     * @param $nbLicense
-     * @return $this
+     * @param int $nbLicense
      */
     public function setNbLicense($nbLicense)
     {
         $this->nbLicense = $nbLicense;
-        return $this;
     }
 
     /**
@@ -724,13 +754,11 @@ class Partner
     }
 
     /**
-     * @param $updatedAt
-     * @return $this
+     * @param string $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-        return $this;
     }
 
     /**
@@ -742,12 +770,19 @@ class Partner
     }
 
     /**
-     * @param $volumeSize
-     * @return $this
+     * @return int
      */
-    public function setVolumeSize($volumeSize)
+    public function getNeobeAccountId()
     {
-        $this->volumeSize = $volumeSize;
+        return $this->neobeAccountId;
+    }
+
+    /**
+     * @param int $neobeAccountId
+     */
+    public function setNeobeAccountId($neobeAccountId)
+    {
+        $this->neobeAccountId = $neobeAccountId;
         return $this;
     }
 
@@ -769,6 +804,107 @@ class Partner
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getNeobePassword()
+    {
+        return $this->neobePassword;
+    }
+
+    /**
+     * @param string $neobePassword
+     */
+    public function setNeobePassword($neobePassword)
+    {
+        $this->neobePassword = $neobePassword;
+        return $this;
+    }
 
 
+
+    /**
+     * @param int $volumeSize
+     */
+    public function setVolumeSize($volumeSize)
+    {
+        $this->volumeSize = $volumeSize;
+    }
+
+    public function addChild(Partner $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Partner $child): self
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addHeadersFooter(HeaderFooter $headersFooter): self
+    {
+        if (!$this->headersFooters->contains($headersFooter)) {
+            $this->headersFooters[] = $headersFooter;
+            $headersFooter->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHeadersFooter(HeaderFooter $headersFooter): self
+    {
+        if ($this->headersFooters->contains($headersFooter)) {
+            $this->headersFooters->removeElement($headersFooter);
+            // set the owning side to null (unless already changed)
+            if ($headersFooter->getPartner() === $this) {
+                $headersFooter->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ValidationLog[]
+     */
+    public function getValidation(): Collection
+    {
+        return $this->validation;
+    }
+
+    public function addValidation(ValidationLog $validation): self
+    {
+        if (!$this->validation->contains($validation)) {
+            $this->validation[] = $validation;
+            $validation->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeValidation(ValidationLog $validation): self
+    {
+        if ($this->validation->contains($validation)) {
+            $this->validation->removeElement($validation);
+            // set the owning side to null (unless already changed)
+            if ($validation->getPartner() === $this) {
+                $validation->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
 }

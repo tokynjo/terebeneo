@@ -22,7 +22,7 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: /admin/
+                default_target_path: /admin
                 check_path: fos_user_security_check
                 login_path: fos_user_security_login
                 success_handler: app.authentication.login_success_handler

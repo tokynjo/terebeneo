@@ -146,7 +146,6 @@ class PartnerListener
             //send notification mail
             $notification = $this->entityManager->getRepository('App:Notification')->find(Constant::NOTIF_NEOBE_ACCOUNT_CREATION);
             $this->notificationService->sendNotification($partner, $notification);
-            die('sdfdsfsdfsdf');
         }
     }
 }

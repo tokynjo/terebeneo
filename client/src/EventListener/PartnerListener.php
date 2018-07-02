@@ -124,7 +124,6 @@ class PartnerListener
                     \DateTime::createFromFormat('m/d/Y H:i:s', $response->getData()->created_at)
                 );
             $this->entityManager->persist($partner);
-
             $this->entityManager->flush();
             //create account
             if(isset($response->getData()->compte) && sizeof($response->getData()->compte) >0) {

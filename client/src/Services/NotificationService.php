@@ -170,7 +170,7 @@ class NotificationService
                 case '__details_acces_neobe__' :
                     $str = 'Id_client : '.$partner->getNeobeAccountId().'<br>';
                     $str .= 'Email : '.$partner->getMail().'<br>';
-                    $str .= 'Mot de passe : '.$pwdEncoder->decode($partner->getPassword()).'<br>';
+                    $str .= 'Mot de passe : '.$pwdEncoder->decode($partner->getNeobePassword()).'<br>';
                     $content = str_replace($key, $str, $content);
                     break;
             }

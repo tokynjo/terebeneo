@@ -1,7 +1,9 @@
 resources:
   App\Entity\User:
-    collectionOperations: {}
+    collectionOperations:
+      get: ~
     itemOperations:
+      get: ~
       get_token:
         route_name: 'get_token'
         controller: 'App\Controller\AuthenticationController'

@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class NeobeSafeDataController
  * @package App\Controller
  *
- * @Route("/api", name="neobe_")
  */
 class NeobeSafeDataController extends Controller
 {
@@ -25,7 +24,7 @@ class NeobeSafeDataController extends Controller
      *
      * @Route(
      *     name="api_create_account",
-     *     path="/create-account",
+     *     path="/api/create-account",
      *     methods={"POST"}
      * )
      */

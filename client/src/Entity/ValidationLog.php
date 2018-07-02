@@ -30,7 +30,7 @@ class ValidationLog
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="validations", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="validation", cascade={"persist"})
      * @ORM\JoinColumn(name="partner_id", referencedColumnName="id")
      */
     private $partner;

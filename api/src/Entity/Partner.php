@@ -226,8 +226,7 @@ class Partner
 
     /**
      * partner api user
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="partner")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="partner", cascade={"persist"})
      */
     private $user;
 
@@ -269,6 +268,7 @@ class Partner
         $this->headersFooters = new  ArrayCollection();
         $this->children = new ArrayCollection();
         $this->validation = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     /**

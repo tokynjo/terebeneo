@@ -44,7 +44,7 @@ resources:
               description: User not found
 
       create_account:
-        route_name: 'neobe_api_create_account'
+        route_name: 'api_create_account'
         controller: 'App\Controller\NeobeSafeDataController'
         swagger_context:
           summary: Create account to neobe safedata

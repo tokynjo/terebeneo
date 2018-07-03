@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Neobe
  *
- * @ORM\Table(name="partner", options={"comment":"Table pour les comptes du partenaire "})
+ * @ORM\Table(name="neobe_account", options={"comment":"Table pour les comptes du partenaire "})
  * @ORM\Entity(repositoryClass="App\Repository\NeobeAccountRepository")
  *
  */
@@ -51,7 +51,7 @@ class NeobeAccount
     private $password;
 
     /**
-     * @var string
+     * @var integer
      *
      * @ORM\Column(name="total_size", type="integer", length=11, nullable=false)
      */
@@ -64,11 +64,22 @@ class NeobeAccount
      */
     private $usedSize;
 
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="neobe_created_at", type="datetime", nullable=true)
+     */
     private $neobeCreationDate;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="neobe_account_id", type="integer", length=11, nullable=false)
+     */
+    private $neobeAccountId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="neobeAccounts", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="accounts", cascade={"persist"})
      * @ORM\JoinColumn(name="partner_id", referencedColumnName="id")
      */
     private $partner;
@@ -88,6 +99,7 @@ class NeobeAccount
      */
     private $updatedAt;
 
+    
     /**
      * Get id
      *
@@ -116,6 +128,204 @@ class NeobeAccount
      */
     public function __construct()
     {
-        $this->accounts = new  ArrayCollection();
     }
+
+    /**
+     * @return datetime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param $createdAt
+     * @return $this
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInstalled()
+    {
+        return $this->installed;
+    }
+
+    /**
+     * @param $installed
+     * @return $this
+     */
+    public function setInstalled($installed)
+    {
+        $this->installed = $installed;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param $login
+     * @return $this
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNeobeAccountId()
+    {
+        return $this->neobeAccountId;
+    }
+
+    /**
+     * @param $neobeAccountId
+     * @return $this
+     */
+    public function setNeobeAccountId($neobeAccountId)
+    {
+        $this->neobeAccountId = $neobeAccountId;
+        return $this;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getNeobeCreationDate()
+    {
+        return $this->neobeCreationDate;
+    }
+
+    /**
+     * @param $neobeCreationDate
+     * @return $this
+     */
+    public function setNeobeCreationDate($neobeCreationDate)
+    {
+        $this->neobeCreationDate = $neobeCreationDate;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPartner()
+    {
+        return $this->partner;
+    }
+
+    /**
+     * @param $partner
+     * @return $this
+     */
+    public function setPartner($partner)
+    {
+        $this->partner = $partner;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param $password
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSaved()
+    {
+        return $this->saved;
+    }
+
+    /**
+     * @param $saved
+     * @return $this
+     */
+    public function setSaved($saved)
+    {
+        $this->saved = $saved;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalSize()
+    {
+        return $this->totalSize;
+    }
+
+    /**
+     * @param $totalSize
+     * @return $this
+     */
+    public function setTotalSize($totalSize)
+    {
+        $this->totalSize = $totalSize;
+        return $this;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsedSize()
+    {
+        return $this->usedSize;
+    }
+
+    /**
+     * @param $usedSize
+     * @return $this
+     */
+    public function setUsedSize($usedSize)
+    {
+        $this->usedSize = $usedSize;
+        return $this;
+    }
+
 }

@@ -239,7 +239,9 @@ iframe {
     width: 100%;
     height: 414px;
 }
-
+.form-control.step{
+    width: auto;
+}
 @media (min-width:1200px) {
 
 }

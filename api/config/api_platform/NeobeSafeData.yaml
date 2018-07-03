@@ -1,0 +1,45 @@
+resources:
+  App\Entity\Partner:
+    collectionOperations:
+      get: ~
+    itemOperations:
+      get_partner:
+        route_name: 'get_partner'
+        controller: 'App\Controller\AuthenticationController'
+        swagger_context:
+          summary: Get token authentication to call all api's
+          parameters:
+            -
+              name : body
+              in: body
+              schema:
+                type : object
+                properties:
+                  username:
+                    type: string
+                    required: true
+                    description: Login email
+                  password:
+                    type: string
+                    required: true
+                    description: Password
+          responses:
+            200:
+              description: Success
+              schema:
+                type: object
+                properties:
+                  data:
+                    type : object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                      data:
+                        type: string
+                        description: contain the token
+            401:
+              description: Password not valid
+            404:
+              description: User not found

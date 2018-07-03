@@ -89,10 +89,10 @@ class User extends BaseUser
 
     /**
      * partner
-     * @ORM\OneToOne(targetEntity="App\Entity\Partner", mappedBy="user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="user", cascade={"persist"})
+     * @ORM\JoinColumn(name="partner_id", referencedColumnName="id")
      */
     private $partner;
-
     /**
      * @return string
      */

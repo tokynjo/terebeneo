@@ -19,3 +19,15 @@ function myFunction() {
         header.classList.remove("sticky");
     }
 }
+
+$(document).on('click', '#create-account', function (e) {
+   if($(this).prop('checked')) {
+       $('.create-account').show();
+       $('#nb_licences_a_creer').attr('required',true);
+       $('#volume_par_licence_Go').attr('required',true);
+   } else {
+       $('.create-account').hide();
+       $('#nb_licences_a_creer').attr('required',false);
+       $('#volume_par_licence_Go').attr('required',false);
+   }
+});

@@ -68,12 +68,14 @@ notifications:
   deletion_title: Suppression d'un notification
   type: Type
   message: Message
+  subject: Object du mail
   messages:
     list_title: Liste des messages
     edit_title: Edition d'un message
     create_title: Ajout d'un message
     deletion_message_confirmation: Voulez vous supprimer le message
     deletion_title: Suppression d'un notification
+
 roles:
   administrateur: Administrateur
   api: Utilisateur API

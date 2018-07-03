@@ -12,6 +12,7 @@ class NotificationContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('subject')
             ->add('content')
             ->add('type', EntityType::class, array(
                 'class' => 'App:NotificationType',

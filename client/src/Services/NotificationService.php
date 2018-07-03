@@ -53,10 +53,8 @@ class NotificationService
                         $header = $parent->getActiveHeadersFooters()->getHeader() ? $parent->getActiveHeadersFooters()->getHeader() : '';
                         $footer = $parent->getActiveHeadersFooters()->getFooter() ? $parent->getActiveHeadersFooters()->getfooter() : '';
                     }
-                    //var_dump($footer); die;
-                    //$header = $this->replaceDataVars($partner, $header);
-                    //$footer = $this->replaceDataVars($partner, $footer);
-                    //print_r($mailContent); die;
+                    $header = $this->replaceDataVars($partner, $header);
+                    $footer = $this->replaceDataVars($partner, $footer);
                     $mailContent = $this->replaceDataVars($partner, $mailContent);
 
                     $template = $this->template->render(
@@ -68,7 +66,7 @@ class NotificationService
                         ]
                     );
                     $this->mailer->sendMailGrid(
-                        'Confirmation de création de compte Neobe',
+                        $content->getSubject() ? $content->getSubject() : 'Confirmation de création de compte Neobe',
                         [$partner->getMail()],
                         $template,
                         []
@@ -172,7 +170,7 @@ class NotificationService
                 case '__details_acces_neobe__' :
                     $str = 'Id_client : '.$partner->getNeobeAccountId().'<br>';
                     $str .= 'Email : '.$partner->getMail().'<br>';
-                    $str .= 'Mot de passe : '.$pwdEncoder->decode($partner->getPassword()).'<br>';
+                    $str .= 'Mot de passe : '.$pwdEncoder->decode($partner->getNeobePassword()).'<br>';
                     $content = str_replace($key, $str, $content);
                     break;
             }

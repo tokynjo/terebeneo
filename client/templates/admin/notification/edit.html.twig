@@ -58,7 +58,8 @@
                                         </tr>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.type'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.type'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="Nom">{{ 'notifications.subject'|trans({},'label', 'fr') }}</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="description">{{ 'notifications.message'|trans({},'label', 'fr') }}</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
                                         </tr>
@@ -69,6 +70,7 @@
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1 text-right">{{ nc.id }}</td>
                                                     <td>{{ nc.type.name }}</td>
+                                                    <td>{{ nc.subject }}</td>
                                                     <td>{{ nc.content|raw}}</td>
                                                     <td class="actions">
                                                         <a href="{{ path('admin_notification_message_edit',{'id':nc.id, 'notif_id':nc.notification.id}) }}"

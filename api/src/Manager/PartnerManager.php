@@ -153,8 +153,9 @@ class PartnerManager extends BaseManager
             return $resp;
         }
         $partner->setVolumeSize($volumeSize);
-
-        $parent = $this->tokenStorage->getToken()->getUser()->getPartner();
+////print_r( $this->tokenStorage->getToken()->getUser()->getEmail()); die;
+        $parent = $this->entityManager->getRepository('App:Partner')->findOneBy(['mail' => $this->tokenStorage->getToken()->getUser()->getEmail()]);
+        //$parent = $this->tokenStorage->getToken()->getUser()->getPartner();
         $partner->setParent($parent)
             ->setAddress1($apiRequest->getBodyRawParam('address_1'))
             ->setAddress2($apiRequest->getBodyRawParam('address_2'))

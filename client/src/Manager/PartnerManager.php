@@ -45,40 +45,52 @@ class PartnerManager extends BaseManager
     public function etape2(Request $request, $token = null){
         $partner = $this->findOneBy(["hash"=>($token ? $token : "")]);
         if($partner) {
-            $existLog = $this->validationLogManager->findBy(
-                [
-                    "etape" => Constant::STEP_TWO,
-                    "partner" => $partner
-                ]
-            );
-            if (!$existLog) {
-                $validation = $this->validationLogManager->createNew();
-                $validation->setPartner($partner);
-                $validation->setEtape(Constant::STEP_TWO);
-                $this->saveAndFlush($validation);
-            }
-            if ($request->getMethod() == "POST") {
+            $this->entityManager->beginTransaction();
+            try{
                 $existLog = $this->validationLogManager->findBy(
                     [
-                        "etape" => Constant::STEP_ONE,
+                        "etape" => Constant::STEP_TWO,
                         "partner" => $partner
                     ]
                 );
                 if (!$existLog) {
-                    //creation du compte noebe du partenaire
-                    $partnerEvent = new PartnerEvent($partner);
-                    $partnerEvent->setNbLicencesToCreate($request->get('nb_licences_a_creer'))
-                        ->setVolumeParLicenceGo($request->get('volume_par_licence_Go'));
-                    $this->dispatcher->dispatch(PartnerEvent::PARTNER_CLIENT_ON_VALIDATE_ACCOUNT, $partnerEvent);
-
                     $validation = $this->validationLogManager->createNew();
                     $validation->setPartner($partner);
-                    $validation->setEtape(Constant::STEP_ONE);
+                    $validation->setEtape(Constant::STEP_TWO);
                     $this->saveAndFlush($validation);
-
                 }
+                if ($request->getMethod() == "POST") {
+                    $existLog = $this->validationLogManager->findBy(
+                        [
+                            "etape" => Constant::STEP_ONE,
+                            "partner" => $partner
+                        ]
+                    );
+                    if (!$existLog) {
+                        //creation du compte noebe du partenaire
+                        $partnerEvent = new PartnerEvent($partner);
+                        $nbLicence = 0;
+                        $volumeParLicence = 0;
+                        if($request->get('create-account')) {
+                            $nbLicence = $request->get('nb_licences_a_creer');
+                            $volumeParLicence = $request->get('volume_par_licence_Go');
+                        }
+                        $partnerEvent->setNbLicencesToCreate($nbLicence)
+                            ->setVolumeParLicenceGo($volumeParLicence);
+                        $this->dispatcher->dispatch(PartnerEvent::PARTNER_CLIENT_ON_VALIDATE_ACCOUNT, $partnerEvent);
 
-
+                        $validation = $this->validationLogManager->createNew();
+                        $validation->setPartner($partner);
+                        $validation->setEtape(Constant::STEP_ONE);
+                        $this->saveAndFlush($validation);
+                    }
+                }
+                $this->entityManager->commit();
+                return $partner;
+            } catch (\Exception $e) {
+                $this->entityManager->getConnection()->rollback();
+                $this->entityManager->close();
+                return false;
             }
         }
         return $partner;

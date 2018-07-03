@@ -16,7 +16,7 @@ class PartnerController extends Controller
     /**
      * @Route(
      *     name="get_partner",
-     *     path="/get-partner",
+     *     path="/api/get-partner",
      *     methods={"POST"}
      * )
      */

@@ -3,8 +3,8 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        #ROLE_USER: ROLE_USER
-        #ROLE_ADMIN: ROLE_ADMIN
+        ROLE_USER: ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN
 
     providers:
         fos_userbundle:
@@ -25,7 +25,7 @@ security:
                 require_previous_session: false
 
         api:
-            pattern:   ^/api
+            pattern:   ^/create-account
             stateless: true
             anonymous: true
             guard:

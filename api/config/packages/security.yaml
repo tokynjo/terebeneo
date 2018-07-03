@@ -25,7 +25,7 @@ security:
                 require_previous_session: false
 
         api:
-            pattern:   ^/create-account
+            pattern:   ^/api
             stateless: true
             anonymous: true
             guard:

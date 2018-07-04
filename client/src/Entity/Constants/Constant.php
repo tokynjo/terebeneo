@@ -15,6 +15,9 @@ class Constant
     const NOTIF_CONFIRM_ACCOUNT_CREATION = 1;
     const NOTIF_USER_API_CREATION = 2;
     const NOTIF_NEOBE_ACCOUNT_CREATION = 3;
+    const NOTIF_NEOBE_VALIDATION_STEP_ONE = 4;
+    const NOTIF_NEOBE_INSTALL = 5;
+    const NOTIF_NEOBE_SAVE = 6;
 
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 2;
@@ -34,6 +37,9 @@ class Constant
     const STEP_ONE = 1;
     const STEP_TWO = 2;
     const STEP_THREE = 3;
+
+    const LOG_INSTALL = 1;
+    const LOG_SAVE = 2;
 
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
     public static $neobeNbLicense = [2, 5, 10];

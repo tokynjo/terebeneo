@@ -81,3 +81,7 @@ services:
         class: App\Services\NeobeApiService
         arguments: ['@service_container']
         public: true
+    app.page_details_manager:
+        class: App\Manager\PageDetailsManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\PartnerPageDetails']
+        public: true

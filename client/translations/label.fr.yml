@@ -40,6 +40,7 @@ menu:
   notifications: Les notifications
   header_footer: Header & footer
   partners: Partenaires
+  pages: Pages
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
@@ -115,6 +116,15 @@ accounts:
   name: Nom
   mail: Email
   list_title: Liste des comptes client NEOBE
+
+pages:
+  page: Page
+  pages: Pages
+  list_title: Paramétrage des pages partenaires
+  edit_title: Pages du partenaires
+  subdomain: Sous-domaine
+  logo: Logo
+  video: Video
 
 
 

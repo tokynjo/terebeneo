@@ -125,6 +125,9 @@ pages:
   subdomain: Sous-domaine
   logo: Logo
   video: Video
+  image_left: Image colonne de gauche
+  header_top: Entête des pages
+  footer: Pied des pages
 
 
 

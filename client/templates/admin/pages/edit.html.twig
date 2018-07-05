@@ -36,11 +36,45 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
+                                    <label for="page_details_headerTop">{{ 'pages.header_top'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.headerTop, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6" style="padding-top: 24px">
+                                    {{ partner.getActivePageDetails.headerTop|raw }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_footer">{{ 'pages.footer'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.footer, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6" style="padding-top: 24px">
+                                    {{ partner.getActivePageDetails.footer|raw }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
                                     <label for="page_details_logoUpload">{{ 'pages.logo'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.logoUpload, { 'attr': {'class': 'form-control'} }) }}
-                                    <div style="margin: 15px">
-                                        <img height="100px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
-                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="page_details_video"></label>
+                                    <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_imageLeftUpload">{{ 'pages.image_left'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.imageLeftUpload, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.imageLeft }}">
                                 </div>
                             </div>
                         </div>
@@ -50,6 +84,9 @@
                                     <label for="page_details_video">{{ 'pages.video'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.video, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+                                <div class="col-md-6">
+                                    {{ partner.getActivePageDetails().video|raw }}
+                                </div>
                             </div>
                         </div>
 
@@ -58,11 +95,12 @@
                                 <div class="col-md-2">
                                     <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
                                 </div>
+                                <div class="col-md-2">
+                                    <a href="{{ path('admin_notificationdetails') }}" class="btn btn-secondary" title="Annuler">{{ 'button.cancel'|trans({},'label', 'fr') }}</a>
+                                </div>
                             </div>
                         </div>
-
                     {{ form_end(form) }}
-
                 </div>
             </div>
         </div>
@@ -72,7 +110,13 @@
     <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
     {{ parent() }}
     <script type="text/javascript">
-        editorContent = CKEDITOR.replace('header_footer[header]');
+        //headerTop = CKEDITOR.replace('page_details[headerTop]');
+        //footer = CKEDITOR.replace('page_details[footer]');
+        $(document).ready(function(){
+            $('iframe').attr('width',400);
+            $('iframe').attr('height',300);
+        });
+
     </script>
 
 {% endblock %}

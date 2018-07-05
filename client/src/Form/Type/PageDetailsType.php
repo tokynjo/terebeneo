@@ -19,8 +19,13 @@ class PageDetailsType extends AbstractType
                 'required' => false
             ])
             ->add('subdomain')
-            ->add('video', TextareaType::class);
-
+            ->add('headerTop')
+            ->add('footer')
+            ->add('video', TextareaType::class)
+            ->add('imageLeftUpload', FileType::class, [
+                'mapped' => false,
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

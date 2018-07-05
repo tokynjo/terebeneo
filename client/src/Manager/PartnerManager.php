@@ -27,6 +27,22 @@ class PartnerManager extends BaseManager
     }
 
     /**
+     * get only partner parent
+     * @return array
+     */
+    public function getPartnerParent() {
+        $partners = $this->findAll();
+        foreach ($partners as $key => $partner) {
+            if (!is_null($partner->getParent())) {
+                unset($partners[$key]);
+            }
+
+        }
+
+        return $partners;
+    }
+
+    /**
      * get partner details by token
      *
      * @param null $token

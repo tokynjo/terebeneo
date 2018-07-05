@@ -32,7 +32,7 @@ class PartnerPageDetailsController extends BaseController
      */
     public function listAction(Request $request)
     {
-        $partner = $this->get(PartnerManager::SERVICE_NAME)->findAll();
+        $partner = $this->get(PartnerManager::SERVICE_NAME)->getPartnerParent();
         return $this->render('admin/pages/list.html.twig', ['list' => $partner]);
     }
 
@@ -63,7 +63,7 @@ class PartnerPageDetailsController extends BaseController
             $this->getParameter('upload_directory')
         );
         if ($formHandler->process()) {
-            return $this->redirectToRoute('admin_notificationdetails');
+            return $this->redirectToRoute('admin_notificationdetails_edit', ['id' => $request->get('id')]);
         }
         return $this->render(
             'admin/pages/edit.html.twig',

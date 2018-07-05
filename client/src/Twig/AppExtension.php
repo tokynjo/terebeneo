@@ -38,7 +38,10 @@ class AppExtension  extends AbstractExtension
     {
         return [
             new \Twig_Function('widgetLogo', array($this, 'widgetLogo')),
-            new \Twig_Function('widgetVideoDemo', array($this, 'widgetVideoDemo'))
+            new \Twig_Function('widgetVideoDemo', array($this, 'widgetVideoDemo')),
+            new \Twig_Function('widgetHeaderTop', array($this, 'widgetHeaderTop')),
+            new \Twig_Function('widgetFooter', array($this, 'widgetFooter')),
+            new \Twig_Function('widgetImageLeft', array($this, 'widgetImageLeft'))
         ];
     }
 
@@ -50,12 +53,14 @@ class AppExtension  extends AbstractExtension
     {
         $html = '';
         $path = DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR.'partner'.DIRECTORY_SEPARATOR.'img';
-        $pageDetails = $this->partner->getActivePageDetails();
-        if ($pageDetails) {
-            $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
-                .$pageDetails->getLogo();
-            $html .= '<img class="partner-logo"  src="'.$path.'" alt="'.$this->partner->getName().'" title="'
-                .$this->partner->getName().'">';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails) {
+                $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
+                    .$pageDetails->getLogo();
+                $html .= '<img class="partner-logo"  src="'.$path.'" alt="'.$this->partner->getName().'" title="'
+                    .$this->partner->getName().'">';
+            }
         }
 
         return $html;
@@ -63,10 +68,63 @@ class AppExtension  extends AbstractExtension
 
     public function widgetVideoDemo()
     {
-        $html = '';
-        $pageDetails = $this->partner->getActivePageDetails();
-        if ($pageDetails) {
-            $html .= $pageDetails->getVideo();
+        //the default video
+        $html = '<iframe src="https://player.vimeo.com/video/161032132" width="665" height="414"
+                            frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getVideo()) {
+                $html = $pageDetails->getVideo();
+            }
+        }
+
+        return $html;
+    }
+    public function widgetHeaderTop()
+    {
+        //the default video
+        $html = '<ul>
+                    <li>Sauvegarde informatique NeoBe + Pour Safe Data</li>
+                    <li><a href="tel:01.46.08.83.70">01.46.08.83.70</a></li>
+                    <li><a href="mailto:commercial@neobe.com">commercial@neobe.com</a></li>
+                </ul>';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getHeaderTop()) {
+                $html = $pageDetails->getHeaderTop();
+            }
+        }
+
+        return $html;
+    }
+
+    public function widgetFooter()
+    {
+        //the default video
+        $html = '<div class="text-center">
+                NeoBe + pour Safe Data - DropCloud 2018 - <small><a href="#">Mentions légales</a></small>
+                </div>';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getFooter()) {
+                $html = $pageDetails->getFooter();
+            }
+        }
+
+        return $html;
+    }
+    public function widgetImageLeft()
+    {
+        //the default video
+        $html = '<img src="/front/img/reseaulogos.jpg" alt="system" title="Système Neobe Safe Data" width="100%">';
+        $path = DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR.'partner'.DIRECTORY_SEPARATOR.'img';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getImageLeft()) {
+                $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
+                    .$pageDetails->getImageLeft();
+                $html = '<img class="neobe-system" width="100%"  src="'.$path.'" alt="Systeme Neobe" title="Systeme Neobe">';
+            }
         }
 
         return $html;
@@ -74,20 +132,22 @@ class AppExtension  extends AbstractExtension
 
     protected function loadPartner()
     {
-        if ($this->request->get('token')) {
-            $partner = $this->container
-                ->get(PartnerManager::SERVICE_NAME)->findOneBy(['hash'=>$this->request->get('token')]);
-            if($partner) {
-                $this->partner = $partner->getParent();
+        if (!is_null($this->request) ) {
+            if ($this->request->get('token')) {
+                $partner = $this->container
+                    ->get(PartnerManager::SERVICE_NAME)->findOneBy(['hash' => $this->request->get('token')]);
+                if ($partner) {
+                    $this->partner = $partner->getParent();
+                }
             }
-        }
-        if (is_null($this->partner)) {
-            $pageDetails = $this->container
-                ->get(PageDetailsManager::SERVICE_NAME)->findOneBy(['subdomain'=>$this->request->getHost()]);
-            if($pageDetails) {
-                $this->partner = $pageDetails->getPartner();
-            }
+            if (is_null($this->partner)) {
+                $pageDetails = $this->container
+                    ->get(PageDetailsManager::SERVICE_NAME)->findOneBy(['subdomain' => $this->request->getHost()]);
+                if ($pageDetails) {
+                    $this->partner = $pageDetails->getPartner();
+                }
 
+            }
         }
     }
 }

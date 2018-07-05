@@ -54,6 +54,12 @@ class PageDetailsHandler
                 $fileLogo->move($this->uploadDir.DIRECTORY_SEPARATOR.$data->getPartner()->getId(), $logoName);
                 $data->setLogo($logoName);
             }
+            $imageLeft = $this->form['imageLeftUpload']->getData();
+            if ($imageLeft) {
+                $name = 'network.'.uniqid().'.'. $imageLeft->guessExtension();
+                $imageLeft->move($this->uploadDir.DIRECTORY_SEPARATOR.$data->getPartner()->getId(), $name);
+                $data->setImageLeft($name);
+            }
             $data->setDeleted(Constant::NO);
             $this->headerManager->saveAndFlush($data);
             return true;

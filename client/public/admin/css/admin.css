@@ -171,7 +171,7 @@ form#login h2 {
 .align-left { text-align: left;}
 .align-right { text-align: right;}
 table.dataTable>thead>tr>th, table.dataTable>tfoot>tr>th  {text-align: center}
-table .actions a {margin-right: 15px}
+table .actions a {margin-right: 10px}
 .btn-primary {
     color: #fff;
     background-color: #f1966b;

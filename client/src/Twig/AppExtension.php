@@ -50,12 +50,14 @@ class AppExtension  extends AbstractExtension
     {
         $html = '';
         $path = DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR.'partner'.DIRECTORY_SEPARATOR.'img';
-        $pageDetails = $this->partner->getActivePageDetails();
-        if ($pageDetails) {
-            $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
-                .$pageDetails->getLogo();
-            $html .= '<img class="partner-logo"  src="'.$path.'" alt="'.$this->partner->getName().'" title="'
-                .$this->partner->getName().'">';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails) {
+                $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
+                    .$pageDetails->getLogo();
+                $html .= '<img class="partner-logo"  src="'.$path.'" alt="'.$this->partner->getName().'" title="'
+                    .$this->partner->getName().'">';
+            }
         }
 
         return $html;
@@ -64,11 +66,13 @@ class AppExtension  extends AbstractExtension
     public function widgetVideoDemo()
     {
         $html = '';
-        $pageDetails = $this->partner->getActivePageDetails();
-        if ($pageDetails) {
-            $html .= $pageDetails->getVideo();
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails) {
+                $html .= $pageDetails->getVideo();
+            }
         }
-
+        
         return $html;
     }
 

@@ -10,6 +10,7 @@ button:
   no: Non
   send: Envoyer
   modify: Modifier
+  edit_page_content: Configurations
 common:
   no_data: Pas de données
   edition: Edition

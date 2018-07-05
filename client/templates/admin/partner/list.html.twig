@@ -48,6 +48,10 @@
                                                     <td class="actions">
                                                         <a href="{{ path('admin_partner_edit',{'id':n.id}) }}"
                                                            title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                        {% if(n.getParent is null) %}
+                                                            <a href="{{ path('admin_notificationdetails_edit',{'id':n.id}) }}"
+                                                               title="{{ 'button.edit_page_content'|trans({},'label', 'fr') }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                                        {% endif %}
                                                         <a href="{{ path('admin_partner_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
                                                            data-detail="{{ n.name }}"
                                                            data-title ="{{ 'partners.deletion_title'|trans({},'label', 'fr') }}"

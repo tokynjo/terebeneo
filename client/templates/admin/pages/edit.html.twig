@@ -38,9 +38,10 @@
                                 <div class="col-md-6">
                                     <label for="page_details_logoUpload">{{ 'pages.logo'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.logoUpload, { 'attr': {'class': 'form-control'} }) }}
-                                    <div style="margin: 15px">
-                                        <img height="100px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
-                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="page_details_video"></label>
+                                    <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
                                 </div>
                             </div>
                         </div>
@@ -49,6 +50,9 @@
                                 <div class="col-md-6">
                                     <label for="page_details_video">{{ 'pages.video'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.video, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ partner.getActivePageDetails().video|raw }}
                                 </div>
                             </div>
                         </div>
@@ -72,7 +76,12 @@
     <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
     {{ parent() }}
     <script type="text/javascript">
-        editorContent = CKEDITOR.replace('header_footer[header]');
+        //editorContent = CKEDITOR.replace('header_footer[header]');
+        $(document).ready(function(){
+            $('iframe').attr('width',400);
+            $('iframe').attr('height',300);
+        });
+
     </script>
 
 {% endblock %}

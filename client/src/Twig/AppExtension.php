@@ -65,14 +65,16 @@ class AppExtension  extends AbstractExtension
 
     public function widgetVideoDemo()
     {
-        $html = '';
+        //the default video
+        $html = '<iframe src="https://player.vimeo.com/video/161032132" width="665" height="414"
+                            frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
         if (!is_null($this->partner)) {
             $pageDetails = $this->partner->getActivePageDetails();
             if ($pageDetails) {
-                $html .= $pageDetails->getVideo();
+                $html = $pageDetails->getVideo();
             }
         }
-        
+
         return $html;
     }
 

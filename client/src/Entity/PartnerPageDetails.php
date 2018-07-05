@@ -32,11 +32,32 @@ class PartnerPageDetails
     private $subdomain;
 
     /**
+     * @var text
+     *
+     * @ORM\Column(name="header_top", type="text", nullable=true, options={"comment":"Haut de l'entête des pages"})
+     */
+    private $headerTop;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="footer", type="text", nullable=true, options={"comment":"Pied de page"})
+     */
+    private $footer;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=250, nullable=true)
      */
     private $logo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_left", type="string", length=250, nullable=true)
+     */
+    private $imageLeft;
 
     /**
      * @var string
@@ -74,6 +95,7 @@ class PartnerPageDetails
      * @ORM\Column(name="deleted", type="integer", length=2, nullable=true, options={"default":0} )
      */
     private $deleted = 0;
+
 
     /**
      * Constructor
@@ -226,4 +248,54 @@ class PartnerPageDetails
         $this->video = $video;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getImageLeft()
+    {
+        return $this->imageLeft;
+    }
+
+    /**
+     * @param string $imageLeft
+     */
+    public function setImageLeft($imageLeft)
+    {
+        $this->imageLeft = $imageLeft;
+    }
+
+    /**
+     * @return text
+     */
+    public function getFooter()
+    {
+        return $this->footer;
+    }
+
+    /**
+     * @param text $footer
+     */
+    public function setFooter($footer)
+    {
+        $this->footer = $footer;
+    }
+
+    /**
+     * @return text
+     */
+    public function getHeaderTop()
+    {
+        return $this->headerTop;
+    }
+
+    /**
+     * @param text $headerTop
+     */
+    public function setHeaderTop($headerTop)
+    {
+        $this->headerTop = $headerTop;
+    }
+
+
 }

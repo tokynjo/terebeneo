@@ -81,3 +81,11 @@ services:
         class: App\Services\NeobeApiService
         arguments: ['@service_container']
         public: true
+    app.page_details_manager:
+        class: App\Manager\PageDetailsManager
+        arguments: ['@doctrine.orm.entity_manager', 'App\Entity\PartnerPageDetails']
+        public: true
+    #app.twig.app_twig_extention:
+    #    class: App\Twig\AppExtension
+    #    arguments: ['@service_container', '@request_stack']
+    #    public: true

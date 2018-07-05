@@ -236,6 +236,12 @@ class Partner
     private $accounts;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PartnerPageDetails", mappedBy="partner", cascade={"persist"})
+     */
+    private $pageDetails;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -267,7 +273,7 @@ class Partner
         $this->headersFooters = new  ArrayCollection();
         $this->children = new ArrayCollection();
         $this->validation = new ArrayCollection();
-        $this->user = new ArrayCollection();
+        $this->pageDetails = new ArrayCollection();
     }
 
     /**
@@ -820,8 +826,6 @@ class Partner
         return $this;
     }
 
-
-
     /**
      * @param int $volumeSize
      */
@@ -829,6 +833,38 @@ class Partner
     {
         $this->volumeSize = $volumeSize;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPageDetails()
+    {
+        return $this->pageDetails;
+    }
+
+    public function getActivePageDetails()
+    {
+        if(sizeof($this->pageDetails) > 0) {
+            foreach($this->pageDetails as $hf) {
+                if($hf->getDeleted() == Constant::NOT_DELETED) {
+                    return $hf;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param $pageDetails
+     * @return $this
+     */
+    public function setPageDetails($pageDetails)
+    {
+        $this->pageDetails = $pageDetails;
+        return $this;
+    }
+
+
 
     public function addChild(Partner $child): self
     {

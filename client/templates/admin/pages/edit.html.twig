@@ -1,0 +1,78 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}{{ 'headers.edit_title'|trans({},'label', 'fr') }}{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.contents'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_notificationheader_index') }}">{{ 'menu.pages'|trans({},'label', 'fr') }}</a>
+        </li>
+        <li class="breadcrumb-item active">
+            {{ 'common.edition'|trans({},'label', 'fr') }}
+        </li>
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2><i class="fa fa-users"></i>
+                        {{ 'pages.edit_title'|trans({},'label', 'fr') }} : {{ partner.name }}
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_subdomain">{{ 'pages.subdomain'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.subdomain, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_logoUpload">{{ 'pages.logo'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.logoUpload, { 'attr': {'class': 'form-control'} }) }}
+                                    <div style="margin: 15px">
+                                        <img height="100px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_video">{{ 'pages.video'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.video, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                                </div>
+                            </div>
+                        </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
+    {{ parent() }}
+    <script type="text/javascript">
+        editorContent = CKEDITOR.replace('header_footer[header]');
+    </script>
+
+{% endblock %}

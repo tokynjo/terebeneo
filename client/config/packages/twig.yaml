@@ -4,3 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
       front_url: '%front_url%'
+      upload_directory: '%upload_directory%'

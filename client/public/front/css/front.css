@@ -242,6 +242,7 @@ iframe {
 .form-control.step{
     width: auto;
 }
+.partner-logo{max-height: 100px}
 @media (min-width:1200px) {
 
 }

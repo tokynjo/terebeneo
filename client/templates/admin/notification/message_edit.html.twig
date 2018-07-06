@@ -131,8 +131,12 @@
             }
         });
         $(document).on('dblclick', '.content-var', function(e){
-            editorContent.insertText($(this).attr('data-value'));
-            $('#notification_content_content').insertAtCaret(+ $(this).attr('data-value'));
+            if($('#notification_content_type').val() == 1){
+                editorContent.insertText($(this).attr('data-value'));
+            } else {
+                alert($(this).attr('data-value'));
+                $('#notification_content_content').insertAtCaret($(this).attr('data-value'));
+            }
         });
     </script>
 

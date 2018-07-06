@@ -110,8 +110,13 @@
     <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
     {{ parent() }}
     <script type="text/javascript">
-        //headerTop = CKEDITOR.replace('page_details[headerTop]');
-        //footer = CKEDITOR.replace('page_details[footer]');
+        /*CKEDITOR.editorConfig = function( config ) {
+            config.extraPlugins = 'sourcedialog';
+            config.removePlugins = 'sourcearea';
+        };
+        headerTop = CKEDITOR.replace('page_details[headerTop]');
+        footer = CKEDITOR.replace('page_details[footer]');
+        */
         $(document).ready(function(){
             $('iframe').attr('width',400);
             $('iframe').attr('height',300);

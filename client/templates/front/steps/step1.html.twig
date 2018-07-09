@@ -1,15 +1,17 @@
 {% extends 'front/layout.html.twig' %}
 {% block title %}Activation pack - Etape 1{% endblock %}
 {% block body_id 'step1' %}
-
+{% block header_title %}
+    Activation Pack de Sauvegarde {{ widgetProduct()|raw }} – Étape 1/3
+{% endblock %}
 {% block body %}
     <br>
     <p>Bonjour Monsieur {% if partner.id is defined %}{{ partner.lastname }}{% endif %},</p>
-    <p>Dans le cadre de votre contrat SAFE DATA vous bénéficiez d’un pack de sauvegarde informatique en ligne NeoBe pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
+    <p>Dans le cadre de votre contrat SAFE DATA vous bénéficiez d’un pack de sauvegarde informatique en ligne {{ widgetProduct()}} pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
     <h2 class="text-black"> {{ widgetResume1()|raw }}</h2>
-    <p><strong>Votre compte NeoBe inclut : </strong></p>
+    <p><strong>Votre compte {{ widgetProduct() }} inclut : </strong></p>
     <ul>
-        <li>les licences du logiciel de sauvegarde NeoBe+ compatible Windows et MAC</li>
+        <li>les licences du logiciel de sauvegarde {{ widgetProductPlus()|raw }} compatible Windows et MAC</li>
         <li>votre espace de sauvegarde à distance sécurisé en France</li>
         <li>Une assistance technique illimitée par téléphone et e-mail ainsi qu’une garantie de restitution des données sauvegardées.</li>
     </ul>
@@ -19,10 +21,10 @@
         </div>
         <div class="col-lg-10">
             <div class="col step active step-label">
-                1. Je valide mon compte NeoBe+ et je reçois mes identifiants.
+                1. Je valide mon compte {{ widgetProductPlus()|raw }} et je reçois mes identifiants.
             </div>
             <p>
-                Validez votre compte NeoBe+ et recevez immédiatement les informations
+                Validez votre compte {{ widgetProductPlus()|raw }} et recevez immédiatement les informations
                 (identifient et mot de passe) pour réaliser la sauvegarde de votre premier poste informatique.
             </p>
             <br>
@@ -52,12 +54,12 @@
                     </div>
                     <p style="">
                         <input type="checkbox" style="margin-right: 15px" required="required">
-                        <span>J'accepte <a href="#">les termes et condition</a> de Neobe+ pour SAFE DATA</span>
+                        <span>J'accepte <a href="#">les termes et condition</a> de {{ widgetProductPlus()|raw }} pour SAFE DATA</span>
                     </p>
                 </div>
 
                 <div class="col" style="text-align: center;">
-                    <button type="submit"  class="link_1 wra" >Je valide et je recois mes identifients NeoBe+</button>
+                    <button type="submit"  class="link_1 wra" >Je valide et je recois mes identifients {{ widgetProductPlus()|raw }}</button>
                 </div>
             </form>
         </div>

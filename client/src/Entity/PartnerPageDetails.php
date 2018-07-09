@@ -88,6 +88,55 @@ class PartnerPageDetails
      */
     private $partner;
 
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="product", type="string", length=250, nullable=true, options={"comment":"Label product"})
+     */
+    private $product;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="product_plus", type="string", length=250, nullable=true, options={"comment":"Label product plus"})
+     */
+    private $productPlus;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_email", type="string", length=250, nullable=true, options={"comment":"email contanct"})
+     */
+    private $contactEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_phone", type="string", length=250, nullable=true, options={"comment":"phone contact"})
+     */
+    private $contactPhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact_title", type="string", length=250, nullable=true, options={"comment":"phone contact"})
+     */
+    private $contactTitle;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="legal_mention", type="text", nullable=true, options={"comment":"Mention légale"})
+     */
+    private $legalMention;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="cgv", type="string", length=250, nullable=true, options={"comment":"term and condition"})
+     */
+    private $cgv;
+
 
     /**
      * @var string
@@ -343,6 +392,130 @@ class PartnerPageDetails
     public function setResume1($resume1)
     {
         $this->resume1 = $resume1;
+    }
+
+    /**
+     * @return text
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param text $product
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * @return text
+     */
+    public function getProductPlus()
+    {
+        return $this->productPlus;
+    }
+
+    /**
+     * @param $productPlus
+     * @return $this
+     */
+    public function setProductPlus($productPlus)
+    {
+        $this->productPlus = $productPlus;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactEmail()
+    {
+        return $this->contactEmail;
+    }
+
+    /**
+     * @param $contactEmail
+     * @return $this
+     */
+    public function setContactEmail($contactEmail)
+    {
+        $this->contactEmail = $contactEmail;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactPhone()
+    {
+        return $this->contactPhone;
+    }
+
+    /**
+     * @param $contactPhone
+     * @return $this
+     */
+    public function setContactPhone($contactPhone)
+    {
+        $this->contactPhone = $contactPhone;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactTitle()
+    {
+        return $this->contactTitle;
+    }
+
+    /**
+     * @param $contactTitle
+     * @return $this
+     */
+    public function setContactTitle($contactTitle)
+    {
+        $this->contactTitle = $contactTitle;
+        return $this;
+    }
+
+    /**
+     * @return text
+     */
+    public function getLegalMention()
+    {
+        return $this->legalMention;
+    }
+
+    /**
+     * @param $legalMention
+     * @return $this
+     */
+    public function setLegalMention($legalMention)
+    {
+        $this->legalMention = $legalMention;
+        return $this;
+    }
+
+    /**
+     * @return text
+     */
+    public function getCgv()
+    {
+        return $this->cgv;
+    }
+
+    /**
+     * @param $cgv
+     * @return $this
+     */
+    public function setCgv($cgv)
+    {
+        $this->cgv = $cgv;
+        return $this;
     }
 
 

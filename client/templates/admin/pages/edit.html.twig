@@ -39,6 +39,46 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
+                                    <label for="page_details_product">{{ 'pages.product'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.product, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_productPlus">{{ 'pages.product_plus'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.productPlus, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_contactTitle">{{ 'pages.product_contact_title'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.contactTitle, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_contactEmail">{{ 'pages.product_contact_email'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.contactEmail, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_contactPhone">{{ 'pages.product_contact_phone'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.contactPhone, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
                                     <label for="page_details_color">{{ 'pages.header_color'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.color, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
@@ -114,6 +154,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label for="page_details_legalMention">{{ 'pages.legal_mention'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.legalMention, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label for="page_details_cgv">{{ 'pages.cgv'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.cgv, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="form-row">
@@ -144,6 +202,7 @@
         headerTop = CKEDITOR.replace('page_details[headerTop]');
         footer = CKEDITOR.replace('page_details[footer]');
         */
+        footer = CKEDITOR.replace('page_details[legalMention]');
         $(document).ready(function(){
             //color
             $('#picker').farbtastic('#page_details_color');

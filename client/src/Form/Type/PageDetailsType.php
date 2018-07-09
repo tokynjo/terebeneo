@@ -23,6 +23,13 @@ class PageDetailsType extends AbstractType
             ->add('footer')
             ->add('color')
             ->add('resume1')
+            ->add('product')
+            ->add('productPlus')
+            ->add('contactEmail')
+            ->add('contactPhone')
+            ->add('contactTitle')
+            ->add('legalMention')
+            ->add('cgv')
             ->add('video', TextareaType::class)
             ->add('imageLeftUpload', FileType::class, [
                 'mapped' => false,

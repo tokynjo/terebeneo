@@ -69,4 +69,31 @@ class StepsController extends Controller
         return $this->render('front/steps/step3.html.twig', ['token' => $token]);
     }
 
+    /**
+     * legal notice
+     *
+     * @Route("/mention-legale", defaults={"_format"="html"}, methods={"GET"}, name="legal_notice")
+     * @Route("/mention-legale/{token}", defaults={"_format"="html","token"="0"}, methods={"GET"}, name="legal_notice_token")
+     * @param Request $request
+     * @return Response
+     */
+    public function legalNoticeAction(Request $request, $token = null)
+    {
+        $partner = $this->get(PartnerManager::SERVICE_NAME)->etape1($token);
+        return $this->render('front/steps/legal-notice.html.twig', ['partner' => $partner, "token" => $token]);
+    }
+
+    /**
+     * term and condition
+     *
+     * @Route("/cgv", defaults={"_format"="html"}, methods={"GET"}, name="cgv")
+     * @Route("/cgv/{token}", defaults={"_format"="html","token"="0"}, methods={"GET"}, name="cgv_token")
+     * @param Request $request
+     * @return Response
+     */
+    public function termAndConditionAction(Request $request, $token = null)
+    {
+        $partner = $this->get(PartnerManager::SERVICE_NAME)->etape1($token);
+        return $this->render('front/steps/term-condition.html.twig', ['partner' => $partner, "token" => $token]);
+    }
 }

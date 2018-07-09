@@ -1,6 +1,7 @@
 <?php
 namespace App\Twig;
 
+use App\Entity\Constants\Constant;
 use App\Entity\Partner;
 use App\Manager\PageDetailsManager;
 use App\Manager\PartnerManager;
@@ -43,7 +44,13 @@ class AppExtension  extends AbstractExtension
             new \Twig_Function('widgetFooter', array($this, 'widgetFooter')),
             new \Twig_Function('widgetColor', array($this, 'widgetColor')),
             new \Twig_Function('widgetImageLeft', array($this, 'widgetImageLeft')),
-            new \Twig_Function('widgetResume1', array($this, 'widgetResume1'))
+            new \Twig_Function('widgetResume1', array($this, 'widgetResume1')),
+            new \Twig_Function('widgetProduct', array($this, 'widgetProduct')),
+            new \Twig_Function('widgetProductPlus', array($this, 'widgetProductPlus')),
+            new \Twig_Function('widgetContactPhone', array($this, 'widgetContactPhone')),
+            new \Twig_Function('widgetContactEmail', array($this, 'widgetContactEmail')),
+            new \Twig_Function('widgetProductTitle', array($this, 'widgetProductTitle')),
+            new \Twig_Function('widgetLegalMention', array($this, 'widgetLegalMention'))
         ];
     }
 
@@ -134,19 +141,20 @@ class AppExtension  extends AbstractExtension
 
     public function widgetColor()
     {
-        //the default video
+        //the default color;
         $html = '.step.active i {
-                    background-color: #ed6b39;
-                    border: 2px solid #ed6b39 !important;
+                    background-color: '.Constant::DEFAULT_COLOR.';
+                    border: 2px solid '.Constant::DEFAULT_COLOR.' !important;
                     color: #ffffff;
                 }
                 .step.active {
-                    color :#ed6b39;
+                    color :'.Constant::DEFAULT_COLOR.';
                 }
                 .link_1 {
-                    background-color: #ed6b39;
-                    border: 2px solid #ed6b39!important;
-                }';
+                    background-color: '.Constant::DEFAULT_COLOR.';
+                    border: 2px solid '.Constant::DEFAULT_COLOR.'!important;
+                }
+                .download {background-color: '.Constant::DEFAULT_COLOR.';}';
 
         if (!is_null($this->partner)) {
             $pageDetails = $this->partner->getActivePageDetails();
@@ -160,9 +168,10 @@ class AppExtension  extends AbstractExtension
                         color :'.$pageDetails->getColor().';
                     }
                     .link_1 {
-                    background-color: '.$pageDetails->getColor().';
-                    border: 2px solid '.$pageDetails->getColor().'!important;
-                }';
+                        background-color: '.$pageDetails->getColor().';
+                        border: 2px solid '.$pageDetails->getColor().'!important;
+                    }
+                    .download {background-color: '.$pageDetails->getColor().';}';
             }
         }
 
@@ -176,6 +185,82 @@ class AppExtension  extends AbstractExtension
             $pageDetails = $this->partner->getActivePageDetails();
             if ($pageDetails && $pageDetails->getResume1()) {
                 $html = $pageDetails->getResume1();
+            }
+        }
+        return $html;
+    }
+    public function widgetProduct()
+    {
+        //default product
+        $html = 'NeoBe';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getProduct()) {
+                $html = $pageDetails->getProduct();
+            }
+        }
+        return $html;
+    }
+
+    public function widgetProductPlus()
+    {
+        //default product plus
+        $html = 'NeoBe+';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getProductPlus()) {
+                $html = $pageDetails->getProductPlus();
+            }
+        }
+        return $html;
+    }
+
+    public function widgetContactEmail()
+    {
+        //default email
+        $html = 'commercial@neobe.com';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getContactEmail()) {
+                $html = $pageDetails->getContactEmail();
+            }
+        }
+        return $html;
+    }
+
+    public function widgetContactPhone()
+    {
+        //default product plus
+        $html = '01.46.08.83.70';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getContactPhone()) {
+                $html = $pageDetails->getContactPhone();
+            }
+        }
+        return $html;
+    }
+
+    public function widgetContactTitle()
+    {
+        //default product plus
+        $html = 'NeoBe + Pour Safe Data';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getContactTitle()) {
+                $html = $pageDetails->getContactTitle();
+            }
+        }
+        return $html;
+    }
+
+    public function widgetLegalMention()
+    {
+        $html = '';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getLegalMention()) {
+                $html = $pageDetails->getLegalMention();
             }
         }
         return $html;

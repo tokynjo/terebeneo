@@ -35,6 +35,8 @@ class Constant
     const STEP_TWO = 2;
     const STEP_THREE = 3;
 
+    const DEFAULT_COLOR = '#ed6b39';
+
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
     public static $neobeNbLicense = [2, 5, 10];
     public static $neobeVolumeSize = [40, 100, 200];

@@ -54,7 +54,6 @@ class PartnerPageDetailsController extends BaseController
             $this->get(PageDetailsManager::SERVICE_NAME)->saveAndFlush($pageDetails);
             $form = $this->createForm(PageDetailsType::class, $pageDetails, []);
         }
-
         $formHandler = new PageDetailsHandler(
             $form,
             $request,
@@ -65,11 +64,6 @@ class PartnerPageDetailsController extends BaseController
         if ($formHandler->process()) {
             return $this->redirectToRoute('admin_notificationdetails_edit', ['id' => $request->get('id')]);
         }
-        return $this->render(
-            'admin/pages/edit.html.twig',
-            ['form' => $form->createView(), 'partner' => $partner, ]
-        );
+        return $this->render('admin/pages/edit.html.twig',['form' => $form->createView(), 'partner' => $partner]);
     }
-
-
 }

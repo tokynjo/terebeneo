@@ -129,6 +129,15 @@ pages:
   image_left: Image colonne de gauche
   header_top: Entête des pages
   footer: Pied des pages
+  legal_mention: Mention légale
+  resume1: Déscription etape 1
+  header_color: Couleur
+  product_contact_phone: Numéro de téléphone du contact
+  product_contact_email: Adresse email du contact
+  product_contact_title: Produit pour
+  product: Nom du produit
+  product_plus: Nom du produit plus
+  cgv: CGV
 
 
 

@@ -21,6 +21,7 @@ class PageDetailsType extends AbstractType
             ->add('subdomain')
             ->add('headerTop')
             ->add('footer')
+            ->add('color')
             ->add('video', TextareaType::class)
             ->add('imageLeftUpload', FileType::class, [
                 'mapped' => false,

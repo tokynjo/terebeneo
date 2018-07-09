@@ -44,6 +44,7 @@ class StepsController extends Controller
     /**
      * third step
      *
+     * @Route("/etape-3", defaults={"page": "1", "_format"="html","token"="0"}, methods={"GET"}, name="steps_three_")
      * @Route("/etape-3/{token}", defaults={"page": "1", "_format"="html","token"="0"}, methods={"GET"}, name="steps_three")
      * @param Request $request
      * @return Response

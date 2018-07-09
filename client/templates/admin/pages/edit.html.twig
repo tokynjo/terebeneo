@@ -1,7 +1,10 @@
 {% extends 'admin/layout.html.twig' %}
 {% block title %}{{ 'headers.edit_title'|trans({},'label', 'fr') }}{% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('/common/farbtastic/farbtastic.css') }}" rel="stylesheet">
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
@@ -30,6 +33,17 @@
                                 <div class="col-md-6">
                                     <label for="page_details_subdomain">{{ 'pages.subdomain'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.subdomain, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="page_details_color">{{ 'pages.header_color'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.color, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-6" style="padding-top: 24px">
+                                    <div id="picker"></div>
                                 </div>
                             </div>
                         </div>
@@ -109,6 +123,8 @@
 {% block javascripts %}
     <script src="//cdn.ckeditor.com/4.7.3/full/ckeditor.js"></script>
     {{ parent() }}
+    <script src="{{ asset('common/farbtastic/farbtastic.js') }}"></script>
+
     <script type="text/javascript">
         /*CKEDITOR.editorConfig = function( config ) {
             config.extraPlugins = 'sourcedialog';
@@ -118,8 +134,11 @@
         footer = CKEDITOR.replace('page_details[footer]');
         */
         $(document).ready(function(){
+            //color
+            $('#picker').farbtastic('#page_details_color');
             $('iframe').attr('width',400);
             $('iframe').attr('height',300);
+
         });
 
     </script>

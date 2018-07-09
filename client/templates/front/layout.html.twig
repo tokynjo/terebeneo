@@ -17,6 +17,9 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('/common/css/default.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/front/css/front.css') }}" rel="stylesheet">
+    <style>
+        {{ widgetColor()|raw }}
+    </style>
     {% endblock %}
 </head>
 
@@ -50,7 +53,7 @@
                 </h2>
                 {% set current_route = app.request.get('_route') %}
                 <ul class="steps">
-                    <li class="step {% if current_route == "steps_first" %}active {% endif %}">
+                    <li class="step {% if current_route == "steps_first" or current_route starts with 'steps_on' %}active {% endif %}">
                         <div class="row">
                             <div class="col col-3"><i class="fa fa-check"></i></div>
                             <div class="col col-9 step-label">
@@ -58,7 +61,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="step {% if current_route == "steps_two" %}active {% endif %}">
+                    <li class="step {% if current_route starts with 'steps_two' %}active {% endif %}">
                         <div class="row">
                             <div class="col col-3"><i class="fa fa-download"></i></div>
                             <div class="col col-9 step-label">
@@ -66,7 +69,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="step {% if current_route == "steps_three" %}active {% endif %}">
+                    <li class="step {% if current_route starts with "steps_three" %}active {% endif %}">
                         <div class="row">
                             <div class="col col-3"><i class="fa fa-desktop"></i></div>
                             <div class="col col-9 step-label">

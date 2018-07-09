@@ -55,6 +55,13 @@ class PartnerPageDetails
     /**
      * @var string
      *
+     * @ORM\Column(name="color", type="string", length=250, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="image_left", type="string", length=250, nullable=true)
      */
     private $imageLeft;
@@ -295,6 +302,24 @@ class PartnerPageDetails
     public function setHeaderTop($headerTop)
     {
         $this->headerTop = $headerTop;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param $color
+     * @return $this
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+        return $this;
     }
 
 

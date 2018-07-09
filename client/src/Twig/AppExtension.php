@@ -41,6 +41,7 @@ class AppExtension  extends AbstractExtension
             new \Twig_Function('widgetVideoDemo', array($this, 'widgetVideoDemo')),
             new \Twig_Function('widgetHeaderTop', array($this, 'widgetHeaderTop')),
             new \Twig_Function('widgetFooter', array($this, 'widgetFooter')),
+            new \Twig_Function('widgetColor', array($this, 'widgetColor')),
             new \Twig_Function('widgetImageLeft', array($this, 'widgetImageLeft'))
         ];
     }
@@ -124,6 +125,43 @@ class AppExtension  extends AbstractExtension
                 $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
                     .$pageDetails->getImageLeft();
                 $html = '<img class="neobe-system" width="100%"  src="'.$path.'" alt="Systeme Neobe" title="Systeme Neobe">';
+            }
+        }
+
+        return $html;
+    }
+
+    public function widgetColor()
+    {
+        //the default video
+        $html = '.step.active i {
+                    background-color: #ed6b39;
+                    border: 2px solid #ed6b39 !important;
+                    color: #ffffff;
+                }
+                .step.active {
+                    color :#ed6b39;
+                }
+                .link_1 {
+                    background-color: #ed6b39;
+                    border: 2px solid #ed6b39!important;
+                }';
+
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getColor()) {
+                $html = '.step.active i {
+                    background-color: '.$pageDetails->getColor().';
+                    border: 2px solid '.$pageDetails->getColor().'!important;
+                    color: #ffffff;
+                    }
+                    .step.active {
+                        color :'.$pageDetails->getColor().';
+                    }
+                    .link_1 {
+                    background-color: '.$pageDetails->getColor().';
+                    border: 2px solid '.$pageDetails->getColor().'!important;
+                }';
             }
         }
 

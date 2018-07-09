@@ -22,6 +22,7 @@ class PageDetailsType extends AbstractType
             ->add('headerTop')
             ->add('footer')
             ->add('color')
+            ->add('resume1')
             ->add('video', TextareaType::class)
             ->add('imageLeftUpload', FileType::class, [
                 'mapped' => false,

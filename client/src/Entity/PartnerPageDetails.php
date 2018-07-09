@@ -41,6 +41,13 @@ class PartnerPageDetails
     /**
      * @var text
      *
+     * @ORM\Column(name="resume_1", type="text", nullable=true, options={"comment":"Résumé sur la page première étape"})
+     */
+    private $resume1;
+
+    /**
+     * @var text
+     *
      * @ORM\Column(name="footer", type="text", nullable=true, options={"comment":"Pied de page"})
      */
     private $footer;
@@ -321,6 +328,24 @@ class PartnerPageDetails
         $this->color = $color;
         return $this;
     }
+
+    /**
+     * @return text
+     */
+    public function getResume1()
+    {
+        return $this->resume1;
+    }
+
+    /**
+     * @param text $resume1
+     */
+    public function setResume1($resume1)
+    {
+        $this->resume1 = $resume1;
+    }
+
+
 
 
 }

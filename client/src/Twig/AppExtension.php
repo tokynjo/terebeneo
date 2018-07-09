@@ -42,7 +42,8 @@ class AppExtension  extends AbstractExtension
             new \Twig_Function('widgetHeaderTop', array($this, 'widgetHeaderTop')),
             new \Twig_Function('widgetFooter', array($this, 'widgetFooter')),
             new \Twig_Function('widgetColor', array($this, 'widgetColor')),
-            new \Twig_Function('widgetImageLeft', array($this, 'widgetImageLeft'))
+            new \Twig_Function('widgetImageLeft', array($this, 'widgetImageLeft')),
+            new \Twig_Function('widgetResume1', array($this, 'widgetResume1'))
         ];
     }
 
@@ -165,6 +166,18 @@ class AppExtension  extends AbstractExtension
             }
         }
 
+        return $html;
+    }
+
+    public function widgetResume1()
+    {
+        $html = '';
+        if (!is_null($this->partner)) {
+            $pageDetails = $this->partner->getActivePageDetails();
+            if ($pageDetails && $pageDetails->getResume1()) {
+                $html = $pageDetails->getResume1();
+            }
+        }
         return $html;
     }
 

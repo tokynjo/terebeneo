@@ -1,7 +1,8 @@
 {% extends 'front/layout.html.twig' %}
-
 {% block body_id 'step1' %}
-
+{% block header_title %}
+    Activation Pack de Sauvegarde {{ widgetProduct()|raw }} – Étape 3/3
+{% endblock %}
 {% block body %}
     <br>
     <div class="row">
@@ -17,14 +18,14 @@
             </p>
         </div>
     </div><br>
-    <h2 class="text-black">Découvrez en vidéo les étapes d’installation de NeoBe+.</h2>
+    <h2 class="text-black">Découvrez en vidéo les étapes d’installation de {{ widgetProductPlus() }}.</h2>
     <p>
-        Le logiciel NeoBe+ vous permet de paramétrer très simplement des tâches de sauvegarde automatisées. Découvrez
-        en 8min comment installer et configurer NeoBe Plus. Découvrez également comment paramétrer vos sauvegardes et restaurer vos données.
+        Le logiciel {{ widgetProductPlus() }} vous permet de paramétrer très simplement des tâches de sauvegarde automatisées. Découvrez
+        en 8min comment installer et configurer {{ widgetProductPlus() }}. Découvrez également comment paramétrer vos sauvegardes et restaurer vos données.
     </p>
     {{ widgetVideoDemo()|raw }}
 
-    <h2 class="text-black">Découvrez en vidéo les étapes d’installation de NeoBe+.</h2>
+    <h2 class="text-black">Découvrez en vidéo les étapes d’installation de {{ widgetProductPlus() }}.</h2>
 
     <div class=" " style="margin: 30px 0px 40px 0px">
         <div class="row item-download">
@@ -34,7 +35,7 @@
                 </a>
             </div>
             <div class="col-lg-8">
-                <p class="title">Notice NeoBe Plus Santé</p>
+                <p class="title">Notice {{ widgetProductPlus() }} </p>
                 <strong>Notice :</strong> Windows – Mac – Linux
             </div>
             <div  class="col-lg-2">
@@ -57,10 +58,10 @@
                     et vous accompagner dans toutes vos problématiques :</strong>
             </p>
             <ul>
-                <li>Installation et première configuration du logiciel NeoBe+</li>
+                <li>Installation et première configuration du logiciel {{ widgetProductPlus() }}</li>
                 <li>Paramétrage des sauvegardes</li>
                 <li>Restauration des données</li>
-                <li>Fonctionnement du logiciel et du service NeoBe</li>
+                <li>Fonctionnement du logiciel et du service {{ widgetProductPlus() }}</li>
             </ul>
         </div>
     </div>

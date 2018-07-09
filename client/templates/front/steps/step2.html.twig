@@ -1,7 +1,8 @@
 {% extends 'front/layout.html.twig' %}
-
 {% block body_id 'step1' %}
-
+{% block header_title %}
+    Activation Pack de Sauvegarde {{ widgetProduct()|raw }} – Étape 2/3
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-lg-2 step active" style="text-align: center;">
@@ -9,30 +10,30 @@
         </div>
         <div class="col-lg-10">
             <div class="col col-12 step active step-label">
-                2. Je télécharge et j’installe le logiciel NeoBe+.
+                2. Je télécharge et j’installe le logiciel {{ widgetProductPlus()}}.
             </div>
             <p>
-                Téléchargez la version de NeoBe+ correspondant à votre environnement (PC, Mac, Linux).
+                Téléchargez la version de {{ widgetProductPlus() }} correspondant à votre environnement (PC, Mac, Linux).
                 Installez cette version avec les identifiants reçus par émail.
             </p>
         </div>
     </div>
-    <p>L’email qui vous a été adressé après validation de votre compte NeoBe contient
-        le numéro de compte et le mot de passe pour installer votre premier poste NeoBe+.<p>
-    <h2 class="text-black"> Le logiciel NeoBe+ doit être installé sur chaque poste à sauvegarder.</h2>
+    <p>L’email qui vous a été adressé après validation de votre compte {{ widgetProduct() }} contient
+        le numéro de compte et le mot de passe pour installer votre premier poste {{ widgetProductPlus() }}.<p>
+    <h2 class="text-black"> Le logiciel {{ widgetProductPlus() }} doit être installé sur chaque poste à sauvegarder.</h2>
     <p>
-        Votre contrat SAFE DATA vous permet de bénéficier de 5 licences NeoBe+ à installer sur
+        Votre contrat SAFE DATA vous permet de bénéficier de 5 licences {{ widgetProductPlus() }} à installer sur
         vos machines (workstation, portable ou serveur).
     </p>
     <p>
-        Le logiciel NeoBe+ permet :
+        Le logiciel {{ widgetProductPlus() }} permet :
     </p>
     <ul>
         <li>De créer des tâches de sauvegardes planifiées</li>
         <li>Parcourir l’espace de sauvegarde pour restaurer tout ou partie des données</li>
     </ul>
     <h2 class="text-black">
-        Téléchargez et installez la version du logiciel NeoBe+ correspondant
+        Téléchargez et installez la version du logiciel {{ widgetProductPlus() }} correspondant
         à votre système d’exploitation.
     </h2>
     <div class="row ">
@@ -43,7 +44,7 @@
                 </a>
             </div>
             <div class="col-lg-8">
-                <p class="title">Logiciel NeoBe Plus pour Windows 64</p>
+                <p class="title">Logiciel {{ widgetProduct() }} Plus pour Windows 64</p>
                 <strong>Compatible : </strong> VISTA et supérieures – 64bits – Version 1.42 – Date de distribution : 25-04-2017
             </div>
             <div  class="col-lg-2">
@@ -59,7 +60,7 @@
                 </a>
             </div>
             <div class="col-lg-8">
-                <p class="title">Logiciel NeoBe Plus pour Windows 32</p>
+                <p class="title">Logiciel {{ widgetProduct() }} Plus pour Windows 32</p>
                 <strong>Compatible : </strong> 2003 et supérieures – 32bits – Version 1.42 – Date de distribution : 25-04-2017
             </div>
             <div  class="col-lg-2">
@@ -75,7 +76,7 @@
                  </a>
             </div>
             <div class="col-lg-8">
-                <p class="title">Logiciel NeoBe Plus pour Mac</p>
+                <p class="title">Logiciel {{ widgetProduct() }} Plus pour Mac</p>
                 <strong>Compatible :</strong> MAC OS X 10.8 et + Version 1.42 – Date de distribution : 25-04-2017
             </div>
             <div  class="col-lg-2">
@@ -91,7 +92,7 @@
                 </a>
             </div>
             <div class="col-lg-8">
-                <p class="title">Logiciel NeoBe Plus pour Linux</p>
+                <p class="title">Logiciel {{ widgetProduct() }} Plus pour Linux</p>
                 <strong>Compatible :</strong> Linux Avec Interface graphique – Debian/Ubuntu/CentOs –
                 Linux 64bits – Version 1.42 – Date de distribution : 25-04-2017
             </div>
@@ -108,7 +109,7 @@
                 </a>
             </div>
             <div class="col-lg-8">
-                <p class="title">Notice NeoBe Plus</p>
+                <p class="title">Notice {{ widgetProductPlus() }} Plus</p>
                 <strong>Notice :</strong> Linux Avec Interface graphique – Debian/Ubuntu/CentOs –
                 Linux 64bits – Version 1.42 – Date de distribution : 25-04-2017
             </div>

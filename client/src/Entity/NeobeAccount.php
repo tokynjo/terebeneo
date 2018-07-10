@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -99,6 +100,10 @@ class NeobeAccount
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\InstallSaveLog", mappedBy="neobeAccount", cascade={"persist"})
+     */
+    private $installSaveLog;
     
     /**
      * Get id
@@ -128,6 +133,7 @@ class NeobeAccount
      */
     public function __construct()
     {
+        $this->installSaveLog = new ArrayCollection();
     }
 
     /**
@@ -325,6 +331,37 @@ class NeobeAccount
     public function setUsedSize($usedSize)
     {
         $this->usedSize = $usedSize;
+        return $this;
+    }
+
+    /**
+     * @return Collection|InstallSaveLog[]
+     */
+    public function getInstallSaveLog(): Collection
+    {
+        return $this->installSaveLog;
+    }
+
+    public function addInstallSaveLog(InstallSaveLog $installSaveLog): self
+    {
+        if (!$this->installSaveLog->contains($installSaveLog)) {
+            $this->installSaveLog[] = $installSaveLog;
+            $installSaveLog->setNeobeAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInstallSaveLog(InstallSaveLog $installSaveLog): self
+    {
+        if ($this->installSaveLog->contains($installSaveLog)) {
+            $this->installSaveLog->removeElement($installSaveLog);
+            // set the owning side to null (unless already changed)
+            if ($installSaveLog->getNeobeAccount() === $this) {
+                $installSaveLog->setNeobeAccount(null);
+            }
+        }
+
         return $this;
     }
 

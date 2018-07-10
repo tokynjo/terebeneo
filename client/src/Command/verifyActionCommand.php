@@ -3,6 +3,7 @@ namespace App\Command;
 
 
 use App\Entity\Constants\Constant;
+use App\Entity\InstallSaveLog;
 use App\Entity\NeobeAccount;
 use App\Services\NeobeApiService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -38,16 +39,27 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $now = new \DateTime("now");
         $this->em = $this->getContainer()->get('doctrine')->getManager();
         $allPartners = $this->em->getRepository("App:Partner")->findAll();
         $service = $this->getContainer()->get(NeobeApiService::SERVICE_NAME);
         if ($allPartners) {
             foreach ($allPartners as $partner) {
+                $logEtapOne = $this->em->getRepository("App:ValidationLog")
+                    ->findBy(["etape" => Constant::STEP_ONE, "partner"=>$partner]);
+                if($partner->getCreatedAt()) {
+                    $dDiff = $now->diff($partner->getCreatedAt());
+                    if (!$logEtapOne && ($dDiff->days%7 == 0)) {
+                        $notif = $this->em->getRepository("App:Notification")->find(Constant::NOTIF_NEOBE_VALIDATION_STEP_ONE);
+                        $this->getContainer()
+                            ->get("app.notification_service")->sendNotification($partner, $notif);
+                    }
+                }
                 if($partner->getNeobeAccountId()) {
                     $auth = $service->getInfosAccount($partner->getNeobeAccountId());
                     if (isset($auth->data->compte)) {
-                        $now = new \DateTime("now");
                         foreach ($auth->data->compte as $compte) {
+                            var_dump($compte);
                             $compteNeobe = $this->em->getRepository("App:NeobeAccount")->findOneBy(["neobeAccountId" => $compte->id]);
                             if (!$compteNeobe) {
                                 $compteNeobe = new NeobeAccount();
@@ -56,16 +68,44 @@ EOT
                                 $compteNeobe->setUpdatedAt($now);
                                 $compteNeobe->setCreatedAt($now);
                             }
-                            $compteNeobe->setInstalled(($compte->installed == true) ? 1 : 0);
-                            if ($compte->has_saved == true) {
-                                $compteNeobe->setSaved(($compte->has_saved == true) ? 1 : 0);
-                            }
                             $compteNeobe->setPassword($compte->motdepasse);
                             $compteNeobe->setTotalSize($compte->espace);
                             $compteNeobe->setUsedSize($compte->espace_utilise);
                             $compteNeobe->setLogin($compte->login);
+                            $compteNeobe->setInstalled(($compte->installed == true) ? 1 : 0);
+                            $compteNeobe->setSaved(($compte->has_saved == true) ? 1 : 0);
                             $this->em->persist($compteNeobe);
                             $this->em->flush();
+                            if($compte->installed == true) {
+                                $newLogSave = new InstallSaveLog();
+                                $newLogSave->setNeobeAccount($compteNeobe);
+                                $newLogSave->setType(Constant::LOG_INSTALL);
+                                $this->em->persist($newLogSave);
+                                $this->em->flush();
+                            }elseif($logEtapOne){
+                                $dDiff = $now->diff($logEtapOne[0]->getCreatedAt());
+                                if(($dDiff->days%1 == 0)) {
+                                    $notif = $this->em->getRepository("App:Notification")->find(Constant::NOTIF_NEOBE_INSTALL);
+                                    $this->getContainer()
+                                        ->get("app.notification_service")->sendNotification($partner, $notif);
+                                }
+                            }
+                            if ($compte->has_saved == true) {
+                                $newLogSave = new InstallSaveLog();
+                                $newLogSave->setNeobeAccount($compteNeobe);
+                                $newLogSave->setType(Constant::LOG_SAVE);
+                                $this->em->persist($newLogSave);
+                                $this->em->flush();
+                            }elseif($compte->installed == true){
+                                $newLogSave = $this->em->getRepository("App:InstallSaveLog")
+                                    ->findOneBy(["type" => Constant::LOG_INSTALL,"neobeAccount" => $compteNeobe]);
+                                $dDiff = $now->diff($newLogSave->getCreatedAt());
+                                if(($dDiff->days%1 == 0)) {
+                                    $notif = $this->em->getRepository("App:Notification")->find(Constant::NOTIF_NEOBE_SAVE);
+                                    $this->getContainer()
+                                        ->get("app.notification_service")->sendNotification($partner, $notif);
+                                }
+                            }
                         }
                     }
                 }

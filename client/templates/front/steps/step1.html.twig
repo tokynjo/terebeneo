@@ -29,7 +29,7 @@
             </p>
             <br>
             {% if partner.hash is defined %}
-            <form action="{{ path('steps_two',{'token':partner.hash}) }}" method="post">
+            <form action="{{ path('steps_two',{'token':token}) }}" method="post">
             {% else %}
             <form action="{{ path('steps_two_') }}" method="post">
             {% endif %}
@@ -54,7 +54,7 @@
                     </div>
                     <p style="">
                         <input type="checkbox" style="margin-right: 15px" required="required">
-                        <span>J'accepte <a href="#">les termes et condition</a> de {{ widgetProductPlus()|raw }} pour SAFE DATA</span>
+                        <span>J'accepte <a style="text-decoration: underline" href="{{ path('cgv',{'token':token}) }}">les termes et conditions</a> de {{ widgetProductPlus()|raw }} pour SAFE DATA</span>
                     </p>
                 </div>
 

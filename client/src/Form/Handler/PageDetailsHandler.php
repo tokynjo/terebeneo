@@ -60,6 +60,12 @@ class PageDetailsHandler
                 $imageLeft->move($this->uploadDir.DIRECTORY_SEPARATOR.$data->getPartner()->getId(), $name);
                 $data->setImageLeft($name);
             }
+            $cgv = $this->form['cgvUpload']->getData();
+            if ($cgv) {
+                $name = 'cgv.'.uniqid().'.'. $cgv->guessExtension();
+                $cgv->move($this->uploadDir.DIRECTORY_SEPARATOR.$data->getPartner()->getId(), $name);
+                $data->setCgv($name);
+            }
             $data->setDeleted(Constant::NO);
             $this->headerManager->saveAndFlush($data);
             return true;

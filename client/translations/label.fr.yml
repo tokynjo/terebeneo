@@ -138,6 +138,8 @@ pages:
   product: Nom du produit
   product_plus: Nom du produit plus
   cgv: CGV
+cgv:
+  cgv: Conditions générales de vente
 
 
 

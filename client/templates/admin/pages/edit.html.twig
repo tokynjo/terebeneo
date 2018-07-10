@@ -1,5 +1,5 @@
 {% extends 'admin/layout.html.twig' %}
-{% block title %}{{ 'headers.edit_title'|trans({},'label', 'fr') }}{% endblock %}
+{% block title %}{{ 'pages.edit_title'|trans({},'label', 'fr') }}{% endblock %}
 {% block body_id 'step1' %}
 {% block stylesheets %}
     {{ parent() }}
@@ -27,7 +27,20 @@
                     </h2>
                 </div>
                 <div class="card-body">
+
                     {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                    {% if not form.vars.valid %}
+                         <div class="form-row error-message" >
+                             <ul>
+                                {% for child in form.children %}
+                                    {%for error in child.vars.errors%}
+                                        <li>{{dump(error)}}</li>
+                                    {%endfor%}
+                                {%endfor%}
+                            </ul>
+                         </div>
+                    {%endif%}
+
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
@@ -41,6 +54,7 @@
                                 <div class="col-md-6">
                                     <label for="page_details_product">{{ 'pages.product'|trans({},'label', 'fr') }}</label>
                                     {{ form_widget(form.product, { 'attr': {'class': 'form-control'} }) }}
+
                                 </div>
                             </div>
                         </div>
@@ -165,9 +179,13 @@
                         </div>
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <label for="page_details_cgv">{{ 'pages.cgv'|trans({},'label', 'fr') }}</label>
-                                    {{ form_widget(form.cgv, { 'attr': {'class': 'form-control'} }) }}
+                                    {{ form_widget(form.cgvUpload, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                                <div class="col-md-8">
+                                    <br>
+                                    <object data="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.cgv}}" type='application/pdf' width='100%' height='100%'></object>
                                 </div>
 
                             </div>

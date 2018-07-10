@@ -1,0 +1,15 @@
+{% extends 'front/layout-cgv.html.twig' %}
+{% block title %}Neobe - Condition Générale de vente {% endblock %}
+{% block body_id 'step1' %}
+{% block header_title %}
+    {{ 'cgv.cgv'|trans({},'label', 'fr') }}
+{% endblock %}
+{% block body %}
+
+        {% if(partner and partner.parent and partner.parent.getActivePageDetails) %}
+            <object class="embed-responsive" data="/upload/partner/img/{{ partner.parent.id }}/{{ partner.parent.getActivePageDetails.cgv}}" type="application/pdf" width="1000px" height="1200px" />
+        {% endif %}
+        <div class=" " style="margin-top: 30px">
+            <div class="row item-download next-step"><a href="{{ path('steps_one',{'token':token}) }}" class="link_1" >< Retour à l'étape précédente</a></div>
+        </div>
+{% endblock %}

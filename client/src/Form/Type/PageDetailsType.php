@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 class PageDetailsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -23,13 +23,13 @@ class PageDetailsType extends AbstractType
             ->add('footer')
             ->add('color')
             ->add('resume1')
-            ->add('product')
+            ->add('product', TextType::class)
             ->add('productPlus')
             ->add('contactEmail')
             ->add('contactPhone')
             ->add('contactTitle')
             ->add('legalMention')
-            ->add('cgv')
+            ->add('cgvUpload', FileType::class, ['mapped' => false, 'required' => false])
             ->add('video', TextareaType::class)
             ->add('imageLeftUpload', FileType::class, [
                 'mapped' => false,

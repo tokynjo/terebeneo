@@ -1,134 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="shortcut icon" href="{{ asset('neobe.ico') }}" />
-    {% block stylesheets %}
-    <!-- Bootstrap core CSS-->
-    <link href="{{ asset('/common/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Custom fonts for this template-->
-    <link href="{{ asset('/common/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('/common/css/default.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('/front/css/front.css') }}" rel="stylesheet">
-    <style>
-        {{ widgetColor()|raw }}
-    </style>
-    {% endblock %}
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('neobe.ico') }}" />
+        {% block stylesheets %}
+        <!-- Bootstrap core CSS-->
+        <link href="{{ asset('/common/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Custom fonts for this template-->
+        <link href="{{ asset('/common/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <!-- Custom styles for this template-->
+        <link href="{{ asset('/common/css/default.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('/front/css/front.css') }}" rel="stylesheet">
+        <style>
+            {{ widgetColor()|raw }}
+        </style>
+        {% endblock %}
+    </head>
 
-<body class="bg-white" id="page-top">
-<!-- Navigation-->
-<div class="content-wrapper">
-    <header id="header">
-        <div class="header-top">
-            <div class="container-fluid">
-                {{ widgetHeaderTop()|raw }}
-            </div>
-        </div>
-        <div class="header-logo" id="header-logo">
-            <div class="container-fluid">
-                <img src="{{ asset('/front/img/logo-neobe.jpg') }}" alt="logo" title="logo">
-                {{ widgetLogo()|raw }}
-            </div>
-        </div>
-        <div class="header-title">
-            <div class="container-fluid">
-                {% block header_title %}
-                    Activation Pack de Sauvegarde {{ widgetProduct()|raw }} – Étape 1/3
-                {% endblock %}
-            </div>
-        </div>
-    </header>
+    <body class="bg-white" id="page-top">
+    <!-- Navigation-->
+        <div class="content-wrapper">
+            <header id="header">
+                <div class="header-top">
+                    <div class="container-fluid">
+                        {{ widgetHeaderTop()|raw }}
+                    </div>
+                </div>
+                <div class="header-logo" id="header-logo">
+                    <div class="container-fluid">
+                        {{ widgetLogo()|raw }}
+                    </div>
+                </div>
+                <div class="header-title">
+                    <div class="container-fluid">
+                        {% block header_title %}
+                            Activation Pack de Sauvegarde {{ widgetProduct()|raw }} – Étape 1/3
+                        {% endblock %}
+                    </div>
+                </div>
+            </header>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4 nav-left">
-                <h2 class="row text-black">
-                    Validez et configurez vos sauvegardes en quelques clics…
-                </h2>
-                {% set current_route = app.request.get('_route') %}
-                <ul class="steps">
-                    <li class="step {% if current_route == "steps_first" or current_route starts with 'steps_on' %}active {% endif %}">
-                        <div class="row">
-                            <div class="col col-3"><i class="fa fa-check"></i></div>
-                            <div class="col col-9 step-label">
-                                1. Je valide mon compte {{ widgetProductPlus()|raw }} et je reçois mes identifiants.
-                            </div>
-                        </div>
-                    </li>
-                    <li class="step {% if current_route starts with 'steps_two' %}active {% endif %}">
-                        <div class="row">
-                            <div class="col col-3"><i class="fa fa-download"></i></div>
-                            <div class="col col-9 step-label">
-                                2. Je télécharge et j’installe le logiciel {{ widgetProductPlus()|raw }}
-                            </div>
-                        </div>
-                    </li>
-                    <li class="step {% if current_route starts with "steps_three" %}active {% endif %}">
-                        <div class="row">
-                            <div class="col col-3"><i class="fa fa-desktop"></i></div>
-                            <div class="col col-9 step-label">
-                                3. Je paramètre et je réalise ma première sauvegarde.
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <figure>
-                    {{ widgetImageLeft()|raw }}
-                </figure>
-                <p style="font-size: 15px">
-                    <strong>
-                        {{ widgetProduct()|raw }} est une solution complète de sauvegarde en ligne qui permet aux professionnels de
-                        sécuriser leurs fichiers informatiques dans des centres d’hébergement hautement sécurisés
-                        situés en France.
-                    </strong>
-                </p>
-                <p>
-                    Avec {{ widgetProduct()|raw }}, les conséquences d’un sinistre sont réduites. Les fichiers perdus sont
-                    récupérables immédiatement, ce qui garantit une reprise rapide de l’activité.
-                </p>
-                <br>
-                <div style="text-align: center"><a href="https://www.neobe.com/sauvegarde-en-ligne-neobe-backup-cloud/" class="link_1" >En savoir plus sur {{ widgetProductPlus()}} </a></div>
-                <br>
-                <figure>
-                    <img width="100%" src="{{ asset('/front/img/CTA-tel6.jpg') }}" alt="contact" title="Contact"/>
-                </figure>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 nav-left">
+                        <h2 class="row text-black">
+                            Validez et configurez vos sauvegardes en quelques clics…
+                        </h2>
+                        {% set current_route = app.request.get('_route') %}
+                        <ul class="steps">
+                            <li class="step {% if current_route == "steps_first" or current_route starts with 'steps_on' %}active {% endif %}">
+                                <div class="row">
+                                    <div class="col col-3"><i class="fa fa-check"></i></div>
+                                    <div class="col col-9 step-label">
+                                        1. Je valide mon compte {{ widgetProductPlus()|raw }} et je reçois mes identifiants.
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="step {% if current_route starts with 'steps_two' %}active {% endif %}">
+                                <div class="row">
+                                    <div class="col col-3"><i class="fa fa-download"></i></div>
+                                    <div class="col col-9 step-label">
+                                        2. Je télécharge et j’installe le logiciel {{ widgetProductPlus()|raw }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="step {% if current_route starts with "steps_three" %}active {% endif %}">
+                                <div class="row">
+                                    <div class="col col-3"><i class="fa fa-desktop"></i></div>
+                                    <div class="col col-9 step-label">
+                                        3. Je paramètre et je réalise ma première sauvegarde.
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <figure>
+                            {{ widgetImageLeft()|raw }}
+                        </figure>
+                        <p style="font-size: 15px">
+                            <strong>
+                                {{ widgetProduct()|raw }} est une solution complète de sauvegarde en ligne qui permet aux professionnels de
+                                sécuriser leurs fichiers informatiques dans des centres d’hébergement hautement sécurisés
+                                situés en France.
+                            </strong>
+                        </p>
+                        <p>
+                            Avec {{ widgetProduct()|raw }}, les conséquences d’un sinistre sont réduites. Les fichiers perdus sont
+                            récupérables immédiatement, ce qui garantit une reprise rapide de l’activité.
+                        </p>
+                        <br>
+                        <div style="text-align: center"><a href="https://www.neobe.com/sauvegarde-en-ligne-neobe-backup-cloud/" class="link_1" >En savoir plus sur {{ widgetProductPlus()}} </a></div>
+                        <br>
+                        <figure>
+                            <img width="100%" src="{{ asset('/front/img/CTA-tel6.jpg') }}" alt="contact" title="Contact"/>
+                        </figure>
+                    </div>
+                    <div class="col-lg-8 page-content">
+                        {% block body %}
+                        {% endblock %}
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-8 page-content">
-                {% block body %}
-                {% endblock %}
-            </div>
+            <!-- /.container-fluid-->
+            <!-- /.content-wrapper-->
+            <footer class="sticky-footer">
+                <div class="container">
+                    {{ widgetFooter()|raw }}
+                </div>
+            </footer>
+            <!-- Scroll to Top Button-->
+            {#<a class="scroll-to-top rounded" href="#page-top">
+                <i class="fa fa-angle-up"></i>
+            </a>#}
+            <!-- Bootstrap core JavaScript-->
+            <script src="{{ asset('/common/jquery/jquery.min.js') }}"></script>
+            <script src="{{ asset('/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="{{ asset('/common/jquery-easing/jquery.easing.min.js') }}"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="{{ asset('/common/js/default.min.js') }}"></script>
+            <script src="{{ asset('/front/js/front.js') }}"></script>
+            {% block javascripts %}
+            {% endblock %}
         </div>
-    </div>
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
-    <footer class="sticky-footer">
-        <div class="container">
-            {{ widgetFooter()|raw }}
-        </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    {#<a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>#}
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('/common/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/common/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('/common/jquery-easing/jquery.easing.min.js') }}"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('/common/js/default.min.js') }}"></script>
-    <script src="{{ asset('/front/js/front.js') }}"></script>
-    {% block javascripts %}
-    {% endblock %}
-</div>
-</body>
+    </body>
 
 </html>

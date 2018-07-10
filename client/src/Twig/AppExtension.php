@@ -60,11 +60,12 @@ class AppExtension  extends AbstractExtension
      */
     public function widgetLogo()
     {
-        $html = '';
+        $html = '<img src="/front/img/logo-neobe.jpg" alt="logo" title="logo">';
         $path = DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPARATOR.'partner'.DIRECTORY_SEPARATOR.'img';
         if (!is_null($this->partner)) {
             $pageDetails = $this->partner->getActivePageDetails();
             if ($pageDetails) {
+                $html = '';
                 $path .= DIRECTORY_SEPARATOR.$this->partner->getId().DIRECTORY_SEPARATOR
                     .$pageDetails->getLogo();
                 $html .= '<img class="partner-logo"  src="'.$path.'" alt="'.$this->partner->getName().'" title="'

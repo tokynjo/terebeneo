@@ -34,7 +34,7 @@ header .header-top li {
     display: inline-block;
 }
 header .header-logo .container-fluid {
-    padding: 15px;
+    padding-bottom: 15px;
 }
 
 .sticky {
@@ -44,7 +44,7 @@ header .header-logo .container-fluid {
     background-color: #ffffff;
     z-index: 10000;
 }
-.sticky img {width:200px;}
+.sticky img {width:auto;}
 .sticky .container-fluid { padding: 5px 0px !important;}
 header .header-title {
     background-image: url(../img/header4-1.jpg);

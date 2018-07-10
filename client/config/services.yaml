@@ -81,3 +81,8 @@ services:
         class: App\Services\NeobeApiService
         arguments: ['@service_container']
         public: true
+
+    app.sms:
+            class: App\Services\Sms
+            arguments: ["@service_container","@doctrine.orm.entity_manager"]
+            public: true

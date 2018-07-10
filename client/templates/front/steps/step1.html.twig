@@ -7,7 +7,7 @@
 {% block body %}
     <br>
     <p>Bonjour Monsieur {% if partner.id is defined %}{{ partner.lastname }}{% endif %},</p>
-    <p>Dans le cadre de votre contrat SAFE DATA vous bénéficiez d’un pack de sauvegarde informatique en ligne {{ widgetProduct()}} pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
+    <p>Dans le cadre de votre contrat {% if partner.parent is defined %} {{ partner.parent.name }} {% endif %}vous bénéficiez d’un pack de sauvegarde informatique en ligne {{ widgetProduct()}} pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
     <h2 class="text-black"> {{ widgetResume1()|raw }}</h2>
     <p><strong>Votre compte {{ widgetProduct() }} inclut : </strong></p>
     <ul>
@@ -54,7 +54,7 @@
                     </div>
                     <p style="">
                         <input type="checkbox" style="margin-right: 15px" required="required">
-                        <span>J'accepte <a style="text-decoration: underline" href="{{ path('cgv_token',{'token':token}) }}">les termes et conditions</a> de {{ widgetProductPlus()|raw }} pour SAFE DATA</span>
+                        <span>J'accepte <a style="text-decoration: underline" href="{{ path('cgv_token',{'token':token}) }}">les termes et conditions</a> de {{ widgetProductPlus()|raw }} {% if partner.parent is defined %} pour {{ partner.parent.name }} {% endif %}</span>
                     </p>
                 </div>
 

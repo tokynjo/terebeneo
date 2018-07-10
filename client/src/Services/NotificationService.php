@@ -115,8 +115,8 @@ class NotificationService
                     break;
 
                 case '__partenaire_api_login__' :
-                    if($partner->getUser()) {
-                        $content = str_replace($key, $partner->getUser()->getEmail(), $content);
+                    if(isset($partner->getUser()[0])) {
+                        $content = str_replace($key, $partner->getUser()[0]->getEmail(), $content);
                     }
                     break;
 

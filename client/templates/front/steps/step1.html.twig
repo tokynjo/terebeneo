@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
     <br>
-    <p>Bonjour Monsieur {% if partner.id is defined %}{{ partner.lastname }}{% endif %},</p>
+    <p>Bonjour  {% if partner.id is defined %}{{ partner.civility.longlabel }} {{ partner.firstname }} {{ partner.lastname|upper }}{% endif %},</p>
     <p>Dans le cadre de votre contrat {% if partner.parent is defined %} {{ partner.parent.name }} {% endif %}vous bénéficiez d’un pack de sauvegarde informatique en ligne {{ widgetProduct()}} pour 5 machines (workstation, portable ou serveur) et 20Go de sauvegarde par machine, soit 100Go au total.<p>
     <h2 class="text-black"> {{ widgetResume1()|raw }}</h2>
     <p><strong>Votre compte {{ widgetProduct() }} inclut : </strong></p>

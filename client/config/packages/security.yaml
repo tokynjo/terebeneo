@@ -49,4 +49,4 @@ security:
         - { path: ^/admin/user/resetting/success, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/admin/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/admin, role: [ROLE_ADMIN] }
+        - { path: ^/admin(.*), role: [ROLE_ADMIN] }

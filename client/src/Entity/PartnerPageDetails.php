@@ -5,6 +5,7 @@ use App\Entity\Constants\Constant;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Partner
@@ -132,7 +133,6 @@ class PartnerPageDetails
 
     /**
      * @var text
-     *
      * @ORM\Column(name="cgv", type="string", length=250, nullable=true, options={"comment":"term and condition"})
      */
     private $cgv;

@@ -24,7 +24,7 @@ class StepsController extends Controller
     public function stepOneAction(Request $request, $token = null)
     {
         $partner = $this->get(PartnerManager::SERVICE_NAME)->etape1($token);
-        return $this->render('front/steps/step1.html.twig', ['partner' => $partner]);
+        return $this->render('front/steps/step1.html.twig', ['partner' => $partner, "token" => $token]);
     }
 
     /**
@@ -96,4 +96,5 @@ class StepsController extends Controller
         $partner = $this->get(PartnerManager::SERVICE_NAME)->etape1($token);
         return $this->render('front/steps/term-condition.html.twig', ['partner' => $partner, "token" => $token]);
     }
+
 }

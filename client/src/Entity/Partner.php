@@ -942,4 +942,50 @@ class Partner
 
         return $this;
     }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getPartner() === $this) {
+                $user->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addAccount(NeobeAccount $account): self
+    {
+        if (!$this->accounts->contains($account)) {
+            $this->accounts[] = $account;
+            $account->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccount(NeobeAccount $account): self
+    {
+        if ($this->accounts->contains($account)) {
+            $this->accounts->removeElement($account);
+            // set the owning side to null (unless already changed)
+            if ($account->getPartner() === $this) {
+                $account->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
 }

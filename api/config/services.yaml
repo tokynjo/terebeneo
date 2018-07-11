@@ -42,7 +42,7 @@ services:
         public: true
     app.notification_service:
         class: App\Services\NotificationService
-        arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer']
+        arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer', null, '%front_url%', '%api_url%']
         public: true
     app.event.partner:
         class: App\EventListener\PartnerListener

@@ -87,6 +87,7 @@ class NotificationService
      */
     protected function replaceDataVars(Partner $partner, $content)
     {
+        $parent = $partner->getParent();
         $pwdEncoder = new PasswordEncoder();
         foreach(Constant::$dataMailList as $key => $label) {
             switch ($key) {
@@ -144,7 +145,13 @@ class NotificationService
                     $content = str_replace($key, $partner->getVolumeSize(), $content);
                     break;
                 case '__url_create_account_validation__' :
-                    $frontUrl = "https://preprod-ter.dropcloud.fr/etape-1".'/'.$partner->getHash();
+                    $frontUrl = $this->frontUrl;
+                    if(!is_null($parent) && $parent->getActivePageDetails()) {
+                        if($parent->getActivePageDetails()->getSubdomain()) {
+                            $frontUrl = $parent->getActivePageDetails()->getSubdomain();
+                        }
+                    }
+                    $frontUrl .='/etape-1/'.$partner->getHash();
                     $content = str_replace($key, $frontUrl, $content);
                     break;
                 case '__details_comptes_neobe__' :

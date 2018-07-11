@@ -199,3 +199,13 @@ label {
 .alert-success {color: #007bff;}
 .content-var{cursor: pointer}
 ul.list-content-var {padding-left: 1.2rem;font-size: .9rem;line-height: 1.8;}
+
+.error-message {
+    color: #de3c3c;
+    border: 1px solid #de3c3c;
+    background-color: #ffb8ad;
+    padding: 15px 0px 15px 0px;
+    margin: 0px 15px 0px 15px;
+}
+.error-message > ul {margin-bottom: 0px; padding-left: 15px;}
+.error-message > ul >li {list-style: none;}

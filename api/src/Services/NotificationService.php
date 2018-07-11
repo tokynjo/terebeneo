@@ -73,7 +73,10 @@ class NotificationService
                     );
                     break;
                 case Constant::NOTIFICATION_TYPE_SMS :
-                    $sms = $this->replaceDataVars($partner, $content->getContent());
+                    $smsContent = $this->replaceDataVars($partner, $content->getContent());
+                    $recipients = [];
+                    $recipients[] = $partner->getMobile();
+                    $this->sms->send($recipients,$smsContent);
                     break;
             }
         }

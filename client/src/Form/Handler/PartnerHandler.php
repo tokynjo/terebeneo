@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PartnerHandler
 {
@@ -44,11 +45,11 @@ class PartnerHandler
             $em->getConnection()->beginTransaction();
             try {
                 $data = $this->form->getData();
-                //print_r($data->getNeobeAccountId()); die;
                 $data->setDeleted(Constant::NO);
                 if(!$data->getId()){
                     //hash
                     $data->setHash(sha1(date('Ymdhis')));
+                    $data->setMobile($data->getPhone());
                     $this->partnerManager->saveAndFlush($data);
                     //creating user api
                     $partnerEvent = new PartnerEvent($data);
@@ -59,6 +60,7 @@ class PartnerHandler
                 $em->commit();
                 return true;
             } catch (\Exception $e) {
+                $this->request->getSession()->getFlashBag()->add('error', $e->getMessage());
                 $em->getConnection()->rollback();
                 $em->close();
                 return false;

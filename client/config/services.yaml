@@ -74,7 +74,7 @@ services:
         public: true
     app.notification_service:
         class: App\Services\NotificationService
-        arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer', null, '%front_url%', '%api_url%']
+        arguments: ['@doctrine.orm.entity_manager', '@templating', '@app.mailer', '@app.sms', '%front_url%', '%api_url%']
         public: true
 
     api.neobe.create_account:

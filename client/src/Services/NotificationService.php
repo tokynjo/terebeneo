@@ -73,10 +73,13 @@ class NotificationService
                     );
                     break;
                 case Constant::NOTIFICATION_TYPE_SMS :
-                    $sms = $this->replaceDataVars($partner, $content->getContent());
+                    $smsContent = $this->replaceDataVars($partner, $content->getContent());
+                    $recipients = [];
+                    $recipients[] = $partner->getMobile();
+                    $this->sms->send($recipients,$smsContent);
                     break;
             }
-        }
+        } die;
     }
 
     /**
@@ -115,18 +118,18 @@ class NotificationService
                     break;
 
                 case '__partenaire_api_login__' :
-                    if(isset($partner->getUser()[0])) {
-                        $content = str_replace($key, $partner->getUser()[0]->getEmail(), $content);
+                    if(!is_null($partner->getUser())) {
+                        $content = str_replace($key, $partner->getUser()->getEmail(), $content);
                     }
                     break;
 
                 case '__partenaire_api_mot_de_passe__' :
-                    if(isset($partner->getUser()[0])) {
+                    if(!is_null($partner->getUser())) {
                         $content = str_replace($key, $partner->getUser()->getPlainPassword(), $content);
                     }
                     break;
                 case '__partenaire_api_url' :
-                    $content = str_replace($key, $this->apiUrl.'/create', $content);
+                    $content = str_replace($key, $this->apiUrl, $content);
                     break;
                 case '__client_nom__' :
                     $content = str_replace($key, $partner->getLastname(), $content);

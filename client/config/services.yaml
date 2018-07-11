@@ -89,3 +89,7 @@ services:
     #    class: App\Twig\AppExtension
     #    arguments: ['@service_container', '@request_stack']
     #    public: true
+    app.sms:
+            class: App\Services\Sms
+            arguments: ["@service_container","@doctrine.orm.entity_manager"]
+            public: true

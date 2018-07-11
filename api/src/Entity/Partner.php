@@ -235,6 +235,11 @@ class Partner
      */
     private $accounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PartnerPageDetails", mappedBy="partner", cascade={"persist"})
+     */
+    private $pageDetails;
+
 
     /**
      * Get id
@@ -268,7 +273,7 @@ class Partner
         $this->headersFooters = new  ArrayCollection();
         $this->children = new ArrayCollection();
         $this->validation = new ArrayCollection();
-        $this->user = new ArrayCollection();
+        $this->pageDetails = new ArrayCollection();
     }
 
     /**
@@ -821,8 +826,6 @@ class Partner
         return $this;
     }
 
-
-
     /**
      * @param int $volumeSize
      */
@@ -830,6 +833,38 @@ class Partner
     {
         $this->volumeSize = $volumeSize;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPageDetails()
+    {
+        return $this->pageDetails;
+    }
+
+    public function getActivePageDetails()
+    {
+        if(sizeof($this->pageDetails) > 0) {
+            foreach($this->pageDetails as $hf) {
+                if($hf->getDeleted() == Constant::NOT_DELETED) {
+                    return $hf;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param $pageDetails
+     * @return $this
+     */
+    public function setPageDetails($pageDetails)
+    {
+        $this->pageDetails = $pageDetails;
+        return $this;
+    }
+
+
 
     public function addChild(Partner $child): self
     {
@@ -902,6 +937,52 @@ class Partner
             // set the owning side to null (unless already changed)
             if ($validation->getPartner() === $this) {
                 $validation->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getPartner() === $this) {
+                $user->setPartner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addAccount(NeobeAccount $account): self
+    {
+        if (!$this->accounts->contains($account)) {
+            $this->accounts[] = $account;
+            $account->setPartner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccount(NeobeAccount $account): self
+    {
+        if ($this->accounts->contains($account)) {
+            $this->accounts->removeElement($account);
+            // set the owning side to null (unless already changed)
+            if ($account->getPartner() === $this) {
+                $account->setPartner(null);
             }
         }
 

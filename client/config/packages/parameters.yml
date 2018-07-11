@@ -11,7 +11,6 @@ parameters:
     mailer_password: B0c454y.c039an1
     secret: S3C83T!T043N.
 
-    project_api_dir: C:\wamp64\www\projets\dropcloud\neobe-ter\neobe-ter\api
     front_url: https://preprod-ter.dropcloud.fr
     api_url:  https://preprod-api-ter.dropcloud.fr
 

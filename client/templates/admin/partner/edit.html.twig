@@ -35,7 +35,27 @@
                     </h2>
                 </div>
                 <div class="card-body">
+                    {% if app.session.flashBag.has('error') %}
+                        <div class="row error-message">
+                            <ul>
+                                {% for msg in app.session.flashBag.get('error') %}
+                                    <li><i class="fa fa-warning"></i> {{ msg }} </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        {% if not form.vars.valid %}
+                            <div class="form-row " >
+                                <ul>
+                                    {% for child in form.children %}
+                                        {%for error in child.vars.errors%}
+                                            <li>{{error}}</li>
+                                        {%endfor%}
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        {%endif%}
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">

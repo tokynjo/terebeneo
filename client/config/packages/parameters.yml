@@ -16,6 +16,12 @@ parameters:
 
     upload_directory: '%kernel.project_dir%/public/upload/partner/img'
 
+    # sms configuration
+    script_name: envoiSms
+    send_sms_description: 'Envoi Sms Wedrop'
+    ovh_app_key: rU2ZEA8XTfJtWMJU
+    ovh_app_secret: 12JTGqS2atMfrGhMmgzcLpR0w7vvBzLL
+    ovh_consumer_key: JIlnD3B49XogVylDaPVXl2x20Phwb1w0
     #send grid config
     api_key_send_grid: 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
 

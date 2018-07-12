@@ -79,7 +79,7 @@ class NotificationService
                     $this->sms->send($recipients,$smsContent);
                     break;
             }
-        } die;
+        }
     }
 
     /**

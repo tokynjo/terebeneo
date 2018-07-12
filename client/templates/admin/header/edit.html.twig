@@ -50,6 +50,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <label for="header_footer_footer">{{ 'headers.footer'|trans({},'label', 'fr') }}</label>
+                                    {{ form_widget(form.footer, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="form-row">
@@ -71,6 +79,7 @@
     {{ parent() }}
     <script type="text/javascript">
         editorContent = CKEDITOR.replace('header_footer[header]');
+        editorContent = CKEDITOR.replace('header_footer[footer]');
     </script>
 
 {% endblock %}

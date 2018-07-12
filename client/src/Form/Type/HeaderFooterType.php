@@ -13,20 +13,13 @@ class HeaderFooterType extends AbstractType
     {
         $builder
             ->add('header')
+            ->add('footer')
             ->add('partner', EntityType::class, array(
                 'class' => 'App:Partner',
                 'query_builder' => function (EntityRepository $er) {
-
                     $partners =  $er->createQueryBuilder('p')
                         ->where('p.deleted <> 1')
                         ->orderBy('p.name', 'ASC');
-                    /*$partnersWithoutHF = [];
-                    foreach($partners as $partner) {
-                         if($partner->getActiveHeadersFooters()) {
-                             //array_push($partnersWithoutHF, $partner);
-                             $partners->remove($partners);
-                         }
-                    }*/
                     return $partners;
                 },
                 'choice_label' => 'name',
@@ -36,6 +29,7 @@ class HeaderFooterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['data_class' => 'App\Entity\HeaderFooter']);
+        $resolver->setRequired('entityManager');
     }
 }
 

@@ -87,6 +87,7 @@ headers:
   edit_title: Edition d'un header
   create_title: Ajout d'un header
   header: Header
+  footer: Footer
   header_footer: Header & footer
   partner: Partenaire
   deletion_message_confirmation: Voulez vous supprimer le header

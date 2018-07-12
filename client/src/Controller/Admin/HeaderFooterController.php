@@ -54,8 +54,17 @@ class HeaderFooterController extends BaseController
     public function editAction(Request $request)
     {
         $header = $this->get(HeaderFooterManager::SERVICE_NAME)->find($request->get('id'));
-        $form = $this->createForm(HeaderFooterType::class, $header);
-        $formHandler = new HeaderFooterHandler($form, $request, $this->get('app.header_footer_manager'), $this->get('event_dispatcher'));
+        $form = $this->createForm(
+            HeaderFooterType::class,
+            $header,
+            ['entityManager' => $this->getDoctrine()->getManager()]
+        );
+        $formHandler = new HeaderFooterHandler(
+            $form,
+            $request,
+            $this->get('app.header_footer_manager'),
+            $this->get('event_dispatcher')
+        );
         if ($formHandler->process()) {
             return $this->redirectToRoute('admin_notificationheader_index');
         }

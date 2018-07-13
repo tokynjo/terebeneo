@@ -211,6 +211,13 @@ class Partner
     private $deleted;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="simulation", type="integer", length=2, nullable=true)
+     */
+    private $simulation;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Partner", mappedBy="parent", cascade={"persist"})
      */
     private $children;
@@ -274,6 +281,7 @@ class Partner
         $this->children = new ArrayCollection();
         $this->validation = new ArrayCollection();
         $this->pageDetails = new ArrayCollection();
+        $this->simulation = 0;
     }
 
     /**
@@ -864,6 +872,23 @@ class Partner
         return $this;
     }
 
+    /**
+     * @return int
+     */
+    public function getSimulation()
+    {
+        return $this->simulation;
+    }
+
+    /**
+     * @param $simulation
+     * @return $this
+     */
+    public function setSimulation($simulation)
+    {
+        $this->simulation = $simulation;
+        return $this;
+    }
 
 
     public function addChild(Partner $child): self

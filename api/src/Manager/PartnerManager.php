@@ -135,8 +135,6 @@ class PartnerManager extends BaseManager
         }
         $partner->setMail($email);
 
-
-
         //test nb licence
         $nbLicence = $apiRequest->getBodyRawParam('nb_licence');
         if (is_null($nbLicence) || !in_array($nbLicence, Constant::$neobeNbLicense)) {
@@ -153,9 +151,7 @@ class PartnerManager extends BaseManager
             return $resp;
         }
         $partner->setVolumeSize($volumeSize);
-////print_r( $this->tokenStorage->getToken()->getUser()->getEmail()); die;
         $parent = $this->entityManager->getRepository('App:Partner')->findOneBy(['mail' => $this->tokenStorage->getToken()->getUser()->getEmail()]);
-        //$parent = $this->tokenStorage->getToken()->getUser()->getPartner();
         $partner->setParent($parent)
             ->setAddress1($apiRequest->getBodyRawParam('address_1'))
             ->setAddress2($apiRequest->getBodyRawParam('address_2'))
@@ -167,7 +163,10 @@ class PartnerManager extends BaseManager
             ->setDeleted(Constant::NOT_DELETED)
             ->setSource($parent->getName());
         $partner->setHash(sha1(uniqid().date('YmdHis')));
-
+        /**
+         * simulation or real client
+         */
+        $partner->setSimulation($apiRequest->getBodyRawParam('simulation', 0));
         $this->entityManager->persist($partner);
         $this->entityManager->flush();
 

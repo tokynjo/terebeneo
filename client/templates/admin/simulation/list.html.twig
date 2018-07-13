@@ -1,0 +1,81 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}Neobe Admin  - Simulation clients{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.simulations'|trans({},'label', 'fr') }}
+        </li>
+        {#<li class="breadcrumb-item active">Blank Page</li>#}
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2>
+                        <i class="fa fa-user-secret"></i>{{ 'simulations.list_title'|trans({},'label', 'fr') }}
+                        <a class="add-entity" href="{{ path('admin_simulation_client_add')}}" title="{{ 'button.add'|trans({},'label', 'fr') }}"><i class="fa fa-plus-circle"></i>{{ 'button.add'|trans({},'label', 'fr') }}</a>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'partners.name'|trans({},'label', 'fr') }}">{{ 'partners.name'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.mail'|trans({},'label', 'fr') }}">{{ 'partners.mail'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'partners.lastname'|trans({},'label', 'fr') }}">{{ 'partners.lastname'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'common.table.actions'|trans({},'label', 'fr') }}">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% if(list|length > 0) %}
+                                            {% for  n in list %}
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1 text-right">{{ n.id }}</td>
+                                                    <td>{{ n.name }}</td>
+                                                    <td class="sorting_1 text-right">{{ n.neobeAccountId }}</td>
+                                                    <td>{{ n.mail}}</td>
+                                                    <td>{{ n.firstname}} {{ n.lastname|upper}}</td>
+                                                    <td class="actions">
+                                                        <a href="{{ path('admin_partner_edit',{'id':n.id}) }}"
+                                                           title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                        {% if(n.getParent is null) %}
+                                                            <a href="{{ path('admin_notificationdetails_edit',{'id':n.id}) }}"
+                                                               title="{{ 'button.edit_page_content'|trans({},'label', 'fr') }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                                        {% endif %}
+                                                        <a href="{{ path('admin_partner_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
+                                                           data-detail="{{ n.name }}"
+                                                           data-title ="{{ 'partners.deletion_title'|trans({},'label', 'fr') }}"
+                                                           data-message = "{{ 'partners.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ n.id }} ?"
+                                                           title="{{ 'button.delete'|trans({},'label', 'fr') }}">
+                                                            <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr role="row" class="odd ">
+                                                <td colspan="6" class="text-center ">{{ 'common.table.no_data'|trans({},'label', 'fr') }}</td>
+
+                                            </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

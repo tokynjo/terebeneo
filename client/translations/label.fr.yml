@@ -42,6 +42,8 @@ menu:
   header_footer: Header & footer
   partners: Partenaires
   pages: Pages
+  simulations: Simulations
+  create_client: Créer un Client
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
@@ -113,6 +115,15 @@ partners:
   deletion_message_confirmation: Voulez vous supprimer le partenaire
   deletion_title: Suppression d'un partenaire
   neobe_account_id: Id neobe
+  nb_licence: Nombre de licence
+  volume_size: Volume par license
+  parent: partenaire
+  mobile: Mobile
+  category: Categorie
+  info_client: Informations client
+  info_partner: Informations partenaire
+  neobe_pack: Pack NEOBE
+
 
 accounts:
   name: Nom
@@ -141,7 +152,11 @@ pages:
   cgv: CGV
 cgv:
   cgv: Conditions générales de vente
-
+simulations:
+  simulation: Simulation
+  edit_title: Editer un client
+  create_title: Ajouter un client
+  list_title: Liste des clients créer par le simulateur
 
 
 

@@ -90,6 +90,10 @@ services:
     #    arguments: ['@service_container', '@request_stack']
     #    public: true
     app.sms:
-            class: App\Services\Sms
-            arguments: ["@service_container","@doctrine.orm.entity_manager"]
-            public: true
+        class: App\Services\Sms
+        arguments: ["@service_container","@doctrine.orm.entity_manager"]
+        public: true
+    api.neobe_ter.create_account:
+        class: App\Services\NeobeTerApiService
+        arguments: ['@service_container']
+        public: true

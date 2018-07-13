@@ -209,3 +209,5 @@ ul.list-content-var {padding-left: 1.2rem;font-size: .9rem;line-height: 1.8;}
 }
 .error-message > ul {margin-bottom: 0px; padding-left: 15px;}
 .error-message > ul >li {list-style: none;}
+
+.form.card-body {padding: 5px 15px}

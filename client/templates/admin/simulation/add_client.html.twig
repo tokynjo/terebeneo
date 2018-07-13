@@ -1,0 +1,202 @@
+{% extends 'admin/layout.html.twig' %}
+{% block title %}
+    {% if(partner) %}
+        {{ 'partners.edit_title'|trans({},'label', 'fr') }}
+    {% else  %}
+        {{ 'partners.create_title'|trans({},'label', 'fr') }}
+    {% endif %}
+{% endblock %}
+{% block body_id 'step1' %}
+
+{% block body %}
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ path('admin_partner_index') }}"><i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.partners'|trans({},'label', 'fr') }} </a>
+        </li>
+        {% if(partner) %}
+            <li class="breadcrumb-item active">{{ 'common.edition'|trans({},'label', 'fr') }}</li>
+        {% else  %}
+            <li class="breadcrumb-item active">{{ 'common.create'|trans({},'label', 'fr') }}</li>
+        {% endif %}
+
+    </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2><i class="fa fa-users"></i>
+                        {% if(partner.id) %}
+                            {{ 'simulations.edit_title'|trans({},'label', 'fr') }}
+                        {% else  %}
+                            {{ 'simulations.create_title'|trans({},'label', 'fr') }}
+                        {% endif %}
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {% if app.session.flashBag.has('error') %}
+                        <div class="row error-message">
+                            <ul>
+                                {% for msg in app.session.flashBag.get('error') %}
+                                    <li><i class="fa fa-warning"></i> {{ msg }} </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {{ form_start(form,{'method':'POST', 'attr': {'class': 'form-control no-border'}}) }}
+                        {% if not form.vars.valid %}
+                            <div class="form-row " >
+                                <ul>
+                                    {% for child in form.children %}
+                                        {%for error in child.vars.errors%}
+                                            <li>{{error}}</li>
+                                        {%endfor%}
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        {%endif%}
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card mb-3">
+                                <div class="card-header">{{ 'partners.info_client'|trans({},'label', 'fr') }}
+                                </div>
+                                <div class="form card-body">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_name">{{ 'partners.name'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <label for="partner_zipCode">{{ 'partners.zipcode'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.zipCode, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.city, { 'attr': {'class': 'form-control text-right'} }) }}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="partner_country">{{ 'partners.country'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.country, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <label for="partner_civility">{{ 'partners.civility'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.civility, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_lastname">{{ 'partners.lastname'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_firstname">{{ 'partners.firstname'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_mail">{{ 'partners.mail'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.mail, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_phone">{{ 'partners.phone'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.phone, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_mobile">{{ 'partners.mobile'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.mobile, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_category">{{ 'partners.category'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.category, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card mb-2">
+                                <div class="card-header">{{ 'partners.info_partner'|trans({},'label', 'fr') }}</div>
+                                <div class="form card-body">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_partner">{{ 'partners.parent'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.parent, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-2">
+                                <div class="card-header">{{ 'partners.neobe_pack'|trans({},'label', 'fr') }}
+                                </div>
+                                <div class="form card-body">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_nbLicense">{{ 'partners.nb_licence'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.nbLicense, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_volumeSize">{{ 'partners.volume_size'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.volumeSize, { 'attr': {'class': 'form-control'} }) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

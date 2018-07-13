@@ -111,4 +111,26 @@ class PartnerManager extends BaseManager
         }
         return $partner;
     }
+
+    /**
+     * @param bool $deleted
+     * @return array
+     */
+    public function getClientSimulation($deleted = false) {
+        $simulation = array();
+        if ($deleted) {
+            $partners = $this->findAll();
+        } else {
+            $partners = $this->findBy(['deleted' => Constant::NO] );
+        }
+        if (sizeof($partners) > 0) {
+            foreach ($partners as $key => $p) {
+                if ( $p->getSimulation() == Constant::YES) {
+                    array_push($simulation, $p);
+                }
+            }
+        }
+
+        return $simulation;
+    }
 }

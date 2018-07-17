@@ -147,7 +147,7 @@
                                     {{ form_widget(form.logoUpload, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
-                                    {% if(partner.getActivePageDetails.logo) %}
+                                    {% if(partner.getActivePageDetails) %}
                                         <label for="page_details_video"></label>
                                         <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
                                     {% endif %}

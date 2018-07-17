@@ -67,15 +67,16 @@ class SimulationController extends BaseController
     /**
      * delete notification
      *
-     * @Route("/partner/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="partner_delete")
+     * @Route("/client/delete/{id}", defaults={"_format"="html"}, methods={"GET"}, name="client_delete")
      * @param Request $request
      * @return Response
      */
     public function deleteAction(Request $request)
     {
-        if ($notification = $this->get(PartnerManager::SERVICE_NAME)->find($request->get('id'))) {
-            $this->get(PartnerManager::SERVICE_NAME)->delete($notification);
-            return $this->redirectToRoute('admin_partner_index');
+        $client = $this->get(PartnerManager::SERVICE_NAME)->find($request->get('id'));
+        if ($client) {
+            $this->get(PartnerManager::SERVICE_NAME)->delete($client);
+            return $this->redirectToRoute('admin_simulation_index');
         } else {
             throw $this->createNotFoundException(
                 $this->get('translator')->trans('page.content_not_found', ['%id%' => $request->get('id')], 'label', 'fr')

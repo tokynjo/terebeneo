@@ -49,8 +49,8 @@ class NeobeTerApiService
     public function authorization($username, $password)
     {
         $body = [
-            'username' => 'nrandianina@bocasay.com',
-            'password' => '123456'
+            'username' => $username,
+            'password' => $password
             ];
         $request = new RestRequest();
         if ($this->container->getParameter('neobe_api_envtest')) {

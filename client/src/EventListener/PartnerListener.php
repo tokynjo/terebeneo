@@ -90,10 +90,11 @@ class PartnerListener
         $pwdEncoder = new PasswordEncoder();
         $password = $pwdEncoder->random_str('alphanum', Constant::PASSWORD_LENGTH);
         $user->setPlainPassword($password);
+        $partner->setPassword($pwdEncoder->encode($password, $partner->getHash()));
         $this->fosUserManager->updateUser($user);
-        $partner->setPassword($pwdEncoder->encode($password));
         $this->entityManager->persist($partner);
         $this->entityManager->flush();
+
         //sending email password/username
         $user->setPlainPassword($password);
         $userEvent = new UserEvent($user);

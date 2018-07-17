@@ -47,6 +47,7 @@ security:
         - { path: ^/admin/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user/resetting/send-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user/resetting/success, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/resetting/request, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/admin/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin(.*), role: [ROLE_ADMIN] }

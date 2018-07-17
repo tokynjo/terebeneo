@@ -101,13 +101,12 @@ class NeobeTerApiService
                     $request::verifyPeer(false);
                     $request::verifyHost(false);
                 }
-                //$pwdEncoder = new PasswordEncoder();
+                $pwdEncoder = new PasswordEncoder();
                 $authData = $this->container->get(self::SERVICE_NAME)->authorization(
                     $partner->getParent()->getMail(),
-                    '123456'
+                    $pwdEncoder->decode($partner->getParent()->getPassword())
                 );
-
-                if ($authData->code == self::CODE_SUCCESS) {
+                if (isset($authData->code) && $authData->code == self::CODE_SUCCESS) {
                     $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
                     $this->headers['Authorization'] = 'Bearer ' . $authData->data->token;
 
@@ -122,6 +121,10 @@ class NeobeTerApiService
                             ->setMessage($response->body->message);
                     }
                     $return->setData($response->body->data);
+                }else{
+                    $return->setCode(self::CODE_ERROR)
+                        ->setMessage("API access denied.");
+                    return $return;
                 }
             } catch (\Exception $e) {
                 $return->setCode(self::CODE_ERROR)

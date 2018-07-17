@@ -108,7 +108,9 @@
                                     {{ form_widget(form.headerTop, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6" style="padding-top: 24px">
-                                    {{ partner.getActivePageDetails.headerTop|raw }}
+                                    {% if(partner.getActivePageDetails) %}
+                                        {{ partner.getActivePageDetails.headerTop|raw }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -119,7 +121,9 @@
                                     {{ form_widget(form.resume1, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6" style="padding-top: 24px">
-                                    {{ partner.getActivePageDetails.resume1|raw }}
+                                    {% if(partner.getActivePageDetails) %}
+                                        {{ partner.getActivePageDetails.resume1|raw }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -130,7 +134,9 @@
                                     {{ form_widget(form.footer, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6" style="padding-top: 24px">
-                                    {{ partner.getActivePageDetails.footer|raw }}
+                                    {% if(partner.getActivePageDetails) %}
+                                        {{ partner.getActivePageDetails.footer|raw }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -141,8 +147,10 @@
                                     {{ form_widget(form.logoUpload, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="page_details_video"></label>
-                                    <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
+                                    {% if(partner.getActivePageDetails) %}
+                                        <label for="page_details_video"></label>
+                                        <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.logo }}">
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -153,7 +161,9 @@
                                     {{ form_widget(form.imageLeftUpload, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
-                                    <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.imageLeft }}">
+                                    {% if(partner.getActivePageDetails.imageLeft) %}
+                                        <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.imageLeft }}">
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -164,7 +174,9 @@
                                     {{ form_widget(form.video, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
-                                    {{ partner.getActivePageDetails().video|raw }}
+                                    {% if(partner.getActivePageDetails.video) %}
+                                        {{ partner.getActivePageDetails().video|raw }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -184,8 +196,10 @@
                                     {{ form_widget(form.cgvUpload, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-8">
-                                    <br>
-                                    <object data="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.cgv}}" type='application/pdf' width='100%' height='100%'></object>
+                                    {% if(partner.getActivePageDetails.cgv) %}
+                                        <br>
+                                        <object data="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.cgv}}" type='application/pdf' width='100%' height='100%'></object>
+                                    {% endif %}
                                 </div>
 
                             </div>
@@ -223,6 +237,9 @@
         footer = CKEDITOR.replace('page_details[legalMention]');
         $(document).ready(function(){
             //color
+           if($('#page_details_color').val() == '') {
+               $('#page_details_color').val(' ');
+           }
             $('#picker').farbtastic('#page_details_color');
             $('iframe').attr('width',400);
             $('iframe').attr('height',300);

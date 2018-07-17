@@ -65,7 +65,7 @@ class PartnerPageDetails
      *
      * @ORM\Column(name="color", type="string", length=250, nullable=true)
      */
-    private $color;
+    private $color = '';
 
     /**
      * @var string

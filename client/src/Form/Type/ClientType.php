@@ -49,8 +49,8 @@ class ClientType extends AbstractType
             ->add('mobile')
             ->add('mail')
             ->add('category')
-            ->add('nbLicense', ChoiceType::class, ['choices' => Constant::$neobeNbLicense])
-            ->add('volumeSize', ChoiceType::class, ['choices' => Constant::$neobeVolumeSize]);
+            ->add('nbLicense', ChoiceType::class, ['choices' => Constant::$neobeNbLicenseSelect])
+            ->add('volumeSize', ChoiceType::class, ['choices' => Constant::$neobeVolumeSizeSelect]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -44,7 +44,9 @@ class Constant
 
     public static $roles = ['ROLE_ADMIN' => 'Administrateur', 'ROLE_USER' => 'Utilisateur API'];
     public static $neobeNbLicense = [2, 5, 10];
+    public static $neobeNbLicenseSelect = [2 => 2, 5 => 5, 10 => 10];
     public static $neobeVolumeSize = [40, 100, 200];
+    public static $neobeVolumeSizeSelect = [40 => 40, 100 => 100, 200 => 200];
     public static $dataMailList = [
         '__partenaire_nom_societe__' => 'Partenaire - Nom société',
         '__partenaire_nom__' => 'Partenaire - Nom',

@@ -290,6 +290,4 @@ class User extends BaseUser
         $this->partner = $partner;
         return $this;
     }
-
-
 }

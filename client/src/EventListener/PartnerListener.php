@@ -94,7 +94,7 @@ class PartnerListener
         $this->fosUserManager->updateUser($user);
         $this->entityManager->persist($partner);
         $this->entityManager->flush();
-        
+
         //sending email password/username
         $user->setPlainPassword($password);
         $userEvent = new UserEvent($user);

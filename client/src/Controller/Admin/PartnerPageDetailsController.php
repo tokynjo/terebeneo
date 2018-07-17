@@ -51,7 +51,7 @@ class PartnerPageDetailsController extends BaseController
             $pageDetails = new PartnerPageDetails();
             $pageDetails->setPartner($partner);
             $pageDetails->setLogo(null);
-            $this->get(PageDetailsManager::SERVICE_NAME)->saveAndFlush($pageDetails);
+            $pageDetails = $this->get(PageDetailsManager::SERVICE_NAME)->saveAndFlush($pageDetails);
             $form = $this->createForm(PageDetailsType::class, $pageDetails, []);
         }
         $formHandler = new PageDetailsHandler(

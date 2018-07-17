@@ -135,43 +135,4 @@ class NeobeTerApiService
         return $return;
     }
 
-
-    /**
-     * Call api to create Neobe account
-     *
-     * @param array $data array of input data from the uploaded csv file
-     * @return ApiResponse
-     */
-    public function getInfosAccount($id)
-    {
-        $return = new ApiResponse();
-        $bodyDatxa["id_client"] = $id;
-            try {
-                $request = new RestRequest();
-                if ($this->container->getParameter('neobe_api_envtest')) {
-                    $request::verifyPeer(false);
-                    $request::verifyHost(false);
-                }
-                $authData = $this->authorization();
-                if ($authData->code == self::CODE_SUCCESS) {
-                    $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                    $this->headers['Authorization'] = 'Bearer ' . $authData->id_token;
-                    $body = Request\Body::Form($bodyDatxa);
-                    $response = $request::post(
-                        $this->url  . self::API_GETINOF_NEOBE_ACCOUNT,
-                        $this->headers,
-                        $body
-                    );
-                    if ($response->code == self::CODE_SUCCESS) {
-                        $return->setCode(self::CODE_SUCCESS)
-                        ->setData($response->body->result);
-                    }
-                }
-            } catch (\Exception $e) {
-                $return->setCode(self::CODE_ERROR)
-                    ->setMessage($e->getMessage());
-                return $return;
-            }
-        return $return;
-    }
 }

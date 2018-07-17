@@ -140,4 +140,13 @@ abstract class BaseManager
     {
         return $this->entityManager;
     }
+
+    /**
+     *
+     */
+    public function refresh($entity)
+    {
+        $this->entityManager->refresh($entity);
+        return $this;
+    }
 }

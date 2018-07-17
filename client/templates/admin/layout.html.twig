@@ -58,12 +58,12 @@
                             </span>
                         </a>
                     </li>
-                    {#<li class="nav-item nav-link-text {% if current_route starts with 'admin_notificationheader' %}active{% endif %}" title="{{ 'menu.header_footer'|trans({},'label', 'fr') }}">
+                    <li class="nav-item nav-link-text {% if current_route starts with 'admin_notificationheader' %}active{% endif %}" title="{{ 'menu.header_footer'|trans({},'label', 'fr') }}">
                         <a href="{{ path('admin_notificationheader_index') }}" class="nav-link-text"><span class="nav-link-text">{{ 'menu.header_footer'|trans({},'label', 'fr') }}</span></a>
                     </li>
                     <li class="nav-item nav-link-text {% if current_route starts with 'admin_notificationdetails' %}active{% endif %}" title="{{ 'menu.header_footer'|trans({},'label', 'fr') }}">
                         <a href="{{ path('admin_notificationdetails') }}" class="nav-link-text"><span class="nav-link-text">{{ 'menu.pages'|trans({},'label', 'fr') }}</span></a>
-                    </li>#}
+                    </li>
                 </ul>
             </li>
             <li class="nav-item {% if current_route starts with 'admin_user' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="Dashboard">

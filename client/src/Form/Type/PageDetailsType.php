@@ -21,7 +21,7 @@ class PageDetailsType extends AbstractType
             ->add('subdomain')
             ->add('headerTop')
             ->add('footer')
-            ->add('color')
+            ->add('color', TextType::class, [])
             ->add('resume1')
             ->add('product', TextType::class)
             ->add('productPlus')

@@ -213,7 +213,7 @@ class Partner
     /**
      * @var integer
      *
-     * @ORM\Column(name="simulation", type="integer", length=2, nullable=true)
+     * @ORM\Column(name="simulation", type="integer", length=2, nullable=true, options={"default":0})
      */
     private $simulation;
 

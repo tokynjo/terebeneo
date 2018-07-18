@@ -44,6 +44,7 @@ menu:
   pages: Pages
   simulations: Simulations
   create_client: Clients
+  send_notifications: Envoyer les notifications
 users:
   list_title: Liste des utilisateurs
   edit_title: Edition d'un utilisateur
@@ -170,7 +171,9 @@ simulations:
   last_save: Dérnier sauvegarde
   client_details: Détails client
   create_client: Créer un client
-
+send_notifications:
+  title: Envoie des notifications
+  message_confirmation: Vous allez envoyer les notifications et les relances pour les clients créés via l'interface de similation
 
 
 

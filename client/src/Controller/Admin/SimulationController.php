@@ -9,6 +9,10 @@ use App\Form\Type\ClientType;
 use App\Form\Type\PartnerType;
 use App\Manager\PartnerManager;
 use App\Services\PasswordEncoder;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -113,5 +117,36 @@ class SimulationController extends BaseController
                 'partner' => $client
             ]
         );
+    }
+
+    /**
+     * send notification to client created via simulation interface
+     *
+     * @Route("/send", defaults={"_format"="json"}, methods={"GET","POST"}, name="send_notifications")
+     * @param Request $request
+     * @return Response
+     */
+    public function sendAction(Request $request)
+    {
+        try {
+            $application = new Application($this->get('kernel'));
+            $application->setAutoExit(false);
+            $input = new ArrayInput(array(
+                'command' => 'neobe_ter:activation',
+                // (optional) pass options to the command
+                '--simulation' => NULL,
+            ));
+            // You can use NullOutput() if you don't need the output
+            $output = new NullOutput();
+            $application->run($input, $output);
+            // return the output, don't use if you used NullOutput()
+            //$content = $output->fetch();
+            // return new Response(""), if you used NullOutput()
+            $response =  new Response('Success', Response::HTTP_OK);
+        } catch (Exception $e) {
+            $response = new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $response;
     }
 }

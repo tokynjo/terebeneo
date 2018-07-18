@@ -118,13 +118,15 @@ class NotificationService
                     break;
 
                 case '__partenaire_api_login__' :
-                    if(!is_null($partner->getUser())) {
+                    //var_dump(sizeof($partner->getUser())); die;
+                    if(!is_null($partner->getUser()) && sizeof($partner->getUser()) > 0) {
                         $content = str_replace($key, $partner->getUser()->getEmail(), $content);
                     }
                     break;
 
                 case '__partenaire_api_mot_de_passe__' :
-                    if(!is_null($partner->getUser())) {
+                    //if(!is_null($partner->getUser())) {
+                    if(!is_null($partner->getUser()) && sizeof($partner->getUser()) > 0) {
                         $content = str_replace($key, $partner->getUser()->getPlainPassword(), $content);
                     }
                     break;

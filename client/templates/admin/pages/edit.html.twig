@@ -161,7 +161,7 @@
                                     {{ form_widget(form.imageLeftUpload, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
-                                    {% if(partner.getActivePageDetails.imageLeft) %}
+                                    {% if(partner.getActivePageDetails) %}
                                         <img height="150px" style="margin-top: 24px" src="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.imageLeft }}">
                                     {% endif %}
                                 </div>
@@ -174,7 +174,7 @@
                                     {{ form_widget(form.video, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-6">
-                                    {% if(partner.getActivePageDetails.video) %}
+                                    {% if(partner.getActivePageDetails) %}
                                         {{ partner.getActivePageDetails().video|raw }}
                                     {% endif %}
                                 </div>
@@ -196,7 +196,7 @@
                                     {{ form_widget(form.cgvUpload, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                                 <div class="col-md-8">
-                                    {% if(partner.getActivePageDetails.cgv) %}
+                                    {% if(partner.getActivePageDetails) %}
                                         <br>
                                         <object data="/upload/partner/img/{{ partner.id }}/{{ partner.getActivePageDetails.cgv}}" type='application/pdf' width='100%' height='100%'></object>
                                     {% endif %}

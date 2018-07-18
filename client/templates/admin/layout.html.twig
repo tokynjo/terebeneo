@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li class="nav-item {% if current_route starts with 'admin_notif' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="{{ 'menu.contents'|trans({},'label', 'fr') }}">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+                <a class="nav-link nav-link-collapse {% if current_route starts with 'admin_notif' %}{% endif %}" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-cogs"></i>
                     <span class="nav-link-text">{{ 'menu.contents'|trans({},'label', 'fr') }}</span>
                 </a>
@@ -73,13 +73,14 @@
                 </a>
             </li>
             <li class="nav-item {% if current_route starts with 'admin_simulation' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="{{ 'menu.similations'|trans({},'label', 'fr') }}">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSimulation" data-parent="#exampleAccordion">
+                <a class="nav-link nav-link-collapse {% if current_route starts with 'admin_simulation' %}{% endif %}" data-toggle="collapse" href="#collapseSimulation" data-parent="#exampleAccordion"
+                   aria-expanded="{% if current_route starts with 'admin_simulation' %}true{% endif %}">
                     <i class="fa fa-fw fa-cogs"></i>
                     <span class="nav-link-text">{{ 'menu.simulations'|trans({},'label', 'fr') }}</span>
                 </a>
-                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_simulation_index' %}
+                <ul class="sidenav-second-level collapse {% if current_route starts with 'admin_simulation' %}
                 show {% endif %}" id="collapseSimulation">
-                    <li class="nav-item nav-link-text {% if current_route starts with 'admin_simulation_index' %}active{% endif %}" title="{{ 'menu.create_client'|trans({},'label', 'fr') }}">
+                    <li class="nav-item nav-link-text {% if current_route starts with 'admin_simulation' %}active{% endif %}" title="{{ 'menu.create_client'|trans({},'label', 'fr') }}">
                         <a href="{{ path('admin_simulation_index') }}" class="nav-link-text">
                             <span class="nav-link-text">
                                 {{ 'menu.create_client'|trans({},'label', 'fr') }}

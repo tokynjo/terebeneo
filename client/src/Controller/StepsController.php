@@ -32,13 +32,20 @@ class StepsController extends Controller
      *
      * @Route("/etape-2/{token}", defaults={"page": "1", "_format"="html","token"="0"}, methods={"GET","POST"}, name="steps_two")
      * @Route("/etape-2", defaults={"page": "1", "_format"="html"}, methods={"GET","POST"}, name="steps_two_")
+     * @Route("/simulation/etape-2/{token}/{id}", defaults={"page": "1", "_format"="html"}, methods={"GET","POST"}, name="steps_two_simulation")
      * @param Request $request
      * @return Response
      */
     public function stepTwoAction(Request $request, $token = null)
     {
         $this->get(PartnerManager::SERVICE_NAME)->etape2($request, $token);
-        return $this->render('front/steps/step2.html.twig', ["token" => $token]);
+        if($request->attributes->get('_route') == 'steps_two_simulation' ) {
+            return $this->redirectToRoute('admin_simulation_client_details', ["token" => $token, 'id' =>$request->get('id')]);
+
+        } else {
+            return $this->render('front/steps/step2.html.twig', ["token" => $token]);
+        }
+
     }
 
     /**

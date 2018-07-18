@@ -31,6 +31,13 @@ class verifyActionCommand extends ContainerAwareCommand
                 <<<'EOT'
             The <info>wedrop:file:delete</info> to delete file in openstack
 EOT
+            )
+            ->addOption(
+                'simulation',
+                's',
+                InputOption::VALUE_NONE,
+                'To send only notification for the user created via simulation page',
+                NULL
             );
     }
 
@@ -41,15 +48,21 @@ EOT
     {
         $now = new \DateTime("now");
         $this->em = $this->getContainer()->get('doctrine')->getManager();
-        $allPartners = $this->em->getRepository("App:Partner")->findAll();
+        if ($input->getOption('simulation')) {
+            $partners = $this->em->getRepository("App:Partner")->findBy(['simulation' => 1, 'deleted' => 0]);
+
+        } else {
+            $partners = $this->em->getRepository("App:Partner")->findBy(['simulation' => 0, 'deleted' => 0]);
+        }
         $service = $this->getContainer()->get(NeobeApiService::SERVICE_NAME);
-        if ($allPartners) {
-            foreach ($allPartners as $partner) {
+        if ($partners) {
+            foreach ($partners as $partner) {
                 $logEtapOne = $this->em->getRepository("App:ValidationLog")
                     ->findBy(["etape" => Constant::STEP_ONE, "partner"=>$partner]);
+
                 if($partner->getCreatedAt()) {
                     $dDiff = $now->diff($partner->getCreatedAt());
-                    if (!$logEtapOne && ($dDiff->days%7 == 0)) {
+                    if (!$logEtapOne && ($dDiff->days >= 6)) { // 7Days
                         $notif = $this->em->getRepository("App:Notification")->find(Constant::NOTIF_NEOBE_VALIDATION_STEP_ONE);
                         $this->getContainer()
                             ->get("app.notification_service")->sendNotification($partner, $notif);
@@ -59,7 +72,6 @@ EOT
                     $auth = $service->getInfosAccount($partner->getNeobeAccountId());
                     if (isset($auth->data->compte)) {
                         foreach ($auth->data->compte as $compte) {
-                            var_dump($compte);
                             $compteNeobe = $this->em->getRepository("App:NeobeAccount")->findOneBy(["neobeAccountId" => $compte->id]);
                             if (!$compteNeobe) {
                                 $compteNeobe = new NeobeAccount();

@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 use App\Entity\Constants\Constant;
 use App\Entity\Partner;
 use App\Form\Handler\ClientHandler;
+use App\Form\Handler\ClientModificationHandler;
 use App\Form\Handler\PartnerHandler;
+use App\Form\Type\ClientCreationDateType;
+use App\Form\Type\ClientModificationType;
 use App\Form\Type\ClientType;
 use App\Form\Type\PartnerType;
 use App\Manager\PartnerManager;
@@ -100,8 +103,8 @@ class SimulationController extends BaseController
     public function detailsAction(Request $request)
     {
         $client = $this->get(PartnerManager::SERVICE_NAME)->find($request->get('id'));
-        $form = $this->createForm(ClientType::class, $client, []);
-        $formHandler = new ClientHandler(
+        $form = $this->createForm(ClientModificationType::class, $client, []);
+        $formHandler = new ClientModificationHandler(
             $form,
             $request,
             $this->get('app.partner_manager'),

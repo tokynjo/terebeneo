@@ -133,7 +133,7 @@ class SimulationController extends BaseController
     {
         $this->get(PartnerManager::SERVICE_NAME)->etape2($request, $token);
         return $this->redirectToRoute('admin_simulation_client_details', ["token" => $token, 'id' =>$request->get('id')]);
-        
+
     }
 
     /**

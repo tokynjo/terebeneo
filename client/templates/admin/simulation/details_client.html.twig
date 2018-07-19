@@ -326,7 +326,7 @@
                         <div class="card-header">Confirmation création de compte client</div>
                         <div class="form card-body">
                             <div class="form-group">
-                                <form action="{{ path('steps_two_simulation', {'token' : partner.hash, 'id': partner.id}) }}" method="post">
+                                <form action="{{ path('admin_simulation_create_account', {'token' : partner.hash, 'id': partner.id}) }}" method="post">
                                     <div class="form-group row">
                                         <p style="text-align: center">
                                             <input type="checkbox" name="create-account" id="create-account" checked style="margin-right: 15px; margin-left: 15px;" >

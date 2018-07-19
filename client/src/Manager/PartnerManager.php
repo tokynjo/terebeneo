@@ -79,6 +79,7 @@ class PartnerManager extends BaseManager
                     $this->saveAndFlush($validation);
                 }
                 if ($request->getMethod() == "POST") {
+                    dump("post");
                     $existLog = $this->validationLogManager->findBy(
                         [
                             "etape" => Constant::STEP_ONE,
@@ -86,6 +87,7 @@ class PartnerManager extends BaseManager
                         ]
                     );
                     if (!$existLog) {
+                        dump("log not exist");
                         //creation du compte noebe du partenaire
                         $partnerEvent = new PartnerEvent($partner);
                         $nbLicence = 0;
@@ -102,6 +104,8 @@ class PartnerManager extends BaseManager
                         $validation->setPartner($partner);
                         $validation->setEtape(Constant::STEP_ONE);
                         $this->saveAndFlush($validation);
+                    } else {
+                        dump("log exist");
                     }
                 }
                 $this->entityManager->commit();

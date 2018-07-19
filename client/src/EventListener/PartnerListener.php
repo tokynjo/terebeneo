@@ -115,7 +115,8 @@ class PartnerListener
             $partnerEvent->getNbLicencesToCreate(),
             $partnerEvent->getVolumeParLicenceGo()
         );
-
+        dump('api neobe');
+var_dump($response);
         if($response->getCode() == NeobeApiService::CODE_SUCCESS) {
             //maj client details
             $partner->setNeobeAccountId($response->getData()->id_client);

@@ -123,6 +123,20 @@ class SimulationController extends BaseController
     }
 
     /**
+     * confirm account creation
+     * @Route("/simulation/create-account/{token}/{id}", defaults={"page": "1", "_format"="html"}, methods={"GET","POST"}, name="create_account")
+     * @param Request $request
+     * @param null $token
+     * @return mixed
+     */
+    public function createAccountAction(Request $request, $token = null)
+    {
+        $this->get(PartnerManager::SERVICE_NAME)->etape2($request, $token);
+        return $this->redirectToRoute('admin_simulation_client_details', ["token" => $token, 'id' =>$request->get('id')]);
+
+    }
+
+    /**
      * send notification to client created via simulation interface
      *
      * @Route("/send", defaults={"_format"="json"}, methods={"GET","POST"}, name="send_notifications")

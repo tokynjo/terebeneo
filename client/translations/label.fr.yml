@@ -118,7 +118,7 @@ partners:
   neobe_account_id: Id neobe
   nb_licence: Nombre de licence
   volume_size: Volume par license
-  parent: partenaire
+  parent: Partenaire
   mobile: Mobile
   category: Categorie
   info_client: Informations client
@@ -171,6 +171,8 @@ simulations:
   last_save: Dérnier sauvegarde
   client_details: Détails client
   create_client: Créer un client
+  creation_date: Date de création
+  edit_creation_date: Modifier la date de création pour simuler le rappel de la validation de création de compte (1ère étape)
 send_notifications:
   title: Envoie des notifications
   message_confirmation: Vous allez envoyer les notifications et les relances pour les clients créés via l'interface de similation

@@ -6,6 +6,14 @@
         {{ 'partners.create_title'|trans({},'label', 'fr') }}
     {% endif %}
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .inline-label {min-width:100px; font-weight: 600; }
+    </style>
+
+{% endblock %}
 {% block body_id 'step1' %}
 
 {% block body %}
@@ -65,77 +73,93 @@
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_name">{{ 'partners.name'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_name" class="inline-label">{{ 'partners.name'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.name }}</span>
+                                                {{ form_widget(form.name, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_address1">{{ 'partners.address1'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.address1, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_address1" class="inline-label">{{ 'partners.address1'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.address1 }}</span>
+                                                {{ form_widget(form.address1, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_address2">{{ 'partners.address2'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.address2, { 'attr': {'class': 'form-control'} }) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-3">
-                                                <label for="partner_zipCode">{{ 'partners.zipcode'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.zipCode, { 'attr': {'class': 'form-control'} }) }}
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label for="partner_city">{{ 'partners.city'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.city, { 'attr': {'class': 'form-control text-right'} }) }}
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="partner_country">{{ 'partners.country'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.country, { 'attr': {'class': 'form-control'} }) }}
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-3">
-                                                <label for="partner_civility">{{ 'partners.civility'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.civility, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_address2" class="inline-label">{{ 'partners.address2'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.address2 }}</span>
+                                                {{ form_widget(form.address2, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_lastname">{{ 'partners.lastname'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_zipCode" class="inline-label">{{ 'partners.zipcode'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.zipCode }}</span>
+                                                {{ form_widget(form.zipCode, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_firstname">{{ 'partners.firstname'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.firstname, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_city" class="inline-label">{{ 'partners.city'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.city }}</span>
+                                                {{ form_widget(form.city, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_mail">{{ 'partners.mail'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.mail, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_country" class="inline-label">{{ 'partners.country'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.country }}</span>
+                                                {{ form_widget(form.country, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_phone">{{ 'partners.phone'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.phone, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_civility" class="inline-label" >{{ 'partners.civility'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.civility.longLabel }}</span>
+                                                {{ form_widget(form.civility, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_mobile">{{ 'partners.mobile'|trans({},'label', 'fr') }}</label>
+                                                <label for="partner_lastname" class="inline-label">{{ 'partners.lastname'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.lastname }}</span>
+                                                {{ form_widget(form.lastname, { 'attr': {'class': 'form-control hidden'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_firstname" class="inline-label">{{ 'partners.firstname'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.firstname }}</span>
+                                                {{ form_widget(form.firstname, { 'attr': {'class': 'form-control hidden'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_mail" class="inline-label">{{ 'partners.mail'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.mail }}</span>
+                                                {{ form_widget(form.mail, { 'attr': {'class': 'form-control hidden'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_phone" class="inline-label">{{ 'partners.phone'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.phone }}</span>
+                                                {{ form_widget(form.phone, { 'attr': {'class': 'form-control hidden'} }) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_mobile" class="inline-label">{{ 'partners.mobile'|trans({},'label', 'fr') }} :</label>
                                                 {{ form_widget(form.mobile, { 'attr': {'class': 'form-control'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_category">{{ 'partners.category'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.category, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_category" class="inline-label">{{ 'partners.category'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.category }}</span>
+                                                {{ form_widget(form.category, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
 
@@ -150,8 +174,9 @@
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_partner">{{ 'partners.parent'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.parent, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_partner" class="inline-label">{{ 'partners.parent'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.parent.name }}</span>
+                                                {{ form_widget(form.parent, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
 
 
@@ -166,14 +191,29 @@
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_nbLicense">{{ 'partners.nb_licence'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.nbLicense, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_nbLicense" class="inline-label">{{ 'partners.nb_licence'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.nbLicense }}</span>
+                                                {{ form_widget(form.nbLicense, { 'attr': {'class': 'form-control hidden'} }) }}
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <label for="partner_volumeSize">{{ 'partners.volume_size'|trans({},'label', 'fr') }}</label>
-                                                {{ form_widget(form.volumeSize, { 'attr': {'class': 'form-control'} }) }}
+                                                <label for="partner_volumeSize" class="inline-label">{{ 'partners.volume_size'|trans({},'label', 'fr') }} : </label>
+                                                <span> {{ partner.volumeSize }}</span>
+                                                {{ form_widget(form.volumeSize, { 'attr': {'class': 'form-control hidden'} }) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-2">
+                                <div class="card-header">{{ 'simulations.creation_date'|trans({},'label', 'fr') }}</div>
+                                <div class="form card-body">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="partner_partner" style="font-weight: 600;">{{ 'simulations.edit_creation_date'|trans({},'label', 'fr') }}</label>
+                                                {{ form_widget(form.createdAt, { 'attr': {'class': 'form-control'} }) }}
                                             </div>
                                         </div>
                                     </div>
@@ -181,13 +221,13 @@
                             </div>
                         </div>
                     </div>
-                    {#<div class="form-group">
+                    <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-2">
                                 <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
                             </div>
                         </div>
-                    </div>#}
+                    </div>
 
                     {{ form_end(form) }}
                 </div>
@@ -330,6 +370,9 @@
                 $('#nb_licences_a_creer').attr('required',false);
                 $('#volume_par_licence_Go').attr('required',false);
             }
+        });
+        $('.hidden').each(function( index ) {
+            $( this ).hide();
         });
     </script>
 

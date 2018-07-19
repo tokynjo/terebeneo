@@ -94,22 +94,17 @@ class NeobeApiService
                 'volume_par_licence_Go' => $sizeGo,
                 'id_parrain' => $partner->getParent()->getNeobeAccountId()
             ];
-
             try {
                 $request = new RestRequest();
                 if ($this->container->getParameter('neobe_api_envtest')) {
                     $request::verifyPeer(false);
                     $request::verifyHost(false);
                 }
-                //die('dfsdfsdfsdfsdfsdfsdf');
                 $authData = $this->container->get(self::SERVICE_NAME)->authorization();
-                dump("api auth result");
-                dump($authData);
                 if ($authData->code == self::CODE_SUCCESS) {
                     $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
                     $this->headers['Authorization'] = 'Bearer ' . $authData->id_token;
                     $body = Request\Body::Form($bodyData);
-                    //var_dump($body); die;
                     $response = $request::post(
                         $this->url  . self::API_CREATE_NEOBE_ACCOUNT,
                         $this->headers,
@@ -119,9 +114,6 @@ class NeobeApiService
                         $return->setCode(self::CODE_ERROR)
                             ->setMessage($response->body->error->message);
                     }
-
-                   dump("api result");
-                   dump($response);
                     $return->setData($response->body->result);
                 }
             } catch (\Exception $e) {

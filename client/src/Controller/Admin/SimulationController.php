@@ -131,11 +131,9 @@ class SimulationController extends BaseController
      */
     public function createAccountAction(Request $request, $token = null)
     {
-        echo("controller");
         $this->get(PartnerManager::SERVICE_NAME)->etape2($request, $token);
         return $this->redirectToRoute('admin_simulation_client_details', ["token" => $token, 'id' =>$request->get('id')]);
-
-
+        
     }
 
     /**

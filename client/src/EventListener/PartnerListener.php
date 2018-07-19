@@ -74,7 +74,6 @@ class PartnerListener
     public function onCreatePartnerClient(PartnerEvent $partnerEvent)
     {
         $partner = $partnerEvent->getPartner();
-        //var_dump($partner->getMail()); die;
         $user = new User();
         $user->setCivility($partner->getCivility())
             ->setEmail($partner->getMail())
@@ -115,9 +114,6 @@ class PartnerListener
             $partnerEvent->getNbLicencesToCreate(),
             $partnerEvent->getVolumeParLicenceGo()
         );
-        dump('api neobe');
-dump($response);
-        dump('----');
         if($response->getCode() == NeobeApiService::CODE_SUCCESS) {
             //maj client details
             $partner->setNeobeAccountId($response->getData()->id_client);

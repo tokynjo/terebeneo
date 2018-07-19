@@ -24,9 +24,9 @@
             <a href="{{ path('admin_simulation_index') }}"><i class="fa fa-fw fa-chevron-right"></i>{{ 'menu.simulations'|trans({},'label', 'fr') }} </a>
         </li>
         {% if(partner.id) %}
-            <li class="breadcrumb-item active">{{ 'sumilations.client_details'|trans({},'label', 'fr') }}</li>
+            <li class="breadcrumb-item active">{{ 'simulations.client_details'|trans({},'label', 'fr') }}</li>
         {% else  %}
-            <li class="breadcrumb-item active">{{ 'sumilations.create_client'|trans({},'label', 'fr') }}</li>
+            <li class="breadcrumb-item active">{{ 'simulations.create_client'|trans({},'label', 'fr') }}</li>
         {% endif %}
 
     </ol>
@@ -253,7 +253,7 @@
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.nb_licence'|trans({},'label', 'fr') }}">{{ 'partners.nb_licence'|trans({},'label', 'fr') }}</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.volume_size'|trans({},'label', 'fr') }}">{{ 'partners.volume_size'|trans({},'label', 'fr') }}</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.created_at'|trans({},'label', 'fr') }}">{{ 'simulations.created_at'|trans({},'label', 'fr') }}</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'simulations.created_at'|trans({},'label', 'fr') }}">{{ 'simulations.created_at'|trans({},'label', 'fr') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>

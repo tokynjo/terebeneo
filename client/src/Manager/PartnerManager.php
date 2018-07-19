@@ -59,10 +59,13 @@ class PartnerManager extends BaseManager
      * @return object
      */
     public function etape2(Request $request, $token = null){
+        echo(" service");
         $partner = $this->findOneBy(["hash"=>($token ? $token : "")]);
         if($partner) {
+            dump("partner :". $partner->getId());
             $this->entityManager->beginTransaction();
             try{
+                dump('try');
                 $existLog = $this->validationLogManager->findBy(
                     [
                         "etape" => Constant::STEP_TWO,
@@ -102,13 +105,18 @@ class PartnerManager extends BaseManager
                     }
                 }
                 $this->entityManager->commit();
+                dump('ok');
+                die('');
                 return $partner;
             } catch (\Exception $e) {
+                dump($e->getMessage());
                 $this->entityManager->getConnection()->rollback();
                 $this->entityManager->close();
+                die('');
                 return false;
             }
         }
+        die('');
         return $partner;
     }
 

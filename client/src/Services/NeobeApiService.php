@@ -103,6 +103,8 @@ class NeobeApiService
                 }
                 //die('dfsdfsdfsdfsdfsdfsdf');
                 $authData = $this->container->get(self::SERVICE_NAME)->authorization();
+                dump("api auth result");
+                dump($authData);
                 if ($authData->code == self::CODE_SUCCESS) {
                     $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
                     $this->headers['Authorization'] = 'Bearer ' . $authData->id_token;
@@ -117,6 +119,9 @@ class NeobeApiService
                         $return->setCode(self::CODE_ERROR)
                             ->setMessage($response->body->error->message);
                     }
+
+                   dump("api result");
+                   dump($response);
                     $return->setData($response->body->result);
                 }
             } catch (\Exception $e) {

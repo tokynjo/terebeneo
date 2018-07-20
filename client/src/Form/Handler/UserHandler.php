@@ -4,11 +4,11 @@ namespace App\Form\Handler;
 
 use App\Entity\Constants\Constant;
 use App\Event\UserEvent;
+use App\Services\PasswordEncoder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-
 class UserHandler
 {
     protected $request;
@@ -45,14 +45,20 @@ class UserHandler
     public function process()
     {
         $this->form->handleRequest($this->request);
-
         if ($this->form->isSubmitted() && $this->form->isValid()) {
             $data = $this->form->getData();
             $data->setUsername($data->getEmail());
-            if($this->request->get('id')) {
-
+            if ($this->request->get('id')) {
+                if (in_array('ROLE_USER',$data->getRoles())) {
+                    //if user api
+                    $user = $this->entityManager->getRepository('App:User')->find($data->getId());
+                    $partner = $user->getPartner();
+                    $partner->setMail($data->getEmail());
+                    $this->entityManager->persist($partner);
+                }
             } else {
-                $data->setPlainPassword('123456');
+                $pwdEncoder = new PasswordEncoder();
+                $data->setPlainPassword($pwdEncoder->random_str('alphanum', Constant::PASSWORD_LENGTH));
             }
             $data->setEnabled(Constant::ENABLED);
             $data->setDeleted(Constant::NO);

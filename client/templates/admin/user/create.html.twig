@@ -1,7 +1,12 @@
 {% extends 'admin/layout.html.twig' %}
 {% block title %}Activation pack - Etape 1{% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .inline-label {min-width:60px; font-weight: 600; }
+    </style>
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
 
@@ -55,8 +60,9 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputLastName">Role</label>
-                                    {{ form_widget(form.roles, { 'attr': {'class': 'form-control'} }) }}
+                                    <label for="user_roles" class="inline-label">Rôle : </label>
+                                    <span> Administrateur</span>
+                                    {{ form_widget(form.roles, { 'attr': {'class': 'form-control', 'style':'display:none' } }) }}
                                 </div>
                             </div>
                         </div>
@@ -88,5 +94,8 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        $('#user_roles').val('ROLE_ADMIN');
+    </script>
 
 {% endblock %}

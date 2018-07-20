@@ -4,6 +4,7 @@ namespace App\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,7 +34,7 @@ class PartnerType extends AbstractType
             ->add('mail')
             ->add('phone')
             ->add('firstname')
-            ->add('neobeAccountId');
+            ->add('neobeAccountId', TextType::class, ['required' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

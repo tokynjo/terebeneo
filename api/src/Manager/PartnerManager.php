@@ -9,6 +9,7 @@ use App\Services\ApiRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -64,9 +65,8 @@ class PartnerManager extends BaseManager
      * @param Request $request
      * @return ApiResponse
      */
-    public function createPartner(Request $request)
+    public function createPartner (Request $request)
     {
-
         $apiRequest = new ApiRequest();
         $resp = new ApiResponse();
         $is_valid = true;
@@ -173,6 +173,63 @@ class PartnerManager extends BaseManager
         //creating user api
         $partnerEvent = new PartnerEvent($partner);
         $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_CREATE, $partnerEvent);
+
+        return $resp;
+    }
+
+    /**
+     * get list of clients created by a partner
+     * Clients with account neobe or no
+     * @param Request $request
+     * @return ApiResponse
+     */
+    public function getPartnerClients (Request $request)
+    {
+        $resp = new ApiResponse();
+        if($request->get('id')) {
+            try {
+                $partner = $this->findOneBy(['neobeAccountId' => $request->get('id')]);
+                if (!is_null($partner)) {
+                    $data = new \stdClass();
+                    $data->partner_id = $partner->getId();
+                    $data->partner_name = $partner->getName();
+                    $clients = [];
+                    foreach ($partner->getChildren() as $client) {
+                        if ($client->getSimulation() != Constant::YES && $client->getDeleted() == Constant::NO) {
+                            $c = new \stdClass();
+                            $c->id_client = $client->getNeobeAccountId();
+                            $c->society = $client->getName();
+                            $c->lastname = $client->getLastname();
+                            $c->firstname = $client->getFirstname();
+                            $c->civility = '';
+                            if ($client->getCivility()) {
+                                $c->civility = $client->getCivility()->getLabel();
+                            }
+                            $c->nb_licences = $client->getNbLicense();
+                            $c->volume_size_Go = $client->getVolumeSize();
+                            $c->volume_size_Go = $client->getVolumeSize();
+                            $c->date_inscription = "";
+                            if ($client->getCreatedAt()) {
+                                $c->date_inscription = $client->getCreatedAt()->format('Y-m-d H:i:s');
+                            }
+                            array_push($clients, $c);
+                        }
+                    }
+                    $data->clients = $clients;
+                    $resp->setData($data)
+                        ->setCode(Response::HTTP_OK);
+                } else {
+                    $resp->setCode(Response::HTTP_NOT_FOUND)
+                        ->setMessage('Partner not found');
+                }
+            } catch (\Exception $e) {
+                $resp->setCode(Response::HTTP_INTERNAL_SERVER_ERROR)
+                    ->setMessage('Internal server error');
+            }
+        } else {
+            $resp->setCode(Response::HTTP_BAD_REQUEST)
+                ->setMessage('Parameter id is mandatory');
+        }
 
         return $resp;
     }

@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 use App\Entity\Constants\Constant;
 use App\Entity\Partner;
 use App\Form\Handler\ClientHandler;
+use App\Form\Handler\ClientModificationHandler;
 use App\Form\Handler\PartnerHandler;
+use App\Form\Type\ClientCreationDateType;
+use App\Form\Type\ClientModificationType;
 use App\Form\Type\ClientType;
 use App\Form\Type\PartnerType;
 use App\Manager\PartnerManager;
@@ -100,8 +103,8 @@ class SimulationController extends BaseController
     public function detailsAction(Request $request)
     {
         $client = $this->get(PartnerManager::SERVICE_NAME)->find($request->get('id'));
-        $form = $this->createForm(ClientType::class, $client, []);
-        $formHandler = new ClientHandler(
+        $form = $this->createForm(ClientModificationType::class, $client, []);
+        $formHandler = new ClientModificationHandler(
             $form,
             $request,
             $this->get('app.partner_manager'),
@@ -117,6 +120,20 @@ class SimulationController extends BaseController
                 'partner' => $client
             ]
         );
+    }
+
+    /**
+     * confirm account creation
+     * @Route("/simulation/create-account/{token}/{id}", defaults={"page": "1", "_format"="html"}, methods={"GET","POST"}, name="create_account")
+     * @param Request $request
+     * @param null $token
+     * @return mixed
+     */
+    public function createAccountAction(Request $request, $token = null)
+    {
+        $this->get(PartnerManager::SERVICE_NAME)->etape2($request, $token);
+        return $this->redirectToRoute('admin_simulation_client_details', ["token" => $token, 'id' =>$request->get('id')]);
+
     }
 
     /**

@@ -99,6 +99,8 @@ class PartnerManager extends BaseManager
                         $validation->setPartner($partner);
                         $validation->setEtape(Constant::STEP_ONE);
                         $this->saveAndFlush($validation);
+                    } else {
+                        dump("log exist");
                     }
                 }
                 $this->entityManager->commit();

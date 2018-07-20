@@ -20,7 +20,7 @@ class NeobeSafeDataController extends Controller
 {
 
     /**
-     * Get structure
+     * Create account
      *
      * @Route(
      *     name="api_create_account",
@@ -34,5 +34,19 @@ class NeobeSafeDataController extends Controller
         return new JsonResponse($resp, Response::HTTP_OK);
     }
 
-
+    /**
+     * get list of clients created by a partner
+     * Clients with account neobe or no
+     *
+     * @Route(
+     *     name="api_partner_clients",
+     *     path="/api/partner-clients/{id}",
+     *     methods={"POST"}
+     * )
+     */
+    public function getPartnerClients(Request $request)
+    {
+        $resp = $this->get(PartnerManager::SERVICE_NAME)->getPartnerClients($request);
+        return new JsonResponse($resp, Response::HTTP_OK);
+    }
 }

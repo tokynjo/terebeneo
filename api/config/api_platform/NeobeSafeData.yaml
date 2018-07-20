@@ -47,7 +47,7 @@ resources:
         route_name: 'api_create_account'
         controller: 'App\Controller\NeobeSafeDataController'
         swagger_context:
-          summary: Create account to neobe safedata
+          summary: Create account to Neobe
           parameters:
             -
               name : body

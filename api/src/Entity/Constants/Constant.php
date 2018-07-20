@@ -13,6 +13,8 @@ final class Constant
     const NOT_DELETED = 0;
     const DELETED = 1;
     const NOTIF_CONFIRM_ACCOUNT_CREATION = 1;
+    const YES = 1;
+    const NO = 0;
 
     const NOTIFICATION_TYPE_MAIL = 1;
     const NOTIFICATION_TYPE_SMS = 2;

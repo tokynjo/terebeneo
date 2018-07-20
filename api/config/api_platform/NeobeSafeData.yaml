@@ -125,3 +125,63 @@ resources:
                         description: contain the token
             500:
               description: Internal server error
+
+      partner_clients:
+        route_name: 'api_partner_clients'
+        controller: 'App\Controller\NeobeSafeDataController'
+        swagger_context:
+          summary: List of clients created by a partner
+          parameters:
+            -
+              name : id
+              in: path
+              type: integer
+              required: true
+              description: Id neobe of the partner
+          responses:
+            200:
+              description: Success
+              schema:
+                type: object
+                properties:
+                  partner_id:
+                    type: integer
+                    description: Partner neobe id
+                  partner_name:
+                    type: string
+                    description: Partner society name
+                  clients:
+                    type : array
+                    items :
+                      type: object
+                      properties:
+                        id_client:
+                          type: integer
+                          description: Client neobe Id
+                        society:
+                          type: string
+                          description: Society name
+                        lastname:
+                          type: string
+                          description: Lastname
+                        firstname:
+                          type: string
+                          description: Firstname
+                        civility:
+                          type: string
+                          description: Civility
+                        nb_licences:
+                          type: integer
+                          description: Nb licences
+                        volume_size_Go:
+                          type: integer
+                          description: volume size
+                        date_inscription:
+                          type: string
+                          description: Inscription date
+            400:
+              description: Mandatory parameter id invalid
+            404:
+              description: Partner not found
+            500:
+              description: Internal server error

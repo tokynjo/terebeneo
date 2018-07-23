@@ -1,7 +1,10 @@
 {% extends 'admin/layout.html.twig' %}
 {% block title %}{{ 'simulations.title_clients'|trans({},'label', 'fr') }}{% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    <link href="{{ asset('/common/js/datatable/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
 
@@ -27,14 +30,14 @@
                                 <div class="col-sm-12">
                                     <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
                                         <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'partners.name'|trans({},'label', 'fr') }}">{{ 'partners.name'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.mail'|trans({},'label', 'fr') }}">{{ 'partners.mail'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'partners.lastname'|trans({},'label', 'fr') }}">{{ 'partners.lastname'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'common.table.actions'|trans({},'label', 'fr') }}">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
-                                        </tr>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'partners.name'|trans({},'label', 'fr') }}">{{ 'partners.name'|trans({},'label', 'fr') }}</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.mail'|trans({},'label', 'fr') }}">{{ 'partners.mail'|trans({},'label', 'fr') }}</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'partners.lastname'|trans({},'label', 'fr') }}">{{ 'partners.lastname'|trans({},'label', 'fr') }}</th>
+                                                <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'common.table.actions'|trans({},'label', 'fr') }}">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                         {% if(list|length > 0) %}
@@ -75,4 +78,43 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/common/js/datatable/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('/common/js/datatable/dataTables.bootstrap4.js') }}"></script>
+    <script type="text/javascript">
+        $('#dataTable').DataTable({
+            "paging": true,
+            "bFilter": true,
+            responsive: true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "20px"},
+                {"width": "200px"},
+                {"width": "70px"},
+                {"width": "200px"},
+                {"width": "150px",orderable: true},
+                {"width": "60px", "targets": 'no-sort', orderable: false}
+
+            ]
+        });
+    </script>
 {% endblock %}

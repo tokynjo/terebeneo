@@ -2,8 +2,8 @@
 {% block title %}Admin Neobe-TER : Utilisateur{% endblock %}
 {% block body_id 'step1' %}
 {% block stylesheets %}
-    {{ parent() }}
     <link href="{{ asset('/common/js/datatable/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -33,7 +33,7 @@
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-sort="ascending" aria-label="Nom">Nom</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 275px;" aria-label="Email">Email</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 150px;" aria-label="Role">Role</th>
-                                <th class="sorting no-sort" tabindex="0" aria-controls="dataTable" style="width: 80px;" aria-label="Action">Actions</th>
+                                <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 80px;" aria-label="Action">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -88,4 +88,37 @@
     {{ parent() }}
     <script src="{{ asset('/common/js/datatable/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('/common/js/datatable/dataTables.bootstrap4.js') }}"></script>
+    <script type="text/javascript">
+        $('#dataTable').DataTable({
+            "paging": true,
+            "bFilter": true,
+            responsive: true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "30px"},
+                {"width": "300px"},
+                null,
+                {"width": "90px"},
+                {"width": "60px", "targets": 'no-sort', orderable: false}
+
+            ]
+        });
+    </script>
 {% endblock %}

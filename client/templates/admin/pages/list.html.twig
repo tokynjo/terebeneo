@@ -1,7 +1,10 @@
 {% extends 'admin/layout.html.twig' %}
 {% block title %}Activation pack - Etape 1{% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    <link href="{{ asset('/common/js/datatable/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
 
@@ -12,7 +15,6 @@
         <li class="breadcrumb-item">
             {{ 'menu.pages'|trans({},'label', 'fr') }}</a>
         </li>
-        {#<li class="breadcrumb-item active">Blank Page</li>#}
     </ol>
     <div class="row">
         <div class="col-12">
@@ -32,7 +34,7 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 60px;" aria-sort="ascending" aria-label="Id">#</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-sort="ascending" aria-label="Nom">{{ 'headers.partner'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 25px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                                            <th class="no-short" tabindex="0" aria-controls="dataTable" style="width: 25px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -63,4 +65,41 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/common/js/datatable/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('/common/js/datatable/dataTables.bootstrap4.js') }}"></script>
+    <script type="text/javascript">
+        $('#dataTable').DataTable({
+            "paging": true,
+            "bInfo": true,
+            "bFilter": true,
+            responsive: true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "50px"},
+                null,
+                {"width": "60px", "targets": 'no-sort', orderable: false}
+
+            ]
+        });
+    </script>
 {% endblock %}

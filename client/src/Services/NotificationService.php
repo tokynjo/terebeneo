@@ -118,30 +118,17 @@ class NotificationService
                     break;
 
                 case '__partenaire_api_login__' :
-<<<<<<< HEAD
                     //var_dump($partner->getUser()[0]->getId()); die;
                     /*if(!is_null($partner->getUser()) && sizeof($partner->getUser()) > 0) {
                         $content = str_replace($key, $partner->getUser()->getEmail(), $content);
                     }*/
-=======
-                    //var_dump(sizeof($partner->getUser())); die;
-                    if(!is_null($partner->getUser()) && sizeof($partner->getUser()) > 0) {
-                        $content = str_replace($key, $partner->getUser()->first()->getEmail(), $content);
-                    }
->>>>>>> origin/preprod
                     break;
 
                 case '__partenaire_api_mot_de_passe__' :
                     //if(!is_null($partner->getUser())) {
-<<<<<<< HEAD
                     /*if(!is_null($partner->getUser()) && sizeof($partner->getUser()) > 0) {
                         $content = str_replace($key, $partner->getUser()->getPlainPassword(), $content);
                     }*/
-=======
-                    if(!is_null($partner->getUser()) && sizeof($partner->getUser()) > 0) {
-                        $content = str_replace($key, $partner->getUser()->first()->getPlainPassword(), $content);
-                    }
->>>>>>> origin/preprod
                     break;
                 case '__partenaire_api_url' :
                     $content = str_replace($key, $this->apiUrl, $content);

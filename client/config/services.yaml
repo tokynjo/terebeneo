@@ -68,6 +68,7 @@ services:
             - { name: kernel.event_listener, event: partner.client.on.create, method: onCreatePartnerClient}
             - { name: kernel.event_listener, event: partner.client.on.validate.account, method: onValidateNeobeAccountCreation}
             - { name: kernel.event_listener, event: partner.client.on.edit, method: onEditPartner}
+            - { name: kernel.event_listener, event: partner.client.on.sendpassword, method: onSendPassword}
 
     app.validation_log_manager:
         class: App\Manager\ValidationLogManager

@@ -161,4 +161,17 @@ class PartnerListener
             $this->entityManager->flush();
         }
     }
+
+    /** Send access api of partener by email
+     * @param PartnerEvent $partnerEvent
+     */
+    public function onSendPassword(PartnerEvent $partnerEvent){
+        $partner = $partnerEvent->getPartner();
+        $notification = $this->entityManager->getRepository('App:Notification')->find(Constant::NOTIF_USER_API_RESEND);
+        $this->notificationService->sendNotification($partner, $notification);
+        if($notification) {
+            $this->notificationService->sendNotification ($partner, $notification);
+        }
+
+    }
 }

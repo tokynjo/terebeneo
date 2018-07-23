@@ -141,8 +141,12 @@
                                 <div class="col-md-2">
                                     <input type="submit" class="btn btn-primary btn-block" value="Enregistrer">
                                 </div>
+                                <div class="col-md-3">
+                                    <a href="{{ path("admin_partner_send_password",{"id":partner.id}) }}" class="btn btn-primary btn-block">Envoyer mot de pass</a>
+                                </div>
                             </div>
                         </div>
+
                     {{ form_end(form) }}
                 </div>
                 {% if(partner) and partner.parent is null%}

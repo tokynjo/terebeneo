@@ -77,4 +77,23 @@ class PartnerController extends BaseController
             );
         }
     }
+
+    /**
+     * Send password
+     *
+     * @Route("/partner/sendPassword/{id}", defaults={"_format"="html"}, methods={"GET"}, name="partner_send_password")
+     * @param Request $request
+     * @return Response
+     */
+    public function sendPassword(Request $request, $id)
+    {
+        if ($notification = $this->get(PartnerManager::SERVICE_NAME)->find($id)) {
+            $this->get(PartnerManager::SERVICE_NAME)->sendPassword($notification);
+        } else {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('page.content_not_found', ['%id%' => $request->get('id')], 'label', 'fr')
+            );
+        }
+        return $this->redirectToRoute('admin_partner_edit',["id" => $id]);
+    }
 }

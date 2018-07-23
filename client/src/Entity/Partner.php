@@ -284,6 +284,7 @@ class Partner
         $this->children = new ArrayCollection();
         $this->validation = new ArrayCollection();
         $this->pageDetails = new ArrayCollection();
+        $this->user = new ArrayCollection();
         $this->simulation = 0;
     }
 
@@ -893,6 +894,23 @@ class Partner
         return $this;
     }
 
+    public function addUser(User $user)
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user)
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+        }
+
+        return $this;
+    }
 
     public function addChild(Partner $child): self
     {

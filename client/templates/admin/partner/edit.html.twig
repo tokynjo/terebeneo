@@ -212,7 +212,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            {% if (partner.neobeAccountId > 0) %}
+                                            {% if(partner) and partner.neobeAccountId > 0  %}
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1 text-right">{{ partner.id }}</td>
                                                     <td>{{ partner.mail }}</td>
@@ -251,7 +251,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% if(partner.accounts|length > 0) %}
+                                        {% if(partner) and partner.accounts|length > 0 %}
                                             {% for  n in partner.accounts %}
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_ text-right">{{ n.id }}</td>

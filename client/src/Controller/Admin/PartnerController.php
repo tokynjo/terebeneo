@@ -27,7 +27,7 @@ class PartnerController extends BaseController
      */
     public function listAction(Request $request)
     {
-        $headers = $this->get(PartnerManager::SERVICE_NAME)->findAll();
+        $headers = $this->get(PartnerManager::SERVICE_NAME)->findBy(['simulation' => 0]);
         return $this->render('admin/partner/list.html.twig', ['list' => $headers]);
     }
 

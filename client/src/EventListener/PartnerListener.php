@@ -146,4 +146,19 @@ class PartnerListener
             $this->notificationService->sendNotification($partner, $notification);
         }
     }
+
+    public function onEditPartner (PartnerEvent $partnerEvent)
+    {
+        $partner = $partnerEvent->getPartner();
+        if (is_null($partner->getParent())) {
+            //if partner with user Api (update email/username)
+            $user = $partner->getUser()[0];
+            $user->setUsername($partner->getMail())
+                ->setUsernameCanonical($partner->getMail())
+                ->setEmail($partner->getMail())
+                ->setEmailCanonical($partner->getMail());
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
+    }
 }

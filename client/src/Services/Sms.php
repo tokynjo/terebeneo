@@ -42,7 +42,7 @@ class Sms
     {
         $data["receivers"] = [];
         $data["failed"] = [];
-        if (sizeof($recipientNumbers > 0) && $msg) {
+        //if (sizeof($recipientNumbers > 0) && $msg) {
             $smsApi = new SmsApi($this->ovhAppKey, $this->ovhAppSecret, "ovh-eu", $this->ovhConsumerKey);
             $accounts = $smsApi->getAccounts();
             $smsApi->setAccount($accounts[0]);
@@ -68,7 +68,7 @@ class Sms
             foreach ($plannedMessages as $planned) {
                 $planned->delete();
             }
-        }
+        //}
 
         return $data;
     }

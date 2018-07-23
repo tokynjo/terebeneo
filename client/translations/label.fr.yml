@@ -166,6 +166,7 @@ simulations:
   login: Login
   volume_used: Espace utilisé
   volume_total: Espace total
+  volume_used_on_total: Esp. utilisé/Total
   installation: Installation
   saved: Sauvegarde
   last_save: Dérnier sauvegarde
@@ -176,7 +177,10 @@ simulations:
 send_notifications:
   title: Envoie des notifications
   message_confirmation: Vous allez envoyer les notifications et les relances pour les clients créés via l'interface de similation
-
+clients:
+  deletion_message_confirmation: Voulez vous supprimer le client
+  deletion_title: Suppression d'un client
+  account_not_confirmed: Création de compte non confirmée
 
 
 

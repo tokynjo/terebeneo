@@ -1,7 +1,10 @@
 {% extends 'admin/layout.html.twig' %}
 {% block title %}Activation pack - Etape 1{% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    <link href="{{ asset('/common/js/datatable/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
 
@@ -22,57 +25,51 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'partners.name'|trans({},'label', 'fr') }}">{{ 'partners.name'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.mail'|trans({},'label', 'fr') }}">{{ 'partners.mail'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'partners.lastname'|trans({},'label', 'fr') }}">{{ 'partners.lastname'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'common.table.actions'|trans({},'label', 'fr') }}">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% if(list|length > 0) %}
-                                            {% for  n in list %}
-                                                <tr role="row" class="odd">
-                                                    <td class="sorting_1 text-right">{{ n.id }}</td>
-                                                    <td>{{ n.name }}</td>
-                                                    <td class="sorting_1 text-right">{{ n.neobeAccountId }}</td>
-                                                    <td>{{ n.mail}}</td>
-                                                    <td>{{ n.firstname}} {{ n.lastname|upper}}</td>
-                                                    <td class="actions">
-                                                        <a href="{{ path('admin_partner_edit',{'id':n.id}) }}"
-                                                           title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        {% if(n.getParent is null) %}
-                                                            <a href="{{ path('admin_notificationdetails_edit',{'id':n.id}) }}"
-                                                               title="{{ 'button.edit_page_content'|trans({},'label', 'fr') }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
-                                                        {% endif %}
-                                                        <a href="{{ path('admin_partner_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
-                                                           data-detail="{{ n.name }}"
-                                                           data-title ="{{ 'partners.deletion_title'|trans({},'label', 'fr') }}"
-                                                           data-message = "{{ 'partners.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ n.id }} ?"
-                                                           title="{{ 'button.delete'|trans({},'label', 'fr') }}">
-                                                            <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        {% else %}
-                                            <tr role="row" class="odd ">
-                                                <td colspan="6" class="text-center ">{{ 'common.table.no_data'|trans({},'label', 'fr') }}</td>
+                        <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'partners.name'|trans({},'label', 'fr') }}">{{ 'partners.name'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.mail'|trans({},'label', 'fr') }}">{{ 'partners.mail'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'partners.lastname'|trans({},'label', 'fr') }}">{{ 'partners.lastname'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="{{ 'common.table.actions'|trans({},'label', 'fr') }}">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if(list|length > 0) %}
+                                {% for  n in list %}
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1 text-right">{{ n.id }}</td>
+                                        <td>{{ n.name }}</td>
+                                        <td class="sorting_1 text-right">{{ n.neobeAccountId }}</td>
+                                        <td>{{ n.mail}}</td>
+                                        <td>{{ n.firstname}} {{ n.lastname|upper}}</td>
+                                        <td class="actions">
+                                            <a href="{{ path('admin_partner_edit',{'id':n.id}) }}"
+                                               title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            {% if(n.getParent is null) %}
+                                                <a href="{{ path('admin_notificationdetails_edit',{'id':n.id}) }}"
+                                                   title="{{ 'button.edit_page_content'|trans({},'label', 'fr') }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                            {% endif %}
+                                            <a href="{{ path('admin_partner_delete',{'id':n.id}) }}" class="delete" data-uid="{{ n.id }}"
+                                               data-detail="{{ n.name }}"
+                                               data-title ="{{ 'partners.deletion_title'|trans({},'label', 'fr') }}"
+                                               data-message = "{{ 'partners.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ n.id }} ?"
+                                               title="{{ 'button.delete'|trans({},'label', 'fr') }}">
+                                                <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr role="row" class="odd ">
+                                    <td colspan="6" class="text-center ">{{ 'common.table.no_data'|trans({},'label', 'fr') }}</td>
 
-                                            </tr>
-                                        {% endif %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -83,4 +80,37 @@
     {{ parent() }}
     <script src="{{ asset('/common/js/datatable/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('/common/js/datatable/dataTables.bootstrap4.js') }}"></script>
+    <script type="text/javascript">
+        $('.dataTable').DataTable({
+            paging: true,
+            responsive: true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "50px"},
+                null,
+                {"width": "100px"},
+                {"width": "250px"},
+                {"width": "250px"},
+                {"width": "100px", "targets": 'no-sort', orderable: false}
+
+            ]
+        });
+    </script>
 {% endblock %}

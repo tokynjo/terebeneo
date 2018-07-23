@@ -135,4 +135,32 @@ class PartnerManager extends BaseManager
 
         return $simulation;
     }
+
+    /**
+     * soft delete a partner or client
+     * if a partner then set api user to deleted
+     * @param $id
+     * @return object
+     */
+    public function softDeleted ($id)
+    {
+        $entity = $this->find($id);
+        if (!is_null($entity)) {
+            $entity->setDeleted(Constant::DELETED);
+            $mail = $entity->getMail().'_del_'.date('Ymd.His');
+            $entity->setMail($mail);
+            $this->saveAndFlush($entity);
+            if(!is_null($entity->getUser()[0])) {
+                $user = $entity->getUser();
+                $user->setDeleted(Constant::DELETED)
+                    ->setUsername($mail)
+                    ->setUsernameCanonical($mail)
+                    ->setEmail($mail)
+                    ->setEmailCanonical($mail);
+                $this->saveAndFlush($user);
+            }
+        }
+
+        return $entity;
+    }
 }

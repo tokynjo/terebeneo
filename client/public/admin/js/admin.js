@@ -43,34 +43,5 @@ $(document).on('click', '.confirm-notification', function (e) {
 });
 
 $(document).ready(function() {
-    $('.dataTable').DataTable({
-        paging: true,
-        responsive: true,
-        "iDisplayLength": 20,
-        "bLengthMenu": false,
-        "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
-        "aaSorting": [],
-        "language": {
-            "lengthMenu": "Affiche _MENU_ elements par page",
-            "zeroRecords": "Il n'y a pas des résultats",
-            "info": "Page _PAGE_ de _PAGES_",
-            "infoEmpty": "Il n'y a pas des résultats",
-            "infoFiltered": "(dans _MAX_ éléments)",
-            "paginate": {
-                "first": "Premier",
-                "last": "Dernier",
-                "next": "Suivant",
-                "previous": "Précedant"
-            },
-            "search": "Recherche : "
-        },
-        "column": [
-            {"width": "50px"},
-            null,
-            {"width": "275px"},
-            {"width": "150px"},
-            {"width": "80px"},
-            {"targets": 'no-sort', orderable: false}
-        ]
-    });
+
 });

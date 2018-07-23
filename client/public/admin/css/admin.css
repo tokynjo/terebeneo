@@ -211,3 +211,7 @@ ul.list-content-var {padding-left: 1.2rem;font-size: .9rem;line-height: 1.8;}
 .error-message > ul >li {list-style: none;}
 
 .form.card-body {padding: 5px 15px}
+
+table.dataTable thead .sorting::before, table.dataTable thead .sorting::after,
+table.dataTable thead .sorting_asc::before, table.dataTable thead .sorting_asc::after,
+table.dataTable thead .sorting_desc::before, table.dataTable thead .sorting_desc::after {bottom: 0.3em;}

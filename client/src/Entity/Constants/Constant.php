@@ -18,6 +18,7 @@ class Constant
     const NOTIF_NEOBE_VALIDATION_STEP_ONE = 4;
     const NOTIF_NEOBE_INSTALL = 5;
     const NOTIF_NEOBE_SAVE = 6;
+    const NOTIF_USER_API_RESEND = 7;
 
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 2;

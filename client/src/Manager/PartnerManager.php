@@ -163,4 +163,12 @@ class PartnerManager extends BaseManager
 
         return $entity;
     }
+    
+    /**
+     * @param $partener
+     */
+    public function sendPassword($partener){
+        $partnerEvent = new PartnerEvent($partener);
+        $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_SEND_PASSWORD, $partnerEvent);
+    }
 }

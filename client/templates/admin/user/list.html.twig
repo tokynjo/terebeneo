@@ -88,41 +88,4 @@
     {{ parent() }}
     <script src="{{ asset('/common/js/datatable/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('/common/js/datatable/dataTables.bootstrap4.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('table').DataTable({
-                paging: true,
-                responsive: true,
-                "iDisplayLength": 20,
-                "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
-                "aaSorting": [],
-                "language": {
-                    "lengthMenu": "Affiche _MENU_ elements par page",
-                    "zeroRecords": "Il n'y a pas des résultats",
-                    "info": "Page _PAGE_ de _PAGES_",
-                    "infoEmpty": "Il n'y a pas des résultats",
-                    "infoFiltered": "(dans _MAX_ éléments)",
-                    "paginate": {
-                        "first": "Premier",
-                        "last": "Dernier",
-                        "next": "Suivant",
-                        "previous": "Précedant"
-                    },
-                    "search": "Recherche : "
-                },
-                "column": [
-                    {"width": "50px"},
-                    null,
-                    {"width": "275px"},
-                    {"width": "150px"},
-                    {"width": "80px"},
-                    {"targets": 'no-sort', orderable: false}
-                ]
-            });
-        });
-    </script>
-
-
-
-
 {% endblock %}

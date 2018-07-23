@@ -154,7 +154,7 @@ class NotificationService
                     break;
                 case '__details_comptes_neobe__' :
                     $details = '';
-                    if (sizeof($partner->getAccounts()) > 0) {
+                    /*if (sizeof($partner->getAccounts()) > 0) {
                         foreach($partner->getAccounts() as $c) {
                             $details .= '<ul>';
                             $details .= '<li>Id : '.$c->getNeobeAccountId().'</li>';
@@ -168,7 +168,7 @@ class NotificationService
                     } else {
                         $details .= '<p>Vous n\'avez pas encore activé de compte. Veuillez vous connecter sue votre éspace
                         d\'administration Neobe pour le faire. </p>';
-                    }
+                    }*/
 
                     $content = str_replace($key, $details, $content);
                     break;

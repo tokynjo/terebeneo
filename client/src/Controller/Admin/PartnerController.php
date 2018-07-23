@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\Constants\Constant;
 use App\Form\Handler\PartnerHandler;
 use App\Form\Type\PartnerType;
 use App\Manager\PartnerManager;
@@ -27,7 +28,9 @@ class PartnerController extends BaseController
      */
     public function listAction(Request $request)
     {
-        $headers = $this->get(PartnerManager::SERVICE_NAME)->findBy(['simulation' => 0]);
+        $headers = $this->get(PartnerManager::SERVICE_NAME)->findBy(
+            ['simulation' => Constant::NO, 'deleted' => Constant::NOT_DELETED ]
+        );
         return $this->render('admin/partner/list.html.twig', ['list' => $headers]);
     }
 
@@ -65,8 +68,8 @@ class PartnerController extends BaseController
     public function deleteAction(Request $request)
     {
         if ($notification = $this->get(PartnerManager::SERVICE_NAME)->find($request->get('id'))) {
-            $this->get(PartnerManager::SERVICE_NAME)->delete($notification);
-            return $this->redirectToRoute('admin_partner_index');
+            $this->get(PartnerManager::SERVICE_NAME)->softDeleted($notification);
+            return $this->redirect($request->headers->get('referer'));
         } else {
             throw $this->createNotFoundException(
                 $this->get('translator')->trans('page.content_not_found', ['%id%' => $request->get('id')], 'label', 'fr')

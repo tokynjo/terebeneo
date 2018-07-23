@@ -7,7 +7,10 @@
     {% endif %}
 {% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    <link href="{{ asset('/common/js/datatable/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    {{ parent() }}
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
 
@@ -142,48 +145,139 @@
                         </div>
                     {{ form_end(form) }}
                 </div>
-                {% if(partner) %}
+                {% if(partner) and partner.parent is null%}
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                        <table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                            <thead>
+                            <tr role="row">
+                                <th class="no-short text-left" colspan="4" style="width: 50px;" aria-sort="ascending" >{{ 'accounts.list_title'|trans({},'label', 'fr') }}</th>
+                            </tr>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'accounts.name'|trans({},'label', 'fr') }}">{{ 'accounts.name'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="{{ 'partners.neobeAccountId'|trans({},'label', 'fr') }}">{{ 'partners.neobeAccountId'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="{{ 'accounts.mail'|trans({},'label', 'fr') }}">{{ 'accounts.mail'|trans({},'label', 'fr') }}</th>
+                                <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if(partner.children|length > 0) %}
+                                {% for  a in partner.children %}
+                                    {% if (a.deleted != 1) %}
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1 text-right">{{ a.id }}</td>
+                                            <td>{{ a.firstname }} {{ a.lastname }}</td>
+                                            <td>{{ a.neobeAccountId }}</td>
+                                            <td>{{ a.mail }}</td>
+                                            <td class="actions">
+                                                <a href="{{ path('admin_partner_edit',{'id':a.id}) }}"
+                                                   title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                <a href="   {{ path('admin_partner_delete',{'id':a.id}) }}" class="delete" data-uid="{{ a.id }}"
+                                                   data-detail="{{ a.id }}"
+                                                   data-title ="{{ 'clients.deletion_title'|trans({},'label', 'fr') }}"
+                                                   data-message = "{{ 'clients.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ a.id }} "
+                                                   title="{{ 'button.delete'|trans({},'label', 'fr') }}">
+                                                    <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <tr role="row" class="odd ">
+                                    <td colspan="5" class="text-center ">{{ 'common.no_data'|trans({},'label', 'fr') }}</td>
+
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% else %}
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-header">{{ 'simulations.neobe_admin_acces'|trans({},'label', 'fr') }}</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered dataTable" id="dataTableDetails" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
                                         <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc text-left" colspan="4" style="width: 50px;" aria-sort="ascending" >{{ 'accounts.list_title'|trans({},'label', 'fr') }}</th>
-                                        </tr>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 300px;" aria-sort="ascending" aria-label="{{ 'accounts.name'|trans({},'label', 'fr') }}">{{ 'accounts.name'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="" aria-label="{{ 'accounts.mail'|trans({},'label', 'fr') }}">{{ 'accounts.mail'|trans({},'label', 'fr') }}</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" style="width: 100px;" aria-label="Action">{{ 'common.table.actions'|trans({},'label', 'fr') }}</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 125px;" aria-sort="ascending" aria-label="{{ 'partners.mail'|trans({},'label', 'fr') }}">{{ 'partners.mail'|trans({},'label', 'fr') }}</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 120px;" aria-sort="ascending" aria-label="{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}">{{ 'partners.neobe_account_id'|trans({},'label', 'fr') }}</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.nb_licence'|trans({},'label', 'fr') }}">{{ 'partners.nb_licence'|trans({},'label', 'fr') }}</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'partners.volume_size'|trans({},'label', 'fr') }}">{{ 'partners.volume_size'|trans({},'label', 'fr') }}</th>
+                                            <th class="no-sort" tabindex="0" aria-controls="dataTable" style="width: 175px;" aria-label="{{ 'simulations.created_at'|trans({},'label', 'fr') }}">{{ 'simulations.created_at'|trans({},'label', 'fr') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% if(partner.children|length > 0) %}
-                                            {% for  a in partner.children %}
+                                            {% if (partner.neobeAccountId > 0) %}
                                                 <tr role="row" class="odd">
-                                                    <td class="sorting_1 text-right">{{ a.id }}</td>
-                                                    <td>{{ a.firstname }}{{ a.lastname }}</td>
-                                                    <td>{{ a.mail }}</td>
-                                                    <td class="actions">
-                                                        <a href="{#{ path('admin_notification_message_edit',{'id':a.id, 'notif_id':a.notification.id}) }}#}"
-                                                           title="{{ 'button.edit'|trans({},'label', 'fr') }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        <a href="{#{{ path('admin_notification_message_delete',{'id':a.id, 'notif_id':a.notification.id }) }}#}" class="delete" data-uid="{{ a.id }}"
-                                                           data-detail="{{ a.id }}"
-                                                           data-title ="{{ 'notifications.messages.deletion_title'|trans({},'label', 'fr') }}"
-                                                           data-message = "{{ 'notifications.messages.deletion_message_confirmation'|trans({},'label', 'fr') }} #{{ a.id }} "
-                                                           title="{{ 'button.delete'|trans({},'label', 'fr') }}">
-                                                            <i class="fa fa-times-circle" style="color: #c31919" aria-hidden="true"></i>
-                                                        </a>
+                                                    <td class="sorting_1 text-right">{{ partner.id }}</td>
+                                                    <td>{{ partner.mail }}</td>
+                                                    <td class="sorting_1 text-right">{{ partner.neobeAccountId }}</td>
+                                                    <td class="sorting_1 text-right">{{ partner.nbLicense }}</td>
+                                                    <td class="sorting_1 text-right">{{ partner.volumeSize }}</td>
+                                                    <td class=" text-right">{{ partner.neobeCreatedAt|date('d/m/Y') }} à {{ partner.neobeCreatedAt|date('H:i:s') }}</td>
+                                                </tr>
+                                            {% else %}
+                                                <tr role="row" class="odd">
+                                                    <td class="text-center" colspan="6">{{ 'clients.account_not_confirmed'|trans({},'label', 'fr') }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-header">{{ 'simulations.neobe_account_list'|trans({},'label', 'fr') }}</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered dataTable" id="dataTableAccounts" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" style="width: 50px;" aria-sort="ascending" aria-label="Id">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" aria-sort="ascending" aria-label="{{ 'simulations.login'|trans({},'label', 'fr') }}">{{ 'simulations.login'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" aria-sort="ascending" aria-label="{{ 'simulations.volume_used_on_total'|trans({},'label', 'fr') }}">{{ 'simulations.volume_used_on_total'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" aria-sort="ascending" aria-label="{{ 'simulations.created_at'|trans({},'label', 'fr') }}">{{ 'simulations.created_at'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" aria-label="{{ 'simulations.installation'|trans({},'label', 'fr') }}">{{ 'simulations.installation'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" aria-label="{{ 'simulations.saved'|trans({},'label', 'fr') }}">{{ 'simulations.saved'|trans({},'label', 'fr') }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" aria-label="{{ 'simulations.last_save'|trans({},'label', 'fr') }}">{{ 'simulations.last_save'|trans({},'label', 'fr') }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% if(partner.accounts|length > 0) %}
+                                            {% for  n in partner.accounts %}
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_ text-right">{{ n.id }}</td>
+                                                    <td>{{ n.login }}</td>
+                                                    <td class=" text-right">{{ n.usedSize }} / {{ n.totalSize }}</td>
+                                                    <td class=" text-right">{{ n.neobeCreationDate|date('d/m/Y') }} à {{ n.neobeCreationDate|date('H:i:s') }}</td>
+                                                    <td class=" text-right">
+                                                        {% if(n.installed) %}
+                                                            {{ 'button.yes'|trans({},'label', 'fr') }}
+                                                        {% else %}
+                                                            {{ 'button.no'|trans({},'label', 'fr') }}
+                                                        {% endif %}
                                                     </td>
+                                                    <td class=" text-right">
+                                                        {% if(n.saved) %}
+                                                            {{ 'button.yes'|trans({},'label', 'fr') }}
+                                                        {% else %}
+                                                            {{ 'button.no'|trans({},'label', 'fr') }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class=" text-right">{{ n.updatedAt|date('d/m/Y') }} à {{ n.updatedAt|date('H:i:s') }}</td>
                                                 </tr>
                                             {% endfor %}
                                         {% else %}
                                             <tr role="row" class="odd ">
-                                                <td colspan="5" class="text-center ">{{ 'common.no_data'|trans({},'label', 'fr') }}</td>
-
+                                                <td colspan="8" class="text-center ">{{ 'common.table.no_data'|trans({},'label', 'fr') }}</td>
                                             </tr>
                                         {% endif %}
                                         </tbody>
@@ -192,7 +286,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
             </div>
         </div>
@@ -200,5 +293,104 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('/common/js/datatable/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('/common/js/datatable/dataTables.bootstrap4.js') }}"></script>
+    <script type="text/javascript">
+        $('#dataTable').DataTable({
+            paging: true,
+            responsive: true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "50px"},
+                null,
+                {"width": "100px"},
+                {"width": "250px"},
+                {"width": "100px", "targets": 'no-sort', orderable: false}
 
+            ]
+        });
+        $('#dataTableDetails').DataTable({
+            "responsive": true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "bFilter": false,
+            "paging": false,
+            "info": false,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "50px", "targets": 'no-sort', orderable: false},
+                {"targets": 'no-sort'},
+                {"width": "100px", "targets": 'no-sort', orderable: false},
+                {"width": "100px", "targets": 'no-sort', orderable: false},
+                {"width": "100px", "targets": 'no-sort', orderable: false},
+                {"width": "150px", "targets": 'no-sort', orderable: false}
+
+            ]
+        });
+        $('#dataTableAccounts').DataTable({
+            responsive: true,
+            "iDisplayLength": 20,
+            "bLengthChange": false,
+            "paging": true,
+            "info": true,
+            "lengthMenu": [[10, 20, 50,100], [10, 20, 50,100]],
+            "aaSorting": [],
+            "language": {
+                "lengthMenu": "Affiche _MENU_ elements par page",
+                "zeroRecords": "Il n'y a pas des résultats",
+                "info": "Page _PAGE_ de _PAGES_",
+                "infoEmpty": "Il n'y a pas des résultats",
+                "infoFiltered": "(dans _MAX_ éléments)",
+                "paginate": {
+                    "first": "Premier",
+                    "last": "Dernier",
+                    "next": "Suivant",
+                    "previous": "Précedant"
+                },
+                "search": "Recherche : "
+            },
+            "aoColumns": [
+                {"width": "50px", "targets": 'no-sort', orderable: true},
+                {"targets": 'no-sort'},
+                {"width": "140px", "targets": 'no-sort', orderable: true},
+                {"width": "150px", "targets": 'no-sort', orderable: true},
+                {"width": "90px", "targets": 'no-sort', orderable: true},
+                {"width": "90px", "targets": 'no-sort', orderable: true},
+                {"width": "150px", "targets": 'no-sort', orderable: true}
+
+            ]
+        });
+    </script>
 {% endblock %}

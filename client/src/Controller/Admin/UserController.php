@@ -88,10 +88,14 @@ class UserController extends BaseController
             $this->get('fos_user.user_manager'),
             $this->get('event_dispatcher')
         );
-        if($formHandler->process()) {
+        if ($formHandler->process()) {
             return $this->redirectToRoute('admin_user_index');
         }
-        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        $role = 'ROLE_USER';
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            $role = 'ROLE_ADMIN';
+        }
+        return $this->render('admin/user/edit.html.twig', ['form' => $form->createView(), 'user' => $user, 'role' =>$role]);
     }
 
     /**

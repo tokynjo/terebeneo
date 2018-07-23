@@ -1,7 +1,12 @@
 {% extends 'admin/layout.html.twig' %}
 {% block title %}Activation pack - Etape 1{% endblock %}
 {% block body_id 'step1' %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .inline-label {min-width:60px; font-weight: 600; }
+    </style>
+{% endblock %}
 {% block body %}
     <!-- Breadcrumbs-->
 
@@ -72,8 +77,15 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-7">
-                                    <label for="user_roles">{{ 'users.role'|trans({},'label', 'fr') }}</label>
-                                    {{ form_widget(form.roles, { 'attr': {'class': 'form-control'} }) }}
+                                    <label for="user_roles" class="inline-label">{{ 'users.role'|trans({},'label', 'fr') }} : </label>
+                                    <span>
+                                        {% if (role == 'ROLE_ADMIN') %}
+                                            Adminstrateur
+                                        {% else %}
+                                            Utilisateur API
+                                        {% endif %}
+                                    </span>
+                                    {{ form_widget(form.roles, { 'attr': {'class': 'form-control', 'style':'display:none'} }) }}
                                 </div>
                             </div>
                         </div>

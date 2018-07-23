@@ -46,7 +46,7 @@ class PartnerHandler
             try {
                 $data = $this->form->getData();
                 $data->setDeleted(Constant::NO);
-                if(!$data->getId()){
+                if(!$data->getId()){ //creation
                     //hash
                     $data->setHash(sha1(date('Ymdhis')));
                     $data->setMobile($data->getPhone());
@@ -54,8 +54,11 @@ class PartnerHandler
                     //creating user api
                     $partnerEvent = new PartnerEvent($data);
                     $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_CREATE, $partnerEvent);
-                } else {
+                } else { // edition
                     $this->partnerManager->saveAndFlush($data);
+                    $partnerEvent = new PartnerEvent($data);
+                    $this->dispatcher->dispatch($partnerEvent::PARTNER_CLIENT_ON_EDIT, $partnerEvent);
+
                 }
                 $em->commit();
                 return true;
